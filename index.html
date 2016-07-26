@@ -47,6 +47,9 @@
                 if (user) {
                     document.getElementById('home-page').style.display = 'none';
                     document.getElementById('PI-page').style.display = 'block';
+                    var name = user.displayName;
+                    document.getElementById('name-prompt').innerHTML = 'Hey ' + name.substr(0,name.indexOf(' ')) + '.';
+
                 }
               })
           document.getElementById('get-started').addEventListener('click', signIn, false);
@@ -58,6 +61,7 @@
                 margin: 0;
                 padding: 0;
                 font-family: 'Open Sans', sans-serif;
+                color: #1B2021;
             }
             #logo{
                 max-width: 200px;
@@ -70,7 +74,7 @@
                 max-width: 1040px;
                 margin: auto;
             }
-            #tagline{
+            #tagline, #name-prompt{
                 text-align: center;
                 font-size: 2em;
                 margin-top: 100px;
@@ -130,6 +134,52 @@
                 margin-bottom: 100px;
                 font-size: .8em;
             }
+            #name-prompt{
+                color: #00a63f;
+                font-weight: bold;
+                font-size: 2em;
+                margin-top: 50px;
+            }
+            .question{
+                text-align: center;
+            }
+            .question .input{
+                width: 90%;
+                padding: 0 5%;
+                background-color: #f7ebec;
+                height: 450px;
+                margin-top: 20px;
+            }
+            .question .input .prompt{
+                padding-top: 30px;
+                font-size: 1.5em;
+            }
+            .question .button{
+                width: 150px;
+                float: right;
+                margin-top: 15px;
+                margin-right: 3%;
+            }
+            #sign-out{
+                text-align: right;
+                margin-top: 10px;
+                margin-right: 5px;
+                font-size: .9em;
+                opacity: .6;
+            }
+
+            .agreement_pic{
+                margin-top: 20px;
+                background-color: white;
+                border: solid 1px lightgray;
+                width: 30%;
+                float: left;
+                margin-left: 2%;
+                height: 250px;
+            }
+            .agreement_pic:first-child{
+                        margin-left: 0;
+            }
             @media (max-width: 570px) {
                 .description{
                     width: 90%;
@@ -148,7 +198,6 @@
     <div id="home-page">
         <div id="container">
             <header>
-                <link rel="icon" type="image/png" href="img/favicon.ico">
                 <img src="img/not-a-logo.png" id="logo">
                 <p id="tagline"> Creating non-disclosure agreements has never been so easy. </p>
                 <div class="button" id="get-started"> Get Started </div>
@@ -178,8 +227,30 @@
     </div>
     
     <div id="PI-page">
-        <a onclick="signOut()"> Sign Out </a>
-        <p id="name"> hello </p>
+        <div id="container">
+            <header>
+                <img src="img/not-a-logo.png" id="logo">
+            </header>
+            <div class="question">
+                <p id="name-prompt"> </p>
+                <p style="margin-top: 10px; opacity: .8"> We'll need just a few bits of information before we can generate your document. </p>
+                <div class="input">
+                    <p class="prompt"> What type of agreement is it? </p>
+                    <div class="agreement_pic"></div>
+                    <div class="agreement_pic"></div>
+                    <div class="agreement_pic"></div>
+                                    <div class="button question-button"> Continue </div>
+
+                </div>
+            </div>
+            <div id="sign-out">
+                <p> Want to come back later? </p>
+                <a onclick="signOut()" style="text-decoration: underline; cursor:pointer; margin-top: 30px;"> Sign Out </a>
+            </div>
+            <footer>
+                <p style="position: absolute; bottom: 10; left: 50%; text-align: center;"> Copyright &copy; Contacts-Go 2016 </p>
+            </footer>
+        </div>
     </div>
     </body>
 </html>
