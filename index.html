@@ -5,6 +5,7 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
         <!-- Firebase auth -->
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
         <script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
         <script>
           var config = {
@@ -49,12 +50,23 @@
                     document.getElementById('PI-page').style.display = 'block';
                     var name = user.displayName;
                     document.getElementById('name-prompt').innerHTML = 'Hey ' + name.substr(0,name.indexOf(' ')) + '.';
-
                 }
               })
           document.getElementById('get-started').addEventListener('click', signIn, false);
         };     
          
+        </script>
+        
+        <script>
+            function disclosing() {
+                $( "input[name='nda_type']" ).val("disclosing");
+            }
+            function receiving() {
+                $( "input[name='nda_type']" ).val("recipient");
+            }
+            function mutual() {
+                $( "input[name='nda_type']" ).val("mutual");
+            }
         </script>
         <style>
             *{
@@ -147,8 +159,10 @@
                 width: 90%;
                 padding: 0 5%;
                 background-color: #f7ebec;
-                height: 450px;
                 margin-top: 20px;
+            }
+            .input_tall{
+                height: 450px;
             }
             .question .input .prompt{
                 padding-top: 30px;
@@ -249,32 +263,132 @@
             <div class="question">
                 <p id="name-prompt"> </p>
                 <p style="margin-top: 10px; opacity: .8"> We'll need just a few bits of information before we can generate your document. </p>
-                <div class="input">
-                    <p class="prompt"> What type of agreement is it? </p>
-                    <div class="agreement_pic">
-                        <img src="img/disclose.png">
-                        <p> Stevens Disclosing </p>
-                    </div>
-                    <div class="agreement_pic">
-                        <img src="img/reliable.png" class="tall-icon">
-                        <p> Mutual </p>
-                    </div>
-                    <div class="agreement_pic">
-                        <img src="img/receive.png">
-                        <p> Stevens Receiving </p>
-                    </div>
-                                    <div class="button question-button"> Continue </div>
+                
+                <form id="form">
+                    <div class="input input_tall">
+                        <p class="prompt"> What type of agreement is it? </p>
+                        <input type="hidden" name="nda_type">
+                        <div class="agreement_pic" onclick="disclosing()">
+                            <img src="img/disclose.png">
+                            <p> Stevens Disclosing </p>
+                        </div>
+                        <div class="agreement_pic" onclick="mutual()">
+                            <img src="img/reliable.png" class="tall-icon">
+                            <p> Mutual </p>
+                        </div>
+                        <div class="agreement_pic" onclick="receiving()">
+                            <img src="img/receive.png">
+                            <p> Stevens Receiving </p>
+                        </div>
 
-                </div>
+                    </div>
+
+                    <div class="input">
+                        <p class="prompt"> What company will you be working with? </p>
+                        <input type="text" name="company_name">
+                    </div>
+
+                    <div class="input">
+                        <p class="prompt"> What type of company are they? </p>
+                        <input type="text" name="company_type">
+                    </div>
+
+                    <div class="input">
+                        <p class="prompt"> What is their state of organization? </p>
+                        <input type="text" name="company_organization_state">
+                    </div>
+
+                    <div class="input">
+                        <p class="prompt"> Where are their offices located? </p>
+                        <input type="text" name="company_location_state">
+                    </div>
+
+                    <div class="input">
+                        <p class="prompt"> What industry does this agreement involve? </p>
+                        <input type="text" name="industry">
+                    </div>
+
+                    <div class="input">
+                        <p class="prompt"> Describe the Stevens project this information may be used for. Be specific.  </p>
+                        <input type="text" name="stevens_desc">
+                    </div>
+
+                    <div class="input">
+                        <p class="prompt"> Who do we contact at {company} ? </p>
+                        <input type="text" name="company_contact">
+                    </div>
+                      <input type="submit" value="Submit">
+                </form>
+                
             </div>
             <div id="sign-out">
                 <p> Want to come back later? </p>
                 <a onclick="signOut()" style="text-decoration: underline; cursor:pointer; margin-top: 30px;"> Sign Out </a>
             </div>
             <footer>
-                <p style="position: absolute; bottom: 10; left: 50%; text-align: center;"> Copyright &copy; Contacts-Go 2016 </p>
+                <p> Copyright &copy; Contacts-Go 2016 </p>
             </footer>
         </div>
     </div>
+        
+
+        
+    <script>
+    $( "#form" ).submit(function( event ) {
+        event.preventDefault();
+        
+        type = $( "input[name='nda_type']" ).val(),
+        
+        company_type = $( "input[name='company_type']" ).val(),
+        company_name = $( "input[name='company_name']" ).val(),
+        company_state = $( "input[name='company_organization_state']" ).val(),
+        company_location = $( "input[name='company_location_state']" ).val(),
+        company_contact = $( "input[name='company_contact']" ).val(),
+        
+        project_industry = $( "input[name='industry']" ).val(),
+        project_description = $( "input[name='stevens_desc']" ).val(),
+        
+        url = "http://api.contractsgo.com/generate";
+        
+        data = {"pi":{
+                    "name": "FRAN",
+                    "email" : "FRAN@FRANFRANFRAN.COM",
+                    "title": "MANAGER",
+                },
+                "company":{
+                    "type": company_type,
+                    "name": company_name,
+                    "state": company_state,
+                    "location": company_location,
+                    "contact":{
+                        "name": "FRAN",
+                        "email": company_contact
+                    }
+                },
+                "project":{
+                    "industry": project_industry,
+                    "description": project_description
+                },
+                "type": type,
+                "emailTo":{
+                    "name": "David Peacock",
+                    "email": "fbueti@gmail.com"
+                }
+            },
+          
+            $.ajax({
+              type: "POST",
+              url: url,
+              data: data,
+              dataType: "json"
+            }).done(function(response) {
+            console.log(data);
+            console.log(response);
+        });
+            
+    
+    });
+        </script>
+     
     </body>
 </html>
