@@ -18,101 +18,41 @@
         </script>
         
         <!-- Google log-in -->
-         <script type="text/javascript">
-    /**
-     * Function called when clicking the Login/Logout button.
-     */
-    // [START buttoncallback]
-    function toggleSignIn() {
-      if (!firebase.auth().currentUser) {
-          console.log("hello");
-        var provider = new firebase.auth.GoogleAuthProvider(); //create provider
-        provider.addScope('https://www.googleapis.com/auth/plus.login'); // add scopes here
-        firebase.auth().signInWithRedirect(provider); //sign-in with redirect
-      } 
-    }
-    // [END buttoncallback]
-    /**
-     * initApp handles setting up the Firebase context and registering
-     * callbacks for the auth status.
-     *
-     * The core initialization is in firebase.App - this is the glue class
-     * which stores configuration. We provide an app name here to allow
-     * distinguishing multiple app instances.
-     *
-     * This method also registers a listener with firebase.auth().onAuthStateChanged.
-     * This listener is called when the user is signed in or out, and that
-     * is where we update the UI.
-     *
-     * When signed in, we also authenticate to the Firebase Realtime Database.
-     */
-    function initApp() {
-      // Result from Redirect auth flow.
-      firebase.auth().getRedirectResult().then(function(result) {
-        if (result.credential) {
-          var token = result.credential.accessToken; //store google access token
-        } else {
-          document.getElementById('quickstart-oauthtoken').textContent = 'null';
+        <script type="text/javascript">
+        function signIn() {
+          if (!firebase.auth().currentUser) {
+            var provider = new firebase.auth.GoogleAuthProvider(); //create provider
+            provider.addScope('https://www.googleapis.com/auth/plus.login'); // add scopes here
+            firebase.auth().signInWithPopup(provider); //sign-in with redirect
+          }
+          else{
+              window.location = "/PI.html"
+          }
         }
-        var user = result.user; // store user info
-      }).catch(function(error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-      });
-      // Listening for auth state changes.
-      firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-          // User is signed in.
-          var displayName = user.displayName;
-          var email = user.email;
-          var emailVerified = user.emailVerified;
-          var photoURL = user.photoURL;
-          var isAnonymous = user.isAnonymous;
-          var uid = user.uid;
-          var refreshToken = user.refreshToken;
-          var providerData = user.providerData;
-          // [START_EXCLUDE]
-          //document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
-          //document.getElementById('quickstart-sign-in').textContent = 'Sign out';
-          document.getElementById('quickstart-account-details').textContent = JSON.stringify({
-            displayName: displayName,
-            email: email,
-            emailVerified: emailVerified,
-            photoURL: photoURL,
-            isAnonymous: isAnonymous,
-            uid: uid,
-            refreshToken: refreshToken,
-            providerData: providerData
-          }, null, '  ');
-          // [END_EXCLUDE]
-        }
-//          else {
-//          // User is signed out.
-//          // [START_EXCLUDE]
-//          document.getElementById('quickstart-sign-in-status').textContent = 'Signed out';
-//          document.getElementById('quickstart-sign-in').textContent = 'Sign in with Google';
-//          document.getElementById('quickstart-account-details').textContent = 'null';
-//          document.getElementById('quickstart-oauthtoken').textContent = 'null';
-//          // [END_EXCLUDE]
-//        }
-        // [START_EXCLUDE]
-        //document.getElementById('quickstart-sign-in').disabled = false;
-        // [END_EXCLUDE]
-      });
-      // [END authstatelistener]
-      document.getElementById('get-started').addEventListener('click', toggleSignIn, false);
-    }
-    window.onload = function() {
-      initApp();
-    };
-  </script>
-        
-        <!-- Google log-in -->
 
+        function signOut() {
+            firebase.auth().signOut().then(function() {
+                document.getElementById('PI-page').style.display = 'none';
+                document.getElementById('home-page').style.display = 'block';
+                }, function(error) {
+                    console.log("error");
+            });
+        }
+        window.onload = function() {
+          document.getElementById('PI-page').style.display = 'none';
+          firebase.auth().getRedirectResult().then(function(result) {
+                var user = result.user;
+              })
+              firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    document.getElementById('home-page').style.display = 'none';
+                    document.getElementById('PI-page').style.display = 'block';
+                }
+              })
+          document.getElementById('get-started').addEventListener('click', signIn, false);
+        };     
+         
+        </script>
         <style>
             *{
                 margin: 0;
@@ -205,34 +145,41 @@
         </style>
     </head>
     <body>
+    <div id="home-page">
         <div id="container">
             <header>
-            <link rel="icon" type="image/png" 
-      href="img/favicon.ico">
-            <img src="img/not-a-logo.png" id="logo">
-            <p id="tagline"> Creating non-disclosure agreements has never been so easy. </p>
-            <div class="button" id="get-started"> Get Started </div>
-            <p class="caption"> By signing in with your Stevens account. </p>
+                <link rel="icon" type="image/png" href="img/favicon.ico">
+                <img src="img/not-a-logo.png" id="logo">
+                <p id="tagline"> Creating non-disclosure agreements has never been so easy. </p>
+                <div class="button" id="get-started"> Get Started </div>
+                <p class="caption"> By signing in with your Stevens account. </p>
             </header>
             <div id="moreInfo">
                 <div class="description">
-                <img src="img/fast.png" class="icon">
-                <h1> Fast </h1>
-                <p> Just step through a few questions and we'll have your document generated in no time. </p>
+                    <img src="img/fast.png" class="icon">
+                    <h1> Fast </h1>
+                    <p> Just step through a few questions and we'll have your document generated in no time. </p>
                 </div>
-                                <div class="description" id="middle_desc">
-                                <img src="img/reliable.png" class="wide-icon">
-                <h1> Reliable </h1>
-                    <p> We get your documents where they need to go, when they need to go. </p></div>
+                <div class="description" id="middle_desc">
+                    <img src="img/reliable.png" class="wide-icon">
+                    <h1> Reliable </h1>
+                    <p> We get your documents where they need to go, when they need to go. </p>
+                </div>
                 <div class="description">
-                <img src="img/easy.png" class="icon">
-                <h1> Easy </h1>
-                    <p> No scanning documents. No sending emails. No hassle. </p></div>
-
+                    <img src="img/easy.png" class="icon">
+                    <h1> Easy </h1>
+                    <p> No scanning documents. No sending emails. No hassle. </p>
+                </div>
             </div>
             <footer>
-            <p> Copyright &copy; Contacts-Go 2016 </p>
+                <p> Copyright &copy; Contacts-Go 2016 </p>
             </footer>
         </div>
+    </div>
+    
+    <div id="PI-page">
+        <a onclick="signOut()"> Sign Out </a>
+        <p id="name"> hello </p>
+    </div>
     </body>
 </html>
