@@ -32,14 +32,12 @@
             provider.addScope('https://www.googleapis.com/auth/plus.login'); // add scopes here
             firebase.auth().signInWithPopup(provider); //sign-in with redirect
           }
-          else{
-              window.location = "/PI.html"
-          }
         }
 
         function signOut() {
             firebase.auth().signOut().then(function() {
                 document.getElementById('PI-page').style.display = 'none';
+                document.getElementById('try-again').style.display = 'none';
                 document.getElementById('home-page').style.display = 'block';
                 }, function(error) {
                     console.log("error");
@@ -51,14 +49,19 @@
                 var user = result.user;
               })
               firebase.auth().onAuthStateChanged(function(user) {
-                if (user) {
+                if (user.email.endsWith('stevens.edu')) {
                     document.getElementById('home-page').style.display = 'none';
+                    document.getElementById('try-again').style.display = 'none';
                     document.getElementById('PI-page').style.display = 'block';
                     var name = user.displayName;
                     var email = user.email;
                     document.getElementById('name-prompt').innerHTML = 'Hey ' + name.substr(0,name.indexOf(' ')) + '.';
                     $( "input[name='name']" ).val(name);
                     $( "input[name='email']" ).val(email);
+                }
+                else{
+                    document.getElementById('home-page').style.display = 'none';
+                    document.getElementById('try-again').style.display = 'block';
                 }
               })
           document.getElementById('get-started').addEventListener('click', signIn, false);
@@ -306,6 +309,19 @@
             </footer>
         </div>
         </div>
+        
+        <div id="try-again">
+            <div id="container">
+            <header>
+                <img src="img/not-a-logo.png" id="logo">
+            </header>
+            <p class="green_title"> Sorry. </p>
+            <p class="caption_text"> You need a valid Stevens email to create a document.</p>
+            <div class="button" onClick="signOut()" style="margin-top: 0px"> Try again. </div>
+            </div>  
+        </div>
+                
+        
     <script>
     $( "#form" ).submit(function( event ) {
         event.preventDefault();
