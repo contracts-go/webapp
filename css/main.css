@@ -1,0 +1,164 @@
+ *{
+                margin: 0;
+                padding: 0;
+                font-family: 'Open Sans', sans-serif;
+                color: #1B2021;
+            }
+            #logo{
+                max-width: 200px;
+                width: 80%;
+                margin-top: 30px;
+                margin-left: 30px;
+            }
+            #container{
+                width: 100%;
+                max-width: 1040px;
+                margin: auto;
+            }
+            #tagline, #name-prompt{
+                text-align: center;
+                font-size: 2em;
+                margin-top: 100px;
+                color: #283044;
+            }
+            .button{
+                max-width: 200px;
+                padding-top: 15px;
+                text-align: center;
+                height: 45px;
+                margin: auto;
+                background-color: #00a63f;
+                color: #f7ebec;
+                font-size: 1.3em;
+                border-radius: 12px;
+                font-weight: bold;
+                margin-top: 50px;
+                box-sizing: initial;
+            }
+            .button:hover{
+                opacity: .8;
+                cursor: pointer;
+            }
+            .description{
+                width: 30%;
+                padding: 1.5%;
+                float: left;
+                text-align: center;
+                background-color: #f7ebec;
+                margin-top: 60px;
+            }
+            #moreInfo{
+                color: #1B2021;
+                height: 300px;
+                background-color: #f7ebec;
+            }
+            #moreInfo h1{
+                font-size: 1.5em;
+                margin: 10 0;
+            }
+            .icon{
+                height: 50px;
+            }
+            .wide-icon{
+                width: 80px;
+                margin-top: -25px;
+            }
+            footer{
+                margin-top: 20px;
+                text-align: center;
+                color: #1B2021;
+            }
+            .caption{
+                color: #1B2021;
+                opacity: .4;
+                text-align: center;
+                margin-top: 10px;
+                margin-bottom: 100px;
+                font-size: .8em;
+            }
+            #name-prompt{
+                color: #00a63f;
+                font-weight: bold;
+                font-size: 2em;
+                margin-top: 50px;
+            }
+            .question{
+                text-align: center;
+            }
+            .question .input{
+                width: 90%;
+                padding: 0 5%;
+                background-color: #f7ebec;
+                margin-top: 20px;
+            }
+            .input_tall{
+                height: 450px;
+            }
+            .question .input .prompt{
+                padding-top: 30px;
+                font-size: 1.5em;
+            }
+            .question .button{
+                width: 150px;
+                float: right;
+                margin-top: 15px;
+                margin-right: 3%;
+            }
+            #sign-out{
+                text-align: right;
+                margin-top: 10px;
+                margin-right: 5px;
+                font-size: .9em;
+                opacity: .6;
+            }
+
+            .agreement_pic{
+                margin-top: 20px;
+                background-color: white;
+                border: solid 1px lightgray;
+                width: 30%;
+                float: left;
+                margin-left: 2%;
+                height: 250px;
+            }
+            .agreement_pic:hover{
+                cursor: pointer;
+            }
+            .agreement_pic:first-child{
+                margin-left: 0;
+            }
+            .agreement_pic img{
+                height: 100px;
+                margin-top: 50px;
+            }
+            .agreement_pic .tall-icon{
+                height: 130px;
+                margin-top: 20px;
+            }
+            .agreement_pic p{
+                margin-top: 20px;
+                font-size: 1.1em;
+            }
+            .caption_text{
+                margin-top: 10px;
+                opacity: .8;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            .form_headers{
+                font-size: 1.64rem;
+                line-height: 110%;
+                margin: 0.82rem 0 0.656rem 10px;
+            }
+            @media (max-width: 570px) {
+                .description{
+                    width: 90%;
+                    padding: 0% 5%;
+                }
+                footer p{
+                    margin-top: 260px;
+                }
+                #middle_desc{
+                    margin-bottom: -60px;
+                }
+            }

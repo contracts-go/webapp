@@ -18,6 +18,10 @@
           var provider = new firebase.auth.GoogleAuthProvider();
         </script>
         
+        <!-- CSS -->
+        <link type="text/css" rel="stylesheet" href="css/main.css"/>
+        <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+        
         <!-- Google log-in -->
         <script type="text/javascript">
         function signIn() {
@@ -49,181 +53,21 @@
                     document.getElementById('home-page').style.display = 'none';
                     document.getElementById('PI-page').style.display = 'block';
                     var name = user.displayName;
+                    var email = user.email;
                     document.getElementById('name-prompt').innerHTML = 'Hey ' + name.substr(0,name.indexOf(' ')) + '.';
+                    $( "input[name='name']" ).val(name);
+                    $( "input[name='email']" ).val(email);
                 }
               })
           document.getElementById('get-started').addEventListener('click', signIn, false);
         };     
          
         </script>
-        
-        <script>
-            function disclosing() {
-                $( "input[name='nda_type']" ).val("disclosing");
-            }
-            function receiving() {
-                $( "input[name='nda_type']" ).val("recipient");
-            }
-            function mutual() {
-                $( "input[name='nda_type']" ).val("mutual");
-            }
-        </script>
-        <style>
-            *{
-                margin: 0;
-                padding: 0;
-                font-family: 'Open Sans', sans-serif;
-                color: #1B2021;
-            }
-            #logo{
-                max-width: 200px;
-                width: 80%;
-                margin-top: 30px;
-                margin-left: 30px;
-            }
-            #container{
-                width: 100%;
-                max-width: 1040px;
-                margin: auto;
-            }
-            #tagline, #name-prompt{
-                text-align: center;
-                font-size: 2em;
-                margin-top: 100px;
-                color: #283044;
-            }
-            .button{
-                max-width: 200px;
-                padding-top: 15px;
-                text-align: center;
-                height: 45px;
-                margin: auto;
-                background-color: #00a63f;
-                color: #f7ebec;
-                font-size: 1.3em;
-                border-radius: 12px;
-                font-weight: bold;
-                margin-top: 50px;
-            }
-            .button:hover{
-                opacity: .8;
-                cursor: pointer;
-            }
-            .description{
-                width: 30%;
-                padding: 1.5%;
-                float: left;
-                text-align: center;
-                background-color: #f7ebec;
-                margin-top: 60px;
-            }
-            #moreInfo{
-                color: #1B2021;
-                height: 300px;
-                background-color: #f7ebec;
-            }
-            #moreInfo h1{
-                font-size: 1.5em;
-                margin: 10 0;
-            }
-            .icon{
-                height: 50px;
-            }
-            .wide-icon{
-                width: 80px;
-                margin-top: -25px;
-            }
-            footer{
-                margin-top: 20px;
-                text-align: center;
-                color: #1B2021;
-            }
-            .caption{
-                color: #1B2021;
-                opacity: .4;
-                text-align: center;
-                margin-top: 10px;
-                margin-bottom: 100px;
-                font-size: .8em;
-            }
-            #name-prompt{
-                color: #00a63f;
-                font-weight: bold;
-                font-size: 2em;
-                margin-top: 50px;
-            }
-            .question{
-                text-align: center;
-            }
-            .question .input{
-                width: 90%;
-                padding: 0 5%;
-                background-color: #f7ebec;
-                margin-top: 20px;
-            }
-            .input_tall{
-                height: 450px;
-            }
-            .question .input .prompt{
-                padding-top: 30px;
-                font-size: 1.5em;
-            }
-            .question .button{
-                width: 150px;
-                float: right;
-                margin-top: 15px;
-                margin-right: 3%;
-            }
-            #sign-out{
-                text-align: right;
-                margin-top: 10px;
-                margin-right: 5px;
-                font-size: .9em;
-                opacity: .6;
-            }
-
-            .agreement_pic{
-                margin-top: 20px;
-                background-color: white;
-                border: solid 1px lightgray;
-                width: 30%;
-                float: left;
-                margin-left: 2%;
-                height: 250px;
-            }
-            .agreement_pic:hover{
-                cursor: pointer;
-            }
-            .agreement_pic:first-child{
-                margin-left: 0;
-            }
-            .agreement_pic img{
-                height: 100px;
-                margin-top: 50px;
-            }
-            .agreement_pic .tall-icon{
-                height: 130px;
-                margin-top: 20px;
-            }
-            .agreement_pic p{
-                margin-top: 20px;
-                font-size: 1.1em;
-            }
-            @media (max-width: 570px) {
-                .description{
-                    width: 90%;
-                    padding: 0% 5%;
-                }
-                footer p{
-                    margin-top: 260px;
-                }
-                #middle_desc{
-                    margin-bottom: -60px;
-                }
-            }
-        </style>
     </head>
     <body>
+    <!-- Materialize js -->
+    <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+        
     <div id="home-page">
         <div id="container">
             <header>
@@ -255,72 +99,204 @@
         </div>
     </div>
     
-    <div id="PI-page">
-        <div id="container">
+        <div id="PI-page">
+            <div id="container">
             <header>
                 <img src="img/not-a-logo.png" id="logo">
             </header>
-            <div class="question">
-                <p id="name-prompt"> </p>
-                <p style="margin-top: 10px; opacity: .8"> We'll need just a few bits of information before we can generate your document. </p>
+            <p id="name-prompt"> </p>
+            <p class="caption_text"> We'll need just a few bits of information before we can generate your document. </p>
+        <div class="row">
+        <form class="col s12" id="form">
+            <!-- About you -->
+            <h2 class="form_headers"> First, about you.</h2>
+            <div class="row">
+            <div class="input-field col s6">
+                <input placeholder="Placeholder" name="name" id="name" type="text" class="validate"><label for="name">Full Name</label>
+            </div>
+            <div class="input-field col s6">
+              <input placeholder="Placeholder" disabled id="email" name="email" type="text" class="validate"><label for="email">Email</label>
+            </div>
+              <div class="input-field col s12">
+              <input name="title" id="title" type="text" class="validate"><label for="title">Title</label>
+            </div>
+            </div>
+            
+            <!-- About the project -->
+            <div class="row">
+            <h2 class="form_headers"> Next, about the project.</h2>
+            
+            <div class="input-field col s12">
+              <input name="industry" id="industry" type="text" class="validate">
+              <label for="industry"> Industry </label>
+            </div>
+            
+            <div class="input-field col s12">
+                <textarea name="project_description" id="project_description" class="materialize-textarea" length="350"></textarea>
+                <label for="project_description">Project Description</label>
+            </div>
+            </div>
+            
+            <!-- About the company -->
+            <div class="row">
+            <h2 class="form_headers"> Now, about the company involved.</h2>
+            <div class="input-field col s6">
+              <input name="company_name" id="company_name" type="text" class="validate">
+              <label for="company_name">Company Name</label>
+            </div>
+            
+            <div class="input-field col s6">
+            <select name="company_location">
+                <option value="" disabled selected> Select </option>
+                <option value="Alabama">Alabama</option>
+                <option value="Alaska">Alaska</option>
+                <option value="Arizona">Arizona</option>
+                <option value="Arkansas">Arkansas</option>
+                <option value="California">California</option>
+                <option value="Colorado">Colorado</option>
+                <option value="Connecticut">Connecticut</option>
+                <option value="Delaware">Delaware</option>
+                <option value="District Of Columbia">District Of Columbia</option>
+                <option value="Florida">Florida</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Hawaii">Hawaii</option>
+                <option value="Idaho">Idaho</option>
+                <option value="Illinois">Illinois</option>
+                <option value="Indiana">Indiana</option>
+                <option value="Iowa">Iowa</option>
+                <option value="Kansas">Kansas</option>
+                <option value="Kentucky">Kentucky</option>
+                <option value="Louisiana">Louisiana</option>
+                <option value="Maine">Maine</option>
+                <option value="Maryland">Maryland</option>
+                <option value="Massachusetts">Massachusetts</option>
+                <option value="Michigan">Michigan</option>
+                <option value="Minnesota">Minnesota</option>
+                <option value="Mississippi">Mississippi</option>
+                <option value="Missouri">Missouri</option>
+                <option value="Montana">Montana</option>
+                <option value="Nebraska">Nebraska</option>
+                <option value="Nevada">Nevada</option>
+                <option value="New Hampshire">New Hampshire</option>
+                <option value="New Jersey">New Jersey</option>
+                <option value="New Mexico">New Mexico</option>
+                <option value="New York">New York</option>
+                <option value="North Carolina">North Carolina</option>
+                <option value="North Dakota">North Dakota</option>
+                <option value="Ohio">Ohio</option>
+                <option value="Oklahoma">Oklahoma</option>
+                <option value="Oregon">Oregon</option>
+                <option value="Pennsylvania">Pennsylvania</option>
+                <option value="Rhode Island">Rhode Island</option>
+                <option value="South Carolina">South Carolina</option>
+                <option value="South Dakota">South Dakota</option>
+                <option value="Tennessee">Tennessee</option>
+                <option value="Texas">Texas</option>
+                <option value="Utah">Utah</option>
+                <option value="Vermont">Vermont</option>
+                <option value="Virginia">Virginia</option>
+                <option value="Washington">Washington</option>
+                <option value="West Virginia">West Virginia</option>
+                <option value="Wisconsin">Wisconsin</option>
+                <option value="Wyoming">Wyoming</option>
+            </select>
+            <label>Company Location</label>
+          </div>
+            
+            
+            <div class="input-field col s6">
+              <input name="company_type" id="company_name" type="text" class="validate">
+              <label for="company_type">Company Type</label>
+            </div>
+            
+            <div class="input-field col s6">
+            <select name="company_state">
+                <option value="" disabled selected> Select </option>
+                <option value="Alabama">Alabama</option>
+                <option value="Alaska">Alaska</option>
+                <option value="Arizona">Arizona</option>
+                <option value="Arkansas">Arkansas</option>
+                <option value="California">California</option>
+                <option value="Colorado">Colorado</option>
+                <option value="Connecticut">Connecticut</option>
+                <option value="Delaware">Delaware</option>
+                <option value="District Of Columbia">District Of Columbia</option>
+                <option value="Florida">Florida</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Hawaii">Hawaii</option>
+                <option value="Idaho">Idaho</option>
+                <option value="Illinois">Illinois</option>
+                <option value="Indiana">Indiana</option>
+                <option value="Iowa">Iowa</option>
+                <option value="Kansas">Kansas</option>
+                <option value="Kentucky">Kentucky</option>
+                <option value="Louisiana">Louisiana</option>
+                <option value="Maine">Maine</option>
+                <option value="Maryland">Maryland</option>
+                <option value="Massachusetts">Massachusetts</option>
+                <option value="Michigan">Michigan</option>
+                <option value="Minnesota">Minnesota</option>
+                <option value="Mississippi">Mississippi</option>
+                <option value="Missouri">Missouri</option>
+                <option value="Montana">Montana</option>
+                <option value="Nebraska">Nebraska</option>
+                <option value="Nevada">Nevada</option>
+                <option value="New Hampshire">New Hampshire</option>
+                <option value="New Jersey">New Jersey</option>
+                <option value="New Mexico">New Mexico</option>
+                <option value="New York">New York</option>
+                <option value="North Carolina">North Carolina</option>
+                <option value="North Dakota">North Dakota</option>
+                <option value="Ohio">Ohio</option>
+                <option value="Oklahoma">Oklahoma</option>
+                <option value="Oregon">Oregon</option>
+                <option value="Pennsylvania">Pennsylvania</option>
+                <option value="Rhode Island">Rhode Island</option>
+                <option value="South Carolina">South Carolina</option>
+                <option value="South Dakota">South Dakota</option>
+                <option value="Tennessee">Tennessee</option>
+                <option value="Texas">Texas</option>
+                <option value="Utah">Utah</option>
+                <option value="Vermont">Vermont</option>
+                <option value="Virginia">Virginia</option>
+                <option value="Washington">Washington</option>
+                <option value="West Virginia">West Virginia</option>
+                <option value="Wisconsin">Wisconsin</option>
+                <option value="Wyoming">Wyoming</option>
+            </select>
+            <label>State of Incorporation</label>
+          </div>
+            <div class="input-field col s6">
+              <input name="company_contact_name" id="company_contact_name" type="text" class="validate"><label for="company_contact_name">Company Contact Name</label>
+            </div>
                 
-                <form id="form">
-                    <div class="input input_tall">
-                        <p class="prompt"> What type of agreement is it? </p>
-                        <input type="hidden" name="nda_type">
-                        <div class="agreement_pic" onclick="disclosing()">
-                            <img src="img/disclose.png">
-                            <p> Stevens Disclosing </p>
-                        </div>
-                        <div class="agreement_pic" onclick="mutual()">
-                            <img src="img/reliable.png" class="tall-icon">
-                            <p> Mutual </p>
-                        </div>
-                        <div class="agreement_pic" onclick="receiving()">
-                            <img src="img/receive.png">
-                            <p> Stevens Receiving </p>
-                        </div>
-
-                    </div>
-
-                    <div class="input">
-                        <p class="prompt"> What company will you be working with? </p>
-                        <input type="text" name="company_name">
-                    </div>
-
-                    <div class="input">
-                        <p class="prompt"> What type of company are they? </p>
-                        <input type="text" name="company_type">
-                    </div>
-
-                    <div class="input">
-                        <p class="prompt"> What is their state of organization? </p>
-                        <input type="text" name="company_organization_state">
-                    </div>
-
-                    <div class="input">
-                        <p class="prompt"> Where are their offices located? </p>
-                        <input type="text" name="company_location_state">
-                    </div>
-
-                    <div class="input">
-                        <p class="prompt"> What industry does this agreement involve? </p>
-                        <input type="text" name="industry">
-                    </div>
-
-                    <div class="input">
-                        <p class="prompt"> Describe the Stevens project this information may be used for. Be specific.  </p>
-                        <input type="text" name="stevens_desc">
-                    </div>
+            <div class="input-field col s6">
+              <input name="company_contact_email" id="company_contact_email" type="text" class="validate"> <label for="company_contact_email">Company Contact Email</label>
+            </div>
+                
+        </div>  
+            <h2 class="form_headers"> Finally, about the agreement.</h2>
+            <div class="row">
+              <div class="input-field col s12">
+                    <select name="type" id="nda_type">
+                        <option value="" disabled selected> Select </option>
+                        <option value="disclosing">Stevens as the Discloser</option>
+                        <option value="recipient">Stevens as the Recepient</option>
+                        <option value="mutual">Mutual</option>
+                    </select>
+                </div>
+            </div>
+                    <!--div class="input">
 
                     <div class="input">
                         <p class="prompt"> Who do we contact at {company} ? </p>
                         <input type="text" name="company_contact">
-                    </div>
+                    </div-->
                       <input type="submit" value="Submit">
                 </form>
-                
             </div>
+            </div>
+                
             <div id="sign-out">
                 <p> Want to come back later? </p>
                 <a onclick="signOut()" style="text-decoration: underline; cursor:pointer; margin-top: 30px;"> Sign Out </a>
@@ -329,31 +305,33 @@
                 <p> Copyright &copy; Contacts-Go 2016 </p>
             </footer>
         </div>
-    </div>
-        
-
         
     <script>
     $( "#form" ).submit(function( event ) {
         event.preventDefault();
         
-        type = $( "input[name='nda_type']" ).val(),
+        type = $( '#nda_type').val(),
         
+        name = $( "input[name='name']" ).val(),
+        email = $( "input[name='email']" ).val(),
+        title = $( "input[name='title']" ).val(),
+            
         company_type = $( "input[name='company_type']" ).val(),
         company_name = $( "input[name='company_name']" ).val(),
-        company_state = $( "input[name='company_organization_state']" ).val(),
+        company_state = $( "select[name='company_state']" ).val(),
         company_location = $( "input[name='company_location_state']" ).val(),
-        company_contact = $( "input[name='company_contact']" ).val(),
+        company_contact_name = $( "input[name='company_contact_name']" ).val(),
+        company_contact_email = $( "input[name='company_contact_email']" ).val(),
         
-        project_industry = $( "input[name='industry']" ).val(),
-        project_description = $( "input[name='stevens_desc']" ).val(),
+        industry = $( "input[name='industry']" ).val(),
+        project_description = $( "input[name='project_description']" ).val(),
         
         url = "http://api.contractsgo.com/generate";
         
         data = {"pi":{
-                    "name": "FRAN",
-                    "email" : "FRAN@FRANFRANFRAN.COM",
-                    "title": "MANAGER",
+                    "name": name,
+                    "email" : email,
+                    "title": title,
                 },
                 "company":{
                     "type": company_type,
@@ -361,12 +339,12 @@
                     "state": company_state,
                     "location": company_location,
                     "contact":{
-                        "name": "FRAN",
-                        "email": company_contact
+                        "name": company_contact_name,
+                        "email": company_contact_email
                     }
                 },
                 "project":{
-                    "industry": project_industry,
+                    "industry": industry,
                     "description": project_description
                 },
                 "type": type,
@@ -389,6 +367,10 @@
     
     });
         </script>
-     
+             <script>
+        $(document).ready(function() {
+            $('select').material_select();
+        });
+        </script>
     </body>
 </html>
