@@ -4,6 +4,8 @@
         <!-- Fonts yo -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
+          <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
         <!-- Firebase auth -->
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
         <script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
@@ -109,7 +111,9 @@
         <div class="row">
         <form class="col s12" id="form">
             <!-- About you -->
-            <h2 class="form_headers"> First, about you.</h2>
+            <i class="material-icons small" style="margin-top: 12px; margin-left:  10px; float: left;">assignment_ind</i>
+            <h2 class="form_headers">
+ First, about you.</h2>
             <div class="row">
             <div class="input-field col s6">
                 <input placeholder="Placeholder" name="name" id="name" type="text" class="validate"><label for="name">Full Name</label>
@@ -124,6 +128,7 @@
             
             <!-- About the project -->
             <div class="row">
+            <i class="material-icons small" style=" margin-left:  10px; float: left;">assignment</i>
             <h2 class="form_headers"> Next, about the project.</h2>
             
             <div class="input-field col s12">
@@ -139,6 +144,7 @@
             
             <!-- About the company -->
             <div class="row">
+            <i class="material-icons small" style=" margin-left:  10px; float: left;">business</i>
             <h2 class="form_headers"> Now, about the company involved.</h2>
             <div class="input-field col s6">
               <input name="company_name" id="company_name" type="text" class="validate">
@@ -275,23 +281,18 @@
             </div>
                 
         </div>  
+            <i class="material-icons small" style=" margin-left:  10px; float: left;">mode_edit</i>
             <h2 class="form_headers"> Finally, about the agreement.</h2>
             <div class="row">
               <div class="input-field col s12">
                     <select name="type" id="nda_type">
                         <option value="" disabled selected> Select </option>
-                        <option value="disclosing">Stevens as the Discloser</option>
-                        <option value="recipient">Stevens as the Recepient</option>
+                        <option value="disclosing">Stevens is the Discloser</option>
+                        <option value="recipient">Stevens is the Recepient</option>
                         <option value="mutual">Mutual</option>
                     </select>
                 </div>
             </div>
-                    <!--div class="input">
-
-                    <div class="input">
-                        <p class="prompt"> Who do we contact at {company} ? </p>
-                        <input type="text" name="company_contact">
-                    </div-->
                       <input type="submit" value="Submit">
                 </form>
             </div>

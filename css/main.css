@@ -148,7 +148,7 @@
             .form_headers{
                 font-size: 1.64rem;
                 line-height: 110%;
-                margin: 0.82rem 0 0.656rem 10px;
+                margin: 0.82rem 0 0.656rem 50px;
             }
             @media (max-width: 570px) {
                 .description{
