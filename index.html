@@ -107,7 +107,7 @@
                 <img src="img/not-a-logo.png" id="logo">
             </header>
             <p id="name-prompt"> </p>
-            <p class="caption_text"> We'll need just a few bits of information before we can generate your document. </p>
+            <p class="caption_text"> We'll need just a few bits of information before we can generate your document. All fields are required. </p>
         <div class="row">
         <form class="col s12" id="form">
             <!-- About you -->
@@ -116,13 +116,13 @@
  First, about you.</h2>
             <div class="row">
             <div class="input-field col s6">
-                <input placeholder="Placeholder" name="name" id="name" type="text" class="validate"><label for="name">Full Name</label>
+                <input placeholder="Placeholder" name="name" id="name" type="text" class="validate"><label for="name" data-error="Your full name is required.">Full Name</label>
             </div>
             <div class="input-field col s6">
-              <input placeholder="Placeholder" disabled id="email" name="email" type="text" class="validate"><label for="email">Email</label>
+              <input placeholder="Placeholder" disabled id="email" name="email" type="email" class="validate"><label data-error="Please enter a valid email." for="email">Email</label>
             </div>
               <div class="input-field col s12">
-              <input name="title" id="title" type="text" class="validate"><label for="title">Title</label>
+              <input name="title" id="title" type="text" class="validate"><label for="title" data-error="A title is required.">Title</label>
             </div>
             </div>
             
@@ -133,12 +133,12 @@
             
             <div class="input-field col s12">
               <input name="industry" id="industry" type="text" class="validate">
-              <label for="industry"> Industry </label>
+              <label for="industry" data-error="An industry is required."> Industry </label>
             </div>
             
             <div class="input-field col s12">
                 <textarea name="project_description" id="project_description" class="materialize-textarea" length="350"></textarea>
-                <label for="project_description">Project Description</label>
+                <label for="project_description" data-error="A project description is required.">Project Description</label>
             </div>
             </div>
             
@@ -148,11 +148,11 @@
             <h2 class="form_headers"> Now, about the company involved.</h2>
             <div class="input-field col s6">
               <input name="company_name" id="company_name" type="text" class="validate">
-              <label for="company_name">Company Name</label>
+              <label for="company_name" data-error="A company name is required.">Company Name</label>
             </div>
             
             <div class="input-field col s6">
-            <select name="company_location">
+            <select name="company_location" id="company_location">
                 <option value="" disabled selected> Select </option>
                 <option value="Alabama">Alabama</option>
                 <option value="Alaska">Alaska</option>
@@ -206,17 +206,17 @@
                 <option value="Wisconsin">Wisconsin</option>
                 <option value="Wyoming">Wyoming</option>
             </select>
-            <label>Company Location</label>
+            <label for="company_location">Company Location</label>
           </div>
             
             
             <div class="input-field col s6">
-              <input name="company_type" id="company_name" type="text" class="validate">
-              <label for="company_type">Company Type</label>
+              <input name="company_type" id="company_type" type="text" class="validate">
+              <label for="company_type" data-error="A company type is required."  data-error="Please select a state.">Company Type</label>
             </div>
             
             <div class="input-field col s6">
-            <select name="company_state">
+            <select name="company_state" id="company_state">
                 <option value="" disabled selected> Select </option>
                 <option value="Alabama">Alabama</option>
                 <option value="Alaska">Alaska</option>
@@ -270,14 +270,14 @@
                 <option value="Wisconsin">Wisconsin</option>
                 <option value="Wyoming">Wyoming</option>
             </select>
-            <label>State of Incorporation</label>
+            <label for="company_state" data-error="Please select a state.">State of Incorporation</label>
           </div>
             <div class="input-field col s6">
-              <input name="company_contact_name" id="company_contact_name" type="text" class="validate"><label for="company_contact_name">Company Contact Name</label>
+              <input name="company_contact_name" id="company_contact_name" type="text" class="validate"><label for="company_contact_name" data-error="A company contact name is required">Company Contact Name</label>
             </div>
                 
             <div class="input-field col s6">
-              <input name="company_contact_email" id="company_contact_email" type="text" class="validate"> <label for="company_contact_email">Company Contact Email</label>
+              <input name="company_contact_email" id="company_contact_email" type="email" class="validate"> <label data-error="A valid email is required." for="company_contact_email" >Company Contact Email</label>
             </div>
                 
         </div>  
@@ -309,8 +309,36 @@
     <script>
     $( "#form" ).submit(function( event ) {
         event.preventDefault();
+        var errorCount = 0;
+        var $fields = $("#form :input")
+        $($fields).append($("#form select"));
+        for (i=0; i<15; i++){
+            if (i==1) {i=2;}
+            if (!($($fields[i]).val())){
+                var id = $fields[i].id;
+                console.log(id);
+                if (id == 'company_state'  || id == 'company_location' || id == "nda_type"){
+                    switch(id){
+                        case 'company_location':
+                        $($('input.select-dropdown')[0]).css("border-bottom", "2px solid #F44336");
+                        case 'company_state':
+                        $($('input.select-dropdown')[1]).css("border-bottom", "2px solid #F44336");
+                        case 'nda_type':
+                        $($('input.select-dropdown')[2]).css("border-bottom", "2px solid #F44336");
+                    }
+                    
+                }
+                else{
+                    $("#" + id).addClass("invalid");
+                    $("#" + id).prop("aria-invalid", "true");
+                    $("label[for=\'" + id + "\']").addClass("active");
+                    errorCount++;
+                }
+                }
+            }
         
-        type = $( '#nda_type').val(),
+        if(errorCount == 0){
+            type = $( '#nda_type').val(),
         
         name = $( "input[name='name']" ).val(),
         email = $( "input[name='email']" ).val(),
@@ -349,7 +377,7 @@
                 },
                 "type": type,
                 "emailTo":{
-                    "name": "David Peacock",
+                    "name": "David",
                     "email": "fbueti@gmail.com"
                 }
             },
@@ -364,12 +392,34 @@
             console.log(response);
         });
             
-    
+        }
     });
         </script>
              <script>
         $(document).ready(function() {
             $('select').material_select();
+            if(($("#name").val())){
+                $("#name").css("border-bottom", "2px solid #00a63f");
+            }
+            
+            /* work-around for materialize select/text-area error checking */
+            $( "#company_location" ).change(function() {
+                $($('input.select-dropdown')[0]).css("border-bottom", "2px solid #00a63f");
+            });
+            $( "#company_state" ).change(function() {
+                $($('input.select-dropdown')[1]).css("border-bottom", "2px solid #00a63f");
+            });
+            $( "#nda_type" ).change(function() {
+                $($('input.select-dropdown')[2]).css("border-bottom", "2px solid #00a63f");
+            });
+            $("#project_description").change(function() {
+                if(($(this).val())){
+                    $(this).css("border-bottom", "2px solid #00a63f");
+                }
+                else{
+                    $(this).css("border-bottom", "1px solid #9e9e9e");
+                }
+            });
         });
         </script>
     </body>
