@@ -38,6 +38,7 @@
                 document.getElementById('try-again').style.display = 'none';
                 document.getElementById('confirm').style.display = 'none';
                 document.getElementById('home-page').style.display = 'none';
+                document.getElementById('done').style.display = 'none';
             }
 	       }
 
@@ -47,6 +48,7 @@
 	               document.getElementById('try-again').style.display = 'none';
                    document.getElementById('confirm').style.display = 'none';
 	               document.getElementById('home-page').style.display = 'block';
+	               document.getElementById('done').style.display = 'none';
 	               }, function(error) {
 	                   console.log("error");
 	           });
@@ -126,6 +128,7 @@
 	               document.getElementById('try-again').style.display = 'none';
                    document.getElementById('confirm').style.display = 'block';
 	               document.getElementById('home-page').style.display = 'none';
+			   	   document.getElementById('done').style.display = 'none';
 			}
 			}
 		
@@ -141,6 +144,7 @@
 	                   document.getElementById('try-again').style.display = 'none';
                        document.getElementById('confirm').style.display = 'none';
                        document.getElementById('PI-page').style.display = 'block';
+					   document.getElementById('done').style.display = 'none';
 	                   var name = user.displayName;
 	                   var email = user.email;
 	                   document.getElementById('name-prompt').innerHTML = 'Hey ' + name.substr(0,name.indexOf(' ')) + '.';
@@ -152,6 +156,7 @@
 	                   document.getElementById('try-again').style.display = 'block';
                        document.getElementById('confirm').style.display = 'none';
                        document.getElementById('PI-page').style.display = 'none';
+					   document.getElementById('done').style.display = 'none';
 	               }
 	             }
 				 })
@@ -434,6 +439,25 @@
 			<p>Copyright &copy; Contacts-Go 2016</p>
 		</footer>
 	</div>
+	<div id="done">
+		<div id="container">
+			<header>
+				<img id="logo" src="img/not-a-logo.png">
+			</header>
+			<p class="green_title">Your document had been sent.</p>
+			<p class="caption_text"> You should have been CC'd on the email and and you'll hear back about it soon. </p>
+			<div class="button" onclick="signOut()" style="margin-top: 0px">
+				Send Another
+			</div>
+		</div>
+		<div id="sign-out">
+			<p>Want to come back later?</p><a onclick="signOut()" style=
+			"text-decoration: underline; cursor:pointer; margin-top: 30px;">Sign Out</a>
+		</div>
+		<footer>
+			<p>Copyright &copy; Contacts-Go 2016</p>
+		</footer>
+	</div>
 	<div id="confirm">
 		<div id="container">
 			<header>
@@ -543,6 +567,11 @@
 	           console.log(response);
 	       });
 	           
+			document.getElementById('home-page').style.display = 'none';
+	        document.getElementById('try-again').style.display = 'none';
+            document.getElementById('confirm').style.display = 'none';
+            document.getElementById('PI-page').style.display = 'none';
+			document.getElementById('done').style.display = 'block';
 	       }
 	   });
 	</script> 
