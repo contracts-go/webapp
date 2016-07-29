@@ -1,442 +1,565 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <title> Contracts-Go </title>
-        <!-- Fonts yo -->
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-        <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
-          <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<head>
+	<title>Contracts-Go</title><!-- Fonts yo -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=
+	"stylesheet">
+	<link href="img/favicon.ico" rel="icon" type="image/x-icon">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel=
+	"stylesheet"><!-- Firebase auth -->
 
-        <!-- Firebase auth -->
-        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
-        <script>
-          var config = {
-            apiKey: "AIzaSyCQzpSfkf6y8PVUV1pzciwzugWvicebQA0",
-            authDomain: "contracts-go.firebaseapp.com",
-            databaseURL: "https://contracts-go.firebaseio.com",
-            storageBucket: "contracts-go.appspot.com",
-          };
-          firebase.initializeApp(config);
-          var provider = new firebase.auth.GoogleAuthProvider();
-        </script>
-        
-        <!-- CSS -->
-        <link type="text/css" rel="stylesheet" href="css/main.css"/>
-        <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
-        
-        <!-- Google log-in -->
-        <script type="text/javascript">
-        function signIn() {
-          if (!firebase.auth().currentUser) {
-            var provider = new firebase.auth.GoogleAuthProvider(); //create provider
-            provider.addScope('https://www.googleapis.com/auth/plus.login'); // add scopes here
-            firebase.auth().signInWithPopup(provider); //sign-in with redirect
-          }
-        }
+	<script src="https://code.jquery.com/jquery-1.10.2.js">
+	</script>
+	<script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js">
+	</script>
+	<script>
+	         var config = {
+	           apiKey: "AIzaSyCQzpSfkf6y8PVUV1pzciwzugWvicebQA0",
+	           authDomain: "contracts-go.firebaseapp.com",
+	           databaseURL: "https://contracts-go.firebaseio.com",
+	           storageBucket: "contracts-go.appspot.com",
+	         };
+	         firebase.initializeApp(config);
+	         var provider = new firebase.auth.GoogleAuthProvider();
+	</script><!-- CSS -->
+	<link href="css/main.css" rel="stylesheet" type="text/css">
+	<link href="materialize/css/materialize.min.css" media="screen,projection"
+	rel="stylesheet" type="text/css"><!-- Google log-in -->
 
-        function signOut() {
-            firebase.auth().signOut().then(function() {
-                document.getElementById('PI-page').style.display = 'none';
+	<script type="text/javascript">
+	       function signIn() {
+	         if (!firebase.auth().currentUser) {
+	           var provider = new firebase.auth.GoogleAuthProvider(); //create provider
+	           provider.addScope('https://www.googleapis.com/auth/plus.login'); // add scopes here
+	           firebase.auth().signInWithPopup(provider); //sign-in with redirect
+	         }
+            else{
+                document.getElementById('PI-page').style.display = 'block';
                 document.getElementById('try-again').style.display = 'none';
-                document.getElementById('home-page').style.display = 'block';
-                }, function(error) {
-                    console.log("error");
-            });
-        }
-        window.onload = function() {
-          document.getElementById('PI-page').style.display = 'none';
-          firebase.auth().getRedirectResult().then(function(result) {
-                var user = result.user;
-              })
-              firebase.auth().onAuthStateChanged(function(user) {
-                if (user.email.endsWith('stevens.edu')) {
-                    document.getElementById('home-page').style.display = 'none';
-                    document.getElementById('try-again').style.display = 'none';
-                    document.getElementById('PI-page').style.display = 'block';
-                    var name = user.displayName;
-                    var email = user.email;
-                    document.getElementById('name-prompt').innerHTML = 'Hey ' + name.substr(0,name.indexOf(' ')) + '.';
-                    $( "input[name='name']" ).val(name);
-                    $( "input[name='email']" ).val(email);
-                }
-                else{
-                    document.getElementById('home-page').style.display = 'none';
-                    document.getElementById('try-again').style.display = 'block';
-                }
-              })
-          document.getElementById('get-started').addEventListener('click', signIn, false);
-        };     
-         
-        </script>
-    </head>
-    <body>
-    <!-- Materialize js -->
-    <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
-        
-    <div id="home-page">
-        <div id="container">
-            <header>
-                <img src="img/not-a-logo.png" id="logo">
-                <p id="tagline"> Creating non-disclosure agreements has never been so easy. </p>
-                <div class="button" id="get-started"> Get Started </div>
-                <p class="caption"> By signing in with your Stevens account. </p>
-            </header>
-            <div id="moreInfo">
-                <div class="description">
-                    <img src="img/fast.png" class="icon">
-                    <h1> Fast </h1>
-                    <p> Just step through a few questions and we'll have your document generated in no time. </p>
-                </div>
-                <div class="description" id="middle_desc">
-                    <img src="img/reliable.png" class="wide-icon">
-                    <h1> Reliable </h1>
-                    <p> We get your documents where they need to go, when they need to go. </p>
-                </div>
-                <div class="description">
-                    <img src="img/easy.png" class="icon">
-                    <h1> Easy </h1>
-                    <p> No scanning documents. No sending emails. No hassle. </p>
-                </div>
-            </div>
-            <footer>
-                <p> Copyright &copy; Contacts-Go 2016 </p>
-            </footer>
-        </div>
-    </div>
-    
-        <div id="PI-page">
-            <div id="container">
-            <header>
-                <img src="img/not-a-logo.png" id="logo">
-            </header>
-            <p id="name-prompt"> </p>
-            <p class="caption_text"> We'll need just a few bits of information before we can generate your document. All fields are required. </p>
-        <div class="row">
-        <form class="col s12" id="form">
-            <!-- About you -->
-            <i class="material-icons small" style="margin-top: 12px; margin-left:  10px; float: left;">assignment_ind</i>
-            <h2 class="form_headers">
- First, about you.</h2>
-            <div class="row">
-            <div class="input-field col s6">
-                <input placeholder="Placeholder" name="name" id="name" type="text" class="validate"><label for="name" data-error="Your full name is required.">Full Name</label>
-            </div>
-            <div class="input-field col s6">
-              <input placeholder="Placeholder" disabled id="email" name="email" type="email" class="validate"><label data-error="Please enter a valid email." for="email">Email</label>
-            </div>
-              <div class="input-field col s12">
-              <input name="title" id="title" type="text" class="validate"><label for="title" data-error="A title is required.">Title</label>
-            </div>
-            </div>
-            
-            <!-- About the project -->
-            <div class="row">
-            <i class="material-icons small" style=" margin-left:  10px; float: left;">assignment</i>
-            <h2 class="form_headers"> Next, about the project.</h2>
-            
-            <div class="input-field col s12">
-              <input name="industry" id="industry" type="text" class="validate">
-              <label for="industry" data-error="An industry is required."> Industry </label>
-            </div>
-            
-            <div class="input-field col s12">
-                <textarea name="project_description" id="project_description" class="materialize-textarea" length="350"></textarea>
-                <label for="project_description" data-error="A project description is required.">Project Description</label>
-            </div>
-            </div>
-            
-            <!-- About the company -->
-            <div class="row">
-            <i class="material-icons small" style=" margin-left:  10px; float: left;">business</i>
-            <h2 class="form_headers"> Now, about the company involved.</h2>
-            <div class="input-field col s6">
-              <input name="company_name" id="company_name" type="text" class="validate">
-              <label for="company_name" data-error="A company name is required.">Company Name</label>
-            </div>
-            
-            <div class="input-field col s6">
-            <select name="company_location" id="company_location">
-                <option value="" disabled selected> Select </option>
-                <option value="Alabama">Alabama</option>
-                <option value="Alaska">Alaska</option>
-                <option value="Arizona">Arizona</option>
-                <option value="Arkansas">Arkansas</option>
-                <option value="California">California</option>
-                <option value="Colorado">Colorado</option>
-                <option value="Connecticut">Connecticut</option>
-                <option value="Delaware">Delaware</option>
-                <option value="District Of Columbia">District Of Columbia</option>
-                <option value="Florida">Florida</option>
-                <option value="Georgia">Georgia</option>
-                <option value="Hawaii">Hawaii</option>
-                <option value="Idaho">Idaho</option>
-                <option value="Illinois">Illinois</option>
-                <option value="Indiana">Indiana</option>
-                <option value="Iowa">Iowa</option>
-                <option value="Kansas">Kansas</option>
-                <option value="Kentucky">Kentucky</option>
-                <option value="Louisiana">Louisiana</option>
-                <option value="Maine">Maine</option>
-                <option value="Maryland">Maryland</option>
-                <option value="Massachusetts">Massachusetts</option>
-                <option value="Michigan">Michigan</option>
-                <option value="Minnesota">Minnesota</option>
-                <option value="Mississippi">Mississippi</option>
-                <option value="Missouri">Missouri</option>
-                <option value="Montana">Montana</option>
-                <option value="Nebraska">Nebraska</option>
-                <option value="Nevada">Nevada</option>
-                <option value="New Hampshire">New Hampshire</option>
-                <option value="New Jersey">New Jersey</option>
-                <option value="New Mexico">New Mexico</option>
-                <option value="New York">New York</option>
-                <option value="North Carolina">North Carolina</option>
-                <option value="North Dakota">North Dakota</option>
-                <option value="Ohio">Ohio</option>
-                <option value="Oklahoma">Oklahoma</option>
-                <option value="Oregon">Oregon</option>
-                <option value="Pennsylvania">Pennsylvania</option>
-                <option value="Rhode Island">Rhode Island</option>
-                <option value="South Carolina">South Carolina</option>
-                <option value="South Dakota">South Dakota</option>
-                <option value="Tennessee">Tennessee</option>
-                <option value="Texas">Texas</option>
-                <option value="Utah">Utah</option>
-                <option value="Vermont">Vermont</option>
-                <option value="Virginia">Virginia</option>
-                <option value="Washington">Washington</option>
-                <option value="West Virginia">West Virginia</option>
-                <option value="Wisconsin">Wisconsin</option>
-                <option value="Wyoming">Wyoming</option>
-            </select>
-            <label for="company_location">Company Location</label>
-          </div>
-            
-            
-            <div class="input-field col s6">
-              <input name="company_type" id="company_type" type="text" class="validate">
-              <label for="company_type" data-error="A company type is required."  data-error="Please select a state.">Company Type</label>
-            </div>
-            
-            <div class="input-field col s6">
-            <select name="company_state" id="company_state">
-                <option value="" disabled selected> Select </option>
-                <option value="Alabama">Alabama</option>
-                <option value="Alaska">Alaska</option>
-                <option value="Arizona">Arizona</option>
-                <option value="Arkansas">Arkansas</option>
-                <option value="California">California</option>
-                <option value="Colorado">Colorado</option>
-                <option value="Connecticut">Connecticut</option>
-                <option value="Delaware">Delaware</option>
-                <option value="District Of Columbia">District Of Columbia</option>
-                <option value="Florida">Florida</option>
-                <option value="Georgia">Georgia</option>
-                <option value="Hawaii">Hawaii</option>
-                <option value="Idaho">Idaho</option>
-                <option value="Illinois">Illinois</option>
-                <option value="Indiana">Indiana</option>
-                <option value="Iowa">Iowa</option>
-                <option value="Kansas">Kansas</option>
-                <option value="Kentucky">Kentucky</option>
-                <option value="Louisiana">Louisiana</option>
-                <option value="Maine">Maine</option>
-                <option value="Maryland">Maryland</option>
-                <option value="Massachusetts">Massachusetts</option>
-                <option value="Michigan">Michigan</option>
-                <option value="Minnesota">Minnesota</option>
-                <option value="Mississippi">Mississippi</option>
-                <option value="Missouri">Missouri</option>
-                <option value="Montana">Montana</option>
-                <option value="Nebraska">Nebraska</option>
-                <option value="Nevada">Nevada</option>
-                <option value="New Hampshire">New Hampshire</option>
-                <option value="New Jersey">New Jersey</option>
-                <option value="New Mexico">New Mexico</option>
-                <option value="New York">New York</option>
-                <option value="North Carolina">North Carolina</option>
-                <option value="North Dakota">North Dakota</option>
-                <option value="Ohio">Ohio</option>
-                <option value="Oklahoma">Oklahoma</option>
-                <option value="Oregon">Oregon</option>
-                <option value="Pennsylvania">Pennsylvania</option>
-                <option value="Rhode Island">Rhode Island</option>
-                <option value="South Carolina">South Carolina</option>
-                <option value="South Dakota">South Dakota</option>
-                <option value="Tennessee">Tennessee</option>
-                <option value="Texas">Texas</option>
-                <option value="Utah">Utah</option>
-                <option value="Vermont">Vermont</option>
-                <option value="Virginia">Virginia</option>
-                <option value="Washington">Washington</option>
-                <option value="West Virginia">West Virginia</option>
-                <option value="Wisconsin">Wisconsin</option>
-                <option value="Wyoming">Wyoming</option>
-            </select>
-            <label for="company_state" data-error="Please select a state.">State of Incorporation</label>
-          </div>
-            <div class="input-field col s6">
-              <input name="company_contact_name" id="company_contact_name" type="text" class="validate"><label for="company_contact_name" data-error="A company contact name is required">Company Contact Name</label>
-            </div>
-                
-            <div class="input-field col s6">
-              <input name="company_contact_email" id="company_contact_email" type="email" class="validate"> <label data-error="A valid email is required." for="company_contact_email" >Company Contact Email</label>
-            </div>
-                
-        </div>  
-            <i class="material-icons small" style=" margin-left:  10px; float: left;">mode_edit</i>
-            <h2 class="form_headers"> Finally, about the agreement.</h2>
-            <div class="row">
-              <div class="input-field col s12">
-                    <select name="type" id="nda_type">
-                        <option value="" disabled selected> Select </option>
-                        <option value="disclosing">Stevens is the Discloser</option>
-                        <option value="recipient">Stevens is the Recepient</option>
-                        <option value="mutual">Mutual</option>
-                    </select>
-                </div>
-            </div>
-                      <input type="submit" value="Go" id="go_button" class="hoverable">
-                </form>
-            </div>
-                
-            <div id="sign-out">
-                <p> Want to come back later? </p>
-                <a onclick="signOut()" style="text-decoration: underline; cursor:pointer; margin-top: 30px;"> Sign Out </a>
-            </div>
-            <footer>
-                <p> Copyright &copy; Contacts-Go 2016 </p>
-            </footer>
-        </div>
-        </div>
-        
-        <div id="try-again">
-            <div id="container">
-            <header>
-                <img src="img/not-a-logo.png" id="logo">
-            </header>
-            <p class="green_title"> Sorry. </p>
-            <p class="caption_text"> You need a valid Stevens email to create a document.</p>
-            <div class="button" onClick="signOut()" style="margin-top: 0px"> Try again. </div>
-            </div>  
-        </div>
-                
-        
-    <script>
-    $( "#form" ).submit(function( event ) {
-        event.preventDefault();
-        var errorCount = 0;
-        var $fields = $("#form :input")
-        $($fields).append($("#form select"));
-        for (i=0; i<15; i++){
-            if (i==1) {i=2;}
-            if (!($($fields[i]).val())){
-                var id = $fields[i].id;
-                console.log(id);
-                if (id == 'company_state'  || id == 'company_location' || id == "nda_type"){
-                    switch(id){
-                        case 'company_location':
-                        $($('input.select-dropdown')[0]).css("border-bottom", "2px solid #F44336");
-                        case 'company_state':
-                        $($('input.select-dropdown')[1]).css("border-bottom", "2px solid #F44336");
-                        case 'nda_type':
-                        $($('input.select-dropdown')[2]).css("border-bottom", "2px solid #F44336");
-                    }
-                    
-                }
-                else{
-                    $("#" + id).addClass("invalid");
-                    $("#" + id).prop("aria-invalid", "true");
-                    $("label[for=\'" + id + "\']").addClass("active");
-                    errorCount++;
-                }
-                }
+                document.getElementById('confirm').style.display = 'none';
+                document.getElementById('home-page').style.display = 'none';
             }
-        
-        if(errorCount == 0){
-            type = $( '#nda_type').val(),
-        
-        name = $( "input[name='name']" ).val(),
-        email = $( "input[name='email']" ).val(),
-        title = $( "input[name='title']" ).val(),
-            
-        company_type = $( "input[name='company_type']" ).val(),
-        company_name = $( "input[name='company_name']" ).val(),
-        company_state = $( "select[name='company_state']" ).val(),
-        company_location = $( "input[name='company_location_state']" ).val(),
-        company_contact_name = $( "input[name='company_contact_name']" ).val(),
-        company_contact_email = $( "input[name='company_contact_email']" ).val(),
-        
-        industry = $( "input[name='industry']" ).val(),
-        project_description = $( "input[name='project_description']" ).val(),
-        
-        url = "http://api.contractsgo.com/generate";
-        
-        data = {"pi":{
-                    "name": name,
-                    "email" : email,
-                    "title": title,
-                },
-                "company":{
-                    "type": company_type,
-                    "name": company_name,
-                    "state": company_state,
-                    "location": company_location,
-                    "contact":{
-                        "name": company_contact_name,
-                        "email": company_contact_email
-                    }
-                },
-                "project":{
-                    "industry": industry,
-                    "description": project_description
-                },
-                "type": type,
-                "emailTo":{
-                    "name": "David",
-                    "email": "fbueti@gmail.com"
-                }
-            },
-          
-            $.ajax({
-              type: "POST",
-              url: url,
-              data: data,
-              dataType: "json"
-            }).done(function(response) {
-            console.log(data);
-            console.log(response);
-        });
-            
-        }
-    });
-        </script>
-             <script>
-        $(document).ready(function() {
-            $('select').material_select();
-            if(($("#name").val())){
-                $("#name").css("border-bottom", "2px solid #00a63f");
-            }
-            
-            /* work-around for materialize select/text-area error checking */
-            $( "#company_location" ).change(function() {
-                $($('input.select-dropdown')[0]).css("border-bottom", "2px solid #00a63f");
-            });
-            $( "#company_state" ).change(function() {
-                $($('input.select-dropdown')[1]).css("border-bottom", "2px solid #00a63f");
-            });
-            $( "#nda_type" ).change(function() {
-                $($('input.select-dropdown')[2]).css("border-bottom", "2px solid #00a63f");
-            });
-            $("#project_description").change(function() {
-                if(($(this).val())){
-                    $(this).css("border-bottom", "2px solid #00a63f");
-                }
-                else{
-                    $(this).css("border-bottom", "1px solid #9e9e9e");
-                }
-            });
-        });
-        </script>
-    </body>
+	       }
+
+	       function signOut() {
+	           firebase.auth().signOut().then(function() {
+	               document.getElementById('PI-page').style.display = 'none';
+	               document.getElementById('try-again').style.display = 'none';
+                   document.getElementById('confirm').style.display = 'none';
+	               document.getElementById('home-page').style.display = 'block';
+	               }, function(error) {
+	                   console.log("error");
+	           });
+	       }
+		
+			function navToConfirm(){
+				
+				var errorCount = 0;
+	       		var $fields = $("#form :input")
+	       		$($fields).append($("#form select"));
+	       		for (i=0; i<15; i++){
+	           	if (i==1) {i=2;}
+	           	if (!($($fields[i]).val())){
+	               var id = $fields[i].id;
+	               console.log(id);
+	               if (id == 'company_state'  || id == 'company_location' || id == "nda_type"){
+	                   switch(id){
+	                       case 'company_location':
+	                       $($('input.select-dropdown')[0]).css("border-bottom", "2px solid #F44336");
+	                       case 'company_state':
+	                       $($('input.select-dropdown')[1]).css("border-bottom", "2px solid #F44336");
+	                       case 'nda_type':
+	                       $($('input.select-dropdown')[2]).css("border-bottom", "2px solid #F44336");
+	                   }
+	                   
+	               }
+	               else{
+	                   $("#" + id).addClass("invalid");
+	                   $("#" + id).prop("aria-invalid", "true");
+	                   $("label[for=\'" + id + "\']").addClass("active");
+	                   errorCount++;
+	               }
+	               }
+	           }
+	       
+	       if(errorCount == 0){
+				   $('html,body').scrollTop(0);
+			   	   name = $( "input[name='name']" ).val(),
+	       		   email = $( "input[name='email']" ).val(),
+	       		   title = $( "input[name='title']" ).val(),
+	           
+				   company_type = $( "input[name='company_type']" ).val(),
+				   company_name = $( "input[name='company_name']" ).val(),
+				   company_state = $( "select[name='company_state']" ).val(),
+				   company_location = $( "input[name='company_location_state']" ).val(),
+
+				   industry = $( "input[name='industry']" ).val(),
+				   project_description = $( "textarea[name='project_description']" ).val(),
+				   
+			       type = $( '#nda_type').val();
+
+				   if( type == "mutual"){
+			   			$( "#nda_doc" ).html("<div class=\"nda_page\"><p style=\"font-weight: bold; text-decoration: underline; text-align: center;\">CONFIDENTIAL DISCLOSURE AGREEMENT – <span class=\"highlight\">(Mutual)</span></p><br><p><b>&emsp;&emsp;&emsp;THIS CONFIDENTIALITY AGREEMENT</b> is made as of the 20th day of July, 2016, by and between Stevens Institute, a <span class=\"highlight\">" + company_name + "</span>, a <span class=\"highlight\">" + company_type + " " + company_state + "</span> having its principal offices located at <span class=\"highlight\">" + company_location + "</span> (the “Company”), and <b>THE TRUSTEES OF THE STEVENS INSTITUTE OF TECHNOLOGY</b>, a New Jersey non-profit university, having its principal offices located at One Castle Point on Hudson, 13th Floor, Hoboken, New Jersey 07030.</p><br><p><b>&emsp;&emsp;&emsp;WHEREAS</b>, Stevens engages in various activities as part of its non-profit research and educational mission which involve <span class=\"highlight\">" + industry + "</span> and may, from time to time, involve the exchange of confidential or proprietary information by both parties;</p><br><p><b>&emsp;&emsp;&emsp;WHEREAS</b>, the parties have determined that they wish to exchange confidential and/or proprietary information for the purpose of evaluating the possibility of a research or other relationship between the parties relating to <span class=\"highlight\">" + project_description + "</span> (the “Project”); </p><br><p><b>&emsp;&emsp;&emsp;NOW, THEREFORE,</b> in consideration of the mutual promises made herein, the parties hereby agree as follows:</p><br><p>&emsp;&emsp;&emsp; 1. <b>“Discloser”</b> and <b>“Recipient”</b> mean the parties hereto who may be disclosing or receiving the Confidential Information, as applicable.</p><br><p>&emsp;&emsp;&emsp; 2. As used herein, <b>“Confidential Information”</b> means all data, reports, interpretations, forecasts, records, research samples of any nature, including without limitation, proprietary software and related intellectual property, proprietary technology, and any other information (written or oral) regarding the Discloser or any of its affiliates or their respective research, properties or other activities which is not available to the general public and which the Discloser or any of its directors, officers, employees, agents or representatives (collectively, <b>“Representatives”</b>) provides to the Recipient or any of its Representatives. </p><br><p>&emsp;&emsp;&emsp; (b)    In order to be treated as Confidential Information, such information or materials must be marked “confidential” and may only be delivered to an Authorized Person of the other party.  The following persons shall be Authorized Persons for purposes of this Agreement (i) on behalf of the Company, <span class=\"highlight\">" + company_name + "</span>, and any person named as an Authorized Person in writing (which may be email) by <span class=\"highlight\">" + name + "</span> and (ii) on behalf of Stevens, <span class=\"highlight\">" + name + "</span>, and any person named as an Authorized Person in writing (which may be email) by Stevens.</p><br><p>&emsp;&emsp;&emsp; (c) Confidential Information shall not include information that (i) has become generally available to the public other than as a result of a disclosure by the Recipient or any of its Representatives, (ii) was available to the Recipient on a non-confidential basis prior to its disclosure to the Recipient by the Discloser or its Representatives, (iii) was independently developed by the Recipient or its Representatives, (iv) has become available to the Recipient on a non-confidential basis from a source other than the Discloser or its Representatives or (v) is required to be disclosed by applicable law or judicial process.</p><br></div><div class=\"nda_page\"><p>&emsp;&emsp;&emsp; 3. Each party agrees that Confidential Information shall be used only for the purposes provided herein.  The Recipient shall use the same degree of care as it uses with respect to its own confidential information (but in no event less than a reasonable degree of care) and to hold Confidential Information in confidence and not disclose Confidential Information to third parties, or use the Confidential Information except for purposes of this Agreement, in each case without the written consent of the Discloser for a period of three (3) years from the date of disclosure.  The Recipient may disclose Confidential Information to its Representatives who have a need to know the Information for purposes of this Agreement.  Each such Representative shall be informed by the Recipient of the confidential nature of such Information and shall be directed to treat the same in accordance with the provisions of this Agreement.</p><br><p>&emsp;&emsp;&emsp; 4. EACH PARTY UNDERSTANDS THAT, EXCEPT AS MAY OTHERWISE BE EXPRESSLY AGREED IN WRITING, THE DISCLOSER DOES NOT MAKE ANY REPRESENTATION OR WARRANTY REGARDING THE CONFIDENTIAL INFORMATION INCLUDING, WITHOUT LIMITATION, ANY REPRESENTATION OR WARRANTY REGARDING THE ACCURACY, COMPLETENESS OR NON-INFRINGING STATUS OF THE CONFIDENTIAL INFORMATION.</p><br><p>&emsp;&emsp;&emsp; 5. No right or license is granted hereby to the Recipient, expressly or by implication, with respect to the Confidential Information, or any patent, patent application or other proprietary right of the Discloser, notwithstanding the termination of the confidentiality obligations of this Agreement.</p><br><p>&emsp;&emsp;&emsp; 6. Each party will, promptly upon the request of the other party, deliver to that Party any and all documents and materials comprising such party’s Confidential Information or any part thereof and will destroy any copies, notes or extracts thereof, without retaining any copy thereof, or destroy such documents and materials upon such party’s request (such destruction to be confirmed in writing).</p><br><p>&emsp;&emsp;&emsp; 7. IN NO EVENT SHALL EITHER PARTY BE LIABLE FOR ANY SPECIAL, INCIDENTAL, PUNITIVE, INDIRECT OR CONSEQUENTIAL DAMAGES INCLUDING LOSS OF ECONOMIC ADVANTAGE, BUSINESS, PROFITS, DATA OR INACCURACY OF DATA IN CONNECTION WITH OR ARISING OUT OF THIS AGREEMENT WHETHER OR NOT A PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES AND REGARDLESS OF THE FORM OF ACTION OR LEGAL THEORY (WHETHER IN CONTRACT OR IN TORT INCLUDING STRICT TORT LIABILITY OR BASED UPON A WARRANTY) UNDER WHICH THE LIABILITY MAY BE ASSERTED.</p><br><p>&emsp;&emsp;&emsp; 8. This Agreement shall be governed and construed in accordance with the laws of the State of New Jersey, without giving effect to its conflict of laws principles or rules. Each party hereby irrevocably and unconditionally consents to the exclusive jurisdiction of the courts of the State of New Jersey and of the United States of America located in New Jersey for any actions, suits or proceedings arising out of or relating to this Agreement, and further agrees that service of any process, summons, notice or document by U.S. certified mail to its address set forth in the preamble to this Agreement shall be effective service of process for any action, suit or proceeding brought against it in any such court.</p><br></div><div class=\"nda_page\"><p>&emsp;&emsp;&emsp;9. This Agreement contains the entire understanding between the parties.  It supersedes all prior or contemporaneous communications, agreements or understandings between the parties about the exchange and protection of Confidential Information provided under this Agreement.  If any of the provisions of this Agreement are not enforceable in whole or in part, the remaining provisions of this Agreement shall not be affected thereby.  No failure or delay in exercising any other right, power or privilege hereunder shall operate as a waiver thereof, nor shall any single or partial exercise thereof preclude any other or further exercise thereof or the exercise of any other right, power or privilege hereunder.  Neither party may assign this Agreement without the prior written consent of the other party hereto.  No amendment or modification to this Agreement shall be effective unless made in writing and signed by both parties.  This Agreement may be signed in separate counterparts which, together, shall constitute one and the same agreement.</p><br> <p>&emsp;&emsp;&emsp;10.  This Agreement does not constitute an export license, and each party remains responsible for its own compliance with any restrictions or other requirements imposed by any and all export control statutes, regulations, and other requirements.</p><br> <p>&emsp;&emsp;&emsp;<b>IN WITNESS WHEREOF,</b> the parties have caused the Agreement to be signed by their duly authorized representatives as of the date first above written.</p><br><br><br><p style=\"font-family: 'Open Sans', sans-serif; text-align: center; font-weight: bold;\" > You'll use the remaining space to sign, after all parties have approved this document. </p></div>");
+				   }
+					if( type == "disclosing"){
+						$( "#nda_doc" ).html("<div class=\"nda_page\"><p style=\"font-weight: bold; text-decoration: underline; text-align: center;\">CONFIDENTIAL DISCLOSURE AGREEMENT – <span class=\"highlight\"> (STEVENS DISCLOSING)</span></p><br><p><b>&emsp;&emsp;&emsp;THIS CONFIDENTIALITY AGREEMENT</b> is made as of the 20th day of July, 2016, by and between Stevens Institute, a <span class=\"highlight\">" + company_name + "</span>, a <span class=\"highlight\">" + company_type + " " + company_state + "</span> having its principal offices located at <span class=\"highlight\">" + company_location + "</span> (the “Company”), and <b>THE TRUSTEES OF THE STEVENS INSTITUTE OF TECHNOLOGY</b>, a New Jersey non-profit university, having its principal offices located at One Castle Point on Hudson, 13th Floor, Hoboken, New Jersey 07030.</p><br><p><b>&emsp;&emsp;&emsp;WHEREAS</b>, Stevens engages in various activities as part of its non-profit research and educational mission which involve <span class=\"highlight\">" + industry + "</span> and may, from time to time, involve providing confidential or proprietary information to another party;</p><br><p><b>&emsp;&emsp;&emsp;WHEREAS</b>, Stevens wishes to provide the Company with certain confidential and proprietary information of Stevens for the purpose of evaluating the possibility of a research or other relationship between the parties relating to <span class=\"highlight\">" + project_description + "</span> (the “Project”); and </p><br><p><b>&emsp;&emsp;&emsp;NOW, THEREFORE,</b> in consideration of the mutual promises made herein, the parties hereby agree as follows:<br><p>&emsp;&emsp;&emsp; 1. As used herein, <b>“Confidential Information”</b> means all data, reports, interpretations, forecasts, records, research samples of any nature, including without limitation, proprietary software and related intellectual property, proprietary technology, and any other information (written or oral) regarding Stevens or any of its affiliates or their respective research, properties or other activities which is not available to the general public and which Stevens or any of its trustees, officers, employees, agents or representatives  provides to the Company or any of its directors, officers, employees, agents or representatives (collectively, <b>“Representatives”).</b></p><br><p>&emsp;&emsp;&emsp; (b) Confidential Information shall not include information that (i) has become generally available to the public other than as a result of a disclosure by the Company or any of its Representatives, (ii) was available to the Company on a non-confidential basis prior to its disclosure to by Stevens, (iii) was independently developed by the Company or its Representatives, (iv) has become available to the Company on a non-confidential basis from a source other than Stevens or (v) is required to be disclosed by applicable law or judicial process.</p><br><p>&emsp;&emsp;&emsp; 2. The Company agrees that Confidential Information shall be used only for the purposes provided herein.  The Company shall use the same degree of care as it uses with respect to its confidential information (but in no event less than a reasonable degree of care) and to hold Confidential Information in confidence and not disclose the Information to others, or use the Information except for purposes of this Agreement, without the written consent of Stevens for a period of three (3) years from the date of disclosure.  The Company may disclose Confidential Information to its Representatives who have a need to know the same for purposes of this Agreement.  Each such Representative shall be informed by the Company of the confidential and</p><br></div><div class=\"nda_page\"><p>&emsp;&emsp;&emsp; proprietary nature of such Confidential Information and shall be directed to treat the same in accordance with the provisions of this Agreement.  </p><br> <p>&emsp;&emsp;&emsp;3. THE COMPANY UNDERSTANDS THAT, EXCEPT AS MAY OTHERWISE BE EXPRESSLY AGREED IN WRITING, STEVENS DOES NOT MAKE ANY REPRESENTATION OR WARRANTY REGARDING THE CONFIDENTIAL INFORMATION INCLUDING, WITHOUT LIMITATION, ANY REPRESENTATION OR WARRANTY REGARDING THE ACCURACY, COMPLETENESS OR NON-INFRINGING STATUS OF THE CONFIDENTIAL INFORMATION.</p><br><p>&emsp;&emsp;&emsp;4. No right or license is granted hereby to the Company, expressly or by implication, with respect to the Confidential Information, or any patent, patent application or other proprietary right of Stevens, notwithstanding the termination of the confidentiality obligations of this Agreement.</p><br><p>&emsp;&emsp;&emsp; 5. The Company will, promptly upon the request of Stevens, deliver to Stevens any and all documents and materials comprising Confidential Information or any part thereof and will destroy any copies, notes or extracts thereof, without retaining any copy thereof, or destroy such documents and materials upon such party’s request (such destruction to be confirmed in writing).</p><br><p>&emsp;&emsp;&emsp; 6. This Agreement shall be governed and construed in accordance with the laws of the State of New Jersey, without giving effect to its conflict of laws principles or rules. Each party hereby irrevocably and unconditionally consents to the exclusive jurisdiction of the courts of the State of New Jersey and of the United States of America located in New Jersey for any actions, suits or proceedings arising out of or relating to this Agreement, and further agrees that service of any process, summons, notice or document by U.S. certified mail to its address set forth in the preamble to this Agreement shall be effective service of process for any action, suit or proceeding brought against it in any such court.</p><br><p>&emsp;&emsp;&emsp; 7. This Agreement contains the entire understanding between the parties.  It supersedes all prior or contemporaneous communications, agreements or understandings between the parties about the exchange and protection of Confidential Information provided under this Agreement.  If any of the provisions of this Agreement are not enforceable in whole or in part, the remaining provisions of this Agreement shall not be affected thereby.  No failure or delay in exercising any other right, power or privilege hereunder shall operate as a waiver thereof, nor shall any single or partial exercise thereof preclude any other or further exercise thereof or the exercise of any other right, power or privilege hereunder.  Neither party may assign this Agreement without the prior written consent of the other party hereto.  No amendment or modification to this Agreement shall be effective unless made in writing and signed by both parties.  This Agreement may be signed in separate counterparts which, together, shall constitute one and the same agreement.</p><br><p>&emsp;&emsp;&emsp; 8. This Agreement does not constitute an export license, and each party remains responsible for its own compliance with any restrictions or other requirements imposed by any and all export control statutes, regulations, and other controlling requirements.</p><br></div><div class=\"nda_page\"><p>&emsp;&emsp;&emsp;<b>IN WITNESS WHEREOF,</b> the parties have caused the Agreement to be signed by their duly authorized representatives as of the date first above written.</p><br><br><br><p style=\"font-family: 'Open Sans', sans-serif; text-align: center; font-weight: bold;\" > You'll use the remaining space to sign, after all parties have approved this document. </p></div>");
+					}
+					if( type == "recipient"){
+						$( "#nda_doc" ).html("<div class=\"nda_page\"><p style=\"font-weight: bold; text-decoration: underline; text-align: center;\">CONFIDENTIAL DISCLOSURE AGREEMENT – <span class=\"highlight\"> (STEVENS AS RECIPIENT)</span></p><br><p><b>&emsp;&emsp;&emsp;THIS CONFIDENTIALITY AGREEMENT</b> is made as of the 20th day of July, 2016, by and between Stevens Institute, a <span class=\"highlight\">" + company_name + "</span>, a <span class=\"highlight\">" + company_type + " " + company_state + "</span> having its principal offices located at <span class=\"highlight\">" + company_location + "</span> (the “Company”), and <b>THE TRUSTEES OF THE STEVENS INSTITUTE OF TECHNOLOGY</b>, a New Jersey non-profit university, having its principal offices located at One Castle Point on Hudson, 13th Floor, Hoboken, New Jersey 07030.</p><br><p><b>&emsp;&emsp;&emsp;WHEREAS</b>, Stevens engages in various activities as part of its non-profit research and educational mission which involve <span class=\"highlight\">" + industry + "</span> and may, from time to time, involve providing confidential or proprietary information to another party;</p><br><p><b>&emsp;&emsp;&emsp;WHEREAS</b>, the Company wishes to provide Stevens with certain confidential and proprietary information of the Company for the purpose of evaluating the possibility of a research or other relationship between the parties relating to <span class=\"highlight\">" + project_description + "</span> (the “Project”); and </p><br><p><b>&emsp;&emsp;&emsp;NOW, THEREFORE,</b> in consideration of the mutual promises made herein, the parties hereby agree as follows:<br><p>&emsp;&emsp;&emsp; 1. As used herein, <b>“Confidential Information”</b> means all data, reports, interpretations, forecasts, records, research samples of any nature, including without limitation, proprietary software and related intellectual property, proprietary technology, and any other information (written or oral) regarding the Company or any of its affiliates or their respective research, properties or other activities which is not available to the general public and which the Company or any of its directors, officers, employees, agents or representatives  provides to Stevens as provided below.</p><br><p>&emsp;&emsp;&emsp; (b)  Confidential Information shall not include information that (i) has become generally available to the public other than as a result of a disclosure by Stevens, (ii) was available to Stevens on a non-confidential basis prior to its disclosure to Stevens, (iii) was independently developed by Stevens or its employees, (iv) has become available to Stevens on a non-confidential basis from a source other than the Company or (v) is required to be disclosed by applicable law or judicial process.</p><br><p>&emsp;&emsp;&emsp; (c) In order to be treated as Confidential Information, such information or materials must be marked “confidential” and may only be delivered to an Authorized Person of Stevens.  The following person(s) shall be Authorized Persons for purposes of this Agreement on behalf of Stevens:" + name + ", " + title + ". Stevens may modify this designation by written notice to the Company.</p><br><p>&emsp;&emsp;&emsp; Stevens agrees that Confidential Information shall be used only for the purposes provided herein.  Stevens shall use the same degree of care as it uses with respect to its confidential information (but in no event less than a reasonable degree of care) and to hold Confidential Information in confidence and not disclose the Information to others, or use the </p><br></div><div class=\"nda_page\"><p>Information except for purposes of this Agreement, without the written consent of the Company for a period of three (3) years from the date of disclosure.  Stevens may disclose Confidential Information to its employees who have a need to know the same for purposes of this Agreement.  Each such employee shall be informed by Stevens of the confidential and proprietary nature of such Confidential Information and shall be directed to treat the same in accordance with the provisions of this Agreement.  </p><br> <p>&emsp;&emsp;&emsp;3. STEVENS UNDERSTANDS THAT, EXCEPT AS MAY OTHERWISE BE EXPRESSLY AGREED IN WRITING, THE COMPANY DOES NOT MAKE ANY REPRESENTATION OR WARRANTY REGARDING THE CONFIDENTIAL INFORMATION INCLUDING, WITHOUT LIMITATION, ANY REPRESENTATION OR WARRANTY REGARDING THE ACCURACY, COMPLETENESS OR NON-INFRINGING STATUS OF THE CONFIDENTIAL INFORMATION.</p><br><p>&emsp;&emsp;&emsp;4. No right or license is granted hereby to the Company, expressly or by implication, with respect to the Confidential Information, or any patent, patent application or other proprietary right of Stevens, notwithstanding the termination of the confidentiality obligations of this Agreement.</p><br><p>&emsp;&emsp;&emsp; 5. Stevens will, promptly upon the request of the Company, deliver to the Company any and all documents and materials comprising Confidential Information or any part thereof and will destroy any copies, notes or extracts thereof, without retaining any copy thereof, or destroy such documents and materials upon such party’s request (such destruction to be confirmed in writing).</p><br><p>&emsp;&emsp;&emsp; 6. TThis Agreement shall be governed and construed in accordance with the laws of the State of New Jersey, without giving effect to its conflict of laws principles or rules. Each party hereby irrevocably and unconditionally consents to the exclusive jurisdiction of the courts of the State of New Jersey and of the United States of America located in New Jersey for any actions, suits or proceedings arising out of or relating to this Agreement, and further agrees that service of any process, summons, notice or document by U.S. certified mail to its address set forth in the preamble to this Agreement shall be effective service of process for any action, suit or proceeding brought against it in any such court.</p><br><p>&emsp;&emsp;&emsp; 7. This Agreement contains the entire understanding between the parties.  It supersedes all prior or contemporaneous communications, agreements or understandings between the parties about the exchange and protection of Confidential Information provided under this Agreement.  If any of the provisions of this Agreement are not enforceable in whole or in part, the remaining provisions of this Agreement shall not be affected thereby.  No failure or delay in exercising any other right, power or privilege hereunder shall operate as a waiver thereof, nor shall any single or partial exercise thereof preclude any other or further exercise thereof or the exercise of any other right, power or privilege hereunder.  Neither party may assign this Agreement without the prior written consent of the other party hereto.  No amendment or modification to this Agreement shall be effective unless made in writing and signed by both parties.  This Agreement may be signed in separate counterparts which, together, shall constitute one and the same agreement.</p><br></div><div class=\"nda_page\"><p>&emsp;&emsp;&emsp; 8. This Agreement does not constitute an export license, and each party remains responsible for its own compliance with any restrictions or other requirements imposed by any and all export control statutes, regulations, and other controlling requirements.</p><br><p>&emsp;&emsp;&emsp;<b>IN WITNESS WHEREOF,</b> the parties have caused the Agreement to be signed by their duly authorized representatives as of the date first above written.</p><br><br><br><p style=\"font-family: 'Open Sans', sans-serif; text-align: center; font-weight: bold;\" > You'll use the remaining space to sign, after all parties have approved this document. </p></div>");
+					}
+				   document.getElementById('PI-page').style.display = 'none';
+	               document.getElementById('try-again').style.display = 'none';
+                   document.getElementById('confirm').style.display = 'block';
+	               document.getElementById('home-page').style.display = 'none';
+			}
+			}
+		
+	       window.onload = function() {
+	         document.getElementById('PI-page').style.display = 'none';
+	         firebase.auth().getRedirectResult().then(function(result) {
+	               var user = result.user;
+	             })
+	             firebase.auth().onAuthStateChanged(function(user) {
+				   if (user){
+	               if (user.email.endsWith('stevens.edu')) {
+	                   document.getElementById('home-page').style.display = 'none';
+	                   document.getElementById('try-again').style.display = 'none';
+                       document.getElementById('confirm').style.display = 'none';
+                       document.getElementById('PI-page').style.display = 'block';
+	                   var name = user.displayName;
+	                   var email = user.email;
+	                   document.getElementById('name-prompt').innerHTML = 'Hey ' + name.substr(0,name.indexOf(' ')) + '.';
+	                   $( "input[name='name']" ).val(name);
+	                   $( "input[name='email']" ).val(email);
+	               }
+	               else{
+	                   document.getElementById('home-page').style.display = 'none';
+	                   document.getElementById('try-again').style.display = 'block';
+                       document.getElementById('confirm').style.display = 'none';
+                       document.getElementById('PI-page').style.display = 'none';
+	               }
+	             }
+				 })
+	         document.getElementById('get-started').addEventListener('click', signIn, false);
+	         document.getElementById('go-back').addEventListener('click', signIn, false);
+	       };     
+	        
+	</script>
+</head>
+<body>
+	<!-- Materialize js -->
+	<script src="materialize/js/materialize.min.js" type="text/javascript">
+	</script>
+	<div id="home-page">
+		<div id="container">
+			<header>
+				<img id="logo" src="img/not-a-logo.png">
+				<p id="tagline">Creating non-disclosure agreements has never been so
+				easy.</p>
+				<div class="button" id="get-started">
+					Get Started
+				</div>
+				<p class="caption">By signing in with your Stevens account.</p>
+			</header>
+			<div id="moreInfo">
+				<div class="description">
+					<img class="icon" src="img/fast.png">
+					<h1>Fast</h1>
+					<p>Just step through a few questions and we'll have your document
+					generated in no time.</p>
+				</div>
+				<div class="description" id="middle_desc">
+					<img class="wide-icon" src="img/reliable.png">
+					<h1>Reliable</h1>
+					<p>We get your documents where they need to go, when they need to go.</p>
+				</div>
+				<div class="description">
+					<img class="icon" src="img/easy.png">
+					<h1>Easy</h1>
+					<p>No scanning documents. No sending emails. No hassle.</p>
+				</div>
+			</div>
+			<footer>
+				<p>Copyright &copy; Contacts-Go 2016</p>
+			</footer>
+		</div>
+	</div>
+	<div id="PI-page">
+		<div id="container">
+			<header>
+				<img id="logo" src="img/not-a-logo.png">
+			</header>
+			<p id="name-prompt"></p>
+			<p class="caption_text">We'll need just a few bits of information before we
+			can generate your document. All fields are required.</p>
+			<div class="row">
+				<form class="col s12" id="form" name="form">
+					<!-- About you -->
+					<i class="material-icons small" style=
+					"margin-top: 12px; margin-left: 10px; float: left;">assignment_ind</i>
+					<h2 class="form_headers">First, about you.</h2>
+					<div class="row">
+						<div class="input-field col s6">
+							<input class="validate" id="name" name="name" placeholder="Placeholder"
+							type="text"><label data-error="Your full name is required." for=
+							"name">Full Name</label>
+						</div>
+						<div class="input-field col s6">
+							<input class="validate" disabled id="email" name="email" placeholder=
+							"Placeholder" type="email"><label data-error=
+							"Please enter a valid email." for="email">Email</label>
+						</div>
+						<div class="input-field col s12">
+							<input class="validate" id="title" name="title" type=
+							"text"><label data-error="A title is required." for=
+							"title">Title</label>
+						</div>
+					</div><!-- About the project -->
+					<div class="row">
+						<i class="material-icons small" style=
+						" margin-left: 10px; float: left;">assignment</i>
+						<h2 class="form_headers">Next, about the project.</h2>
+						<div class="input-field col s12">
+							<input class="validate" id="industry" name="industry" type="text">
+							<label data-error="An industry is required." for=
+							"industry">Industry</label>
+						</div>
+						<div class="input-field col s12">
+							<textarea class="materialize-textarea" id="project_description" name=
+							"project_description"></textarea> <label data-error=
+							"A project description is required." for="project_description">Project
+							Description</label>
+						</div>
+					</div><!-- About the company -->
+					<div class="row">
+						<i class="material-icons small" style=
+						" margin-left: 10px; float: left;">business</i>
+						<h2 class="form_headers">Now, about the company involved.</h2>
+						<div class="input-field col s6">
+							<input class="validate" id="company_name" name="company_name" type=
+							"text"> <label data-error="A company name is required." for=
+							"company_name">Company Name</label>
+						</div>
+						<div class="input-field col s6">
+							<select id="company_location" name="company_location">
+								<option value="" disabled selected> Select </option>
+								<option value="Alabama">Alabama</option>
+								<option value="Alaska">Alaska</option>
+								<option value="Arizona">Arizona</option>
+								<option value="Arkansas">Arkansas</option>
+								<option value="California">California</option>
+								<option value="Colorado">Colorado</option>
+								<option value="Connecticut">Connecticut</option>
+								<option value="Delaware">Delaware</option>
+								<option value="District Of Columbia">District Of Columbia</option>
+								<option value="Florida">Florida</option>
+								<option value="Georgia">Georgia</option>
+								<option value="Hawaii">Hawaii</option>
+								<option value="Idaho">Idaho</option>
+								<option value="Illinois">Illinois</option>
+								<option value="Indiana">Indiana</option>
+								<option value="Iowa">Iowa</option>
+								<option value="Kansas">Kansas</option>
+								<option value="Kentucky">Kentucky</option>
+								<option value="Louisiana">Louisiana</option>
+								<option value="Maine">Maine</option>
+								<option value="Maryland">Maryland</option>
+								<option value="Massachusetts">Massachusetts</option>
+								<option value="Michigan">Michigan</option>
+								<option value="Minnesota">Minnesota</option>
+								<option value="Mississippi">Mississippi</option>
+								<option value="Missouri">Missouri</option>
+								<option value="Montana">Montana</option>
+								<option value="Nebraska">Nebraska</option>
+								<option value="Nevada">Nevada</option>
+								<option value="New Hampshire">New Hampshire</option>
+								<option value="New Jersey">New Jersey</option>
+								<option value="New Mexico">New Mexico</option>
+								<option value="New York">New York</option>
+								<option value="North Carolina">North Carolina</option>
+								<option value="North Dakota">North Dakota</option>
+								<option value="Ohio">Ohio</option>
+								<option value="Oklahoma">Oklahoma</option>
+								<option value="Oregon">Oregon</option>
+								<option value="Pennsylvania">Pennsylvania</option>
+								<option value="Rhode Island">Rhode Island</option>
+								<option value="South Carolina">South Carolina</option>
+								<option value="South Dakota">South Dakota</option>
+								<option value="Tennessee">Tennessee</option>
+								<option value="Texas">Texas</option>
+								<option value="Utah">Utah</option>
+								<option value="Vermont">Vermont</option>
+								<option value="Virginia">Virginia</option>
+								<option value="Washington">Washington</option>
+								<option value="West Virginia">West Virginia</option>
+								<option value="Wisconsin">Wisconsin</option>
+								<option value="Wyoming">Wyoming</option>
+							</select> <label for="company_location">Company Location</label>
+						</div>
+						<div class="input-field col s6">
+							<input class="validate" id="company_type" name="company_type" type=
+							"text"> <label data-error="Please select a state." for=
+							"company_type">Company Type</label>
+						</div>
+						<div class="input-field col s6">
+							<select id="company_state" name="company_state">
+<option value="" disabled selected> Select </option>
+								<option value="Alabama">Alabama</option>
+								<option value="Alaska">Alaska</option>
+								<option value="Arizona">Arizona</option>
+								<option value="Arkansas">Arkansas</option>
+								<option value="California">California</option>
+								<option value="Colorado">Colorado</option>
+								<option value="Connecticut">Connecticut</option>
+								<option value="Delaware">Delaware</option>
+								<option value="District Of Columbia">District Of Columbia</option>
+								<option value="Florida">Florida</option>
+								<option value="Georgia">Georgia</option>
+								<option value="Hawaii">Hawaii</option>
+								<option value="Idaho">Idaho</option>
+								<option value="Illinois">Illinois</option>
+								<option value="Indiana">Indiana</option>
+								<option value="Iowa">Iowa</option>
+								<option value="Kansas">Kansas</option>
+								<option value="Kentucky">Kentucky</option>
+								<option value="Louisiana">Louisiana</option>
+								<option value="Maine">Maine</option>
+								<option value="Maryland">Maryland</option>
+								<option value="Massachusetts">Massachusetts</option>
+								<option value="Michigan">Michigan</option>
+								<option value="Minnesota">Minnesota</option>
+								<option value="Mississippi">Mississippi</option>
+								<option value="Missouri">Missouri</option>
+								<option value="Montana">Montana</option>
+								<option value="Nebraska">Nebraska</option>
+								<option value="Nevada">Nevada</option>
+								<option value="New Hampshire">New Hampshire</option>
+								<option value="New Jersey">New Jersey</option>
+								<option value="New Mexico">New Mexico</option>
+								<option value="New York">New York</option>
+								<option value="North Carolina">North Carolina</option>
+								<option value="North Dakota">North Dakota</option>
+								<option value="Ohio">Ohio</option>
+								<option value="Oklahoma">Oklahoma</option>
+								<option value="Oregon">Oregon</option>
+								<option value="Pennsylvania">Pennsylvania</option>
+								<option value="Rhode Island">Rhode Island</option>
+								<option value="South Carolina">South Carolina</option>
+								<option value="South Dakota">South Dakota</option>
+								<option value="Tennessee">Tennessee</option>
+								<option value="Texas">Texas</option>
+								<option value="Utah">Utah</option>
+								<option value="Vermont">Vermont</option>
+								<option value="Virginia">Virginia</option>
+								<option value="Washington">Washington</option>
+								<option value="West Virginia">West Virginia</option>
+								<option value="Wisconsin">Wisconsin</option>
+								<option value="Wyoming">Wyoming</option>
+							</select> <label data-error="Please select a state." for=
+							"company_state">State of Incorporation</label>
+						</div>
+						<div class="input-field col s6">
+							<input class="validate" id="company_contact_name" name=
+							"company_contact_name" type="text"><label data-error=
+							"A company contact name is required" for="company_contact_name">Company
+							Contact Name</label>
+						</div>
+						<div class="input-field col s6">
+							<input class="validate" id="company_contact_email" name=
+							"company_contact_email" type="email"> <label data-error=
+							"A valid email is required." for="company_contact_email">Company Contact
+							Email</label>
+						</div>
+					</div><i class="material-icons small" style=
+					" margin-left: 10px; float: left;">mode_edit</i>
+					<h2 class="form_headers">Finally, about the agreement.</h2>
+					<div class="row">
+						<div class="input-field col s12">
+							<select id="nda_type" name="type">
+								<option disabled selected value="">Select
+								</option>
+								<option value="disclosing">Stevens is the Discloser
+								</option>
+								<option value="recipient">Stevens is the Recepient
+								</option>
+								<option value="mutual">Mutual
+								</option>
+							</select>
+						</div>
+					</div>
+					<div class="go_button" onClick="navToConfirm()" style="padding-top: 10px; height: 50px">Go</div>
+			</div>
+			<div id="sign-out">
+				<p>Want to come back later?</p><a onclick="signOut()" style=
+				"text-decoration: underline; cursor:pointer; margin-top: 30px;">Sign
+				Out</a>
+			</div>
+			<footer>
+				<p>Copyright &copy; Contacts-Go 2016</p>
+			</footer>
+		</div>
+	</div>
+	<div id="try-again">
+		<div id="container">
+			<header>
+				<img id="logo" src="img/not-a-logo.png">
+			</header>
+			<p class="green_title">Sorry.</p>
+			<p class="caption_text">You need a valid Stevens email to create a
+			document.</p>
+			<div class="button" onclick="signOut()" style="margin-top: 0px">
+				Try again.
+			</div>
+		</div>
+		<div id="sign-out">
+			<p>Want to come back later?</p><a onclick="signOut()" style=
+			"text-decoration: underline; cursor:pointer; margin-top: 30px;">Sign Out</a>
+		</div>
+		<footer>
+			<p>Copyright &copy; Contacts-Go 2016</p>
+		</footer>
+	</div>
+	<div id="confirm">
+		<div id="container">
+			<header>
+				<img id="logo" src="img/not-a-logo.png">
+			</header>
+			<p class="green_title">Here's your document.</p>
+			<p class="caption_text">Check over the highlighted sections. If everything
+			looks okay, go ahead and submit it. If something's wrong, <a id="go-back" style="text-decoration:underline">go back</a>.</p>
+			<div id="nda_doc">
+			
+				
+				
+				
+			</div>
+			<input class="go_button" id="go_button" type="submit" value="Submit" style="margin-top: 20px">
+						</form>
+		<footer>
+			<p><br><br>Copyright &copy; Contacts-Go 2016</p>
+		</footer>
+	</div>
+	</div>
+	
+	<script>
+	   $( "#form" ).submit(function( event ) {
+	       event.preventDefault();
+	       var errorCount = 0;
+	       var $fields = $("#form :input")
+	       $($fields).append($("#form select"));
+	       for (i=0; i<15; i++){
+	           if (i==1) {i=2;}
+	           if (!($($fields[i]).val())){
+	               var id = $fields[i].id;
+	               console.log(id);
+	               if (id == 'company_state'  || id == 'company_location' || id == "nda_type"){
+	                   switch(id){
+	                       case 'company_location':
+	                       $($('input.select-dropdown')[0]).css("border-bottom", "2px solid #F44336");
+	                       case 'company_state':
+	                       $($('input.select-dropdown')[1]).css("border-bottom", "2px solid #F44336");
+	                       case 'nda_type':
+	                       $($('input.select-dropdown')[2]).css("border-bottom", "2px solid #F44336");
+	                   }
+	                   
+	               }
+	               else{
+	                   $("#" + id).addClass("invalid");
+	                   $("#" + id).prop("aria-invalid", "true");
+	                   $("label[for=\'" + id + "\']").addClass("active");
+	                   errorCount++;
+	               }
+	               }
+	           }
+	       
+	       if(errorCount == 0){
+	       
+			type = $( '#nda_type').val(),
+	       
+	       name = $( "input[name='name']" ).val(),
+	       email = $( "input[name='email']" ).val(),
+	       title = $( "input[name='title']" ).val(),
+	           
+	       company_type = $( "input[name='company_type']" ).val(),
+	       company_name = $( "input[name='company_name']" ).val(),
+	       company_state = $( "select[name='company_state']" ).val(),
+	       company_location = $( "input[name='company_location_state']" ).val(),
+	       company_contact_name = $( "input[name='company_contact_name']" ).val(),
+	       company_contact_email = $( "input[name='company_contact_email']" ).val(),
+	       
+	       industry = $( "input[name='industry']" ).val(),
+	       project_description = $( "input[name='project_description']" ).val(),
+	       
+	       url = "http://api.contractsgo.com/generate";
+	       
+	       data = {"pi":{
+	                   "name": name,
+	                   "email" : email,
+	                   "title": title,
+	               },
+	               "company":{
+	                   "type": company_type,
+	                   "name": company_name,
+	                   "state": company_state,
+	                   "location": company_location,
+	                   "contact":{
+	                       "name": company_contact_name,
+	                       "email": company_contact_email
+	                   }
+	               },
+	               "project":{
+	                   "industry": industry,
+	                   "description": project_description
+	               },
+	               "type": type,
+	               "emailTo":{
+	                   "name": "David",
+	                   "email": "fbueti@gmail.com"
+	               }
+	           },
+	         
+	           $.ajax({
+	             type: "POST",
+	             url: url,
+	             data: data,
+	             dataType: "json"
+	           }).done(function(response) {
+	           console.log(data);
+	           console.log(response);
+	       });
+	           
+	       }
+	   });
+	</script> 
+	<script>
+	       $(document).ready(function() {
+			   $('#pi-page').hide();
+			   $('#confirm').hide();
+			   $('#try-again').hide();
+	           $('select').material_select();
+	           if(($("#name").val())){
+	               $("#name").css("border-bottom", "2px solid #00a63f");
+	           }
+	           
+	           /* work-arounds for materialize select/text-area error checking */
+	           $( "#company_location" ).change(function() {
+	               $($('input.select-dropdown')[0]).css("border-bottom", "2px solid #00a63f");
+	           });
+	           $( "#company_state" ).change(function() {
+	               $($('input.select-dropdown')[1]).css("border-bottom", "2px solid #00a63f");
+	           });
+	           $( "#nda_type" ).change(function() {
+	               $($('input.select-dropdown')[2]).css("border-bottom", "2px solid #00a63f");
+	           });
+	           $("#project_description").change(function() {
+	               if(($(this).val())){
+	                   $(this).css("border-bottom", "2px solid #00a63f");
+	               }
+	               else{
+	                   $(this).css("border-bottom", "1px solid #9e9e9e");
+	               }
+	           });
+	       });
+	</script>
+</body>
 </html>

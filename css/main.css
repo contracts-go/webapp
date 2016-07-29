@@ -1,8 +1,12 @@
- *{
+            *{
                 margin: 0;
                 padding: 0;
                 font-family: 'Open Sans', sans-serif;
                 color: #1B2021;
+            }
+            a:hover{
+                cursor: pointer;
+                opacity: .8;
             }
             #logo{
                 max-width: 200px;
@@ -156,7 +160,7 @@
                 line-height: 110%;
                 margin: 0.82rem 0 0.656rem 50px;
             }
-            #go_button{
+            .go_button{
                 background-color: #00a63f;
                 width: 150px;
                 height: 50px;
@@ -167,6 +171,34 @@
                 float: right;
                 font-size: 1.2em;
                 box-shadow: none;
+            }
+            .go_button:hover{
+                cursor: pointer;
+                opacity: .8;
+            }
+            .nda_page {
+                font-family: "Times New Roman", Times, serif;
+                height: 1030px;
+                color: black;
+                width: 80%;
+                margin: auto;
+                padding: 60px 6%;
+                margin-bottom: 20px;
+                  box-shadow: 0 0 5px 2px rgba(0,0,0,.1);
+                background-color: white;
+            }
+            #nda_doc{
+                height: 1155px;
+                overflow-y: scroll;
+                padding: 60px 0px;
+                background-color: #f2f2f2;
+            }
+            .nda_page p, .nda_page span, .nda_page b{
+                font-family: "Times New Roman", Times, serif;
+                font-size: 1em;
+            }
+            .highlight{
+                background-color: yellow;
             }
             @media (max-width: 570px) {
                 .description{
