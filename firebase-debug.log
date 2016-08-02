@@ -3,33 +3,7 @@
 [debug] CLI Version:  3.0.4
 [debug] Platform:     linux
 [debug] Node Version: v6.2.2
-[debug] Time:         Fri Jul 29 2016 11:49:58 GMT-0400 (EDT)
-[debug] ----------------------------------------------------------------------
-[debug] 
-[info] Starting Firebase development server...
-[info] 
-[warn] ⚠  No Firebase project directory detected. Serving static content from /home/fbueti/Desktop/contracts/webapp
-[info] 
-[info] Server listening at: http://localhost:5000
-[debug] ----------------------------------------------------------------------
-[debug] Command:      /usr/local/bin/node /usr/local/bin/firebase serve
-[debug] CLI Version:  3.0.4
-[debug] Platform:     linux
-[debug] Node Version: v6.2.2
-[debug] Time:         Fri Jul 29 2016 18:19:20 GMT-0400 (EDT)
-[debug] ----------------------------------------------------------------------
-[debug] 
-[info] Starting Firebase development server...
-[info] 
-[warn] ⚠  No Firebase project directory detected. Serving static content from /home/fbueti/Desktop/contracts/webapp
-[info] 
-[info] Server listening at: http://localhost:5000
-[debug] ----------------------------------------------------------------------
-[debug] Command:      /usr/local/bin/node /usr/local/bin/firebase serve
-[debug] CLI Version:  3.0.4
-[debug] Platform:     linux
-[debug] Node Version: v6.2.2
-[debug] Time:         Mon Aug 01 2016 15:12:50 GMT-0400 (EDT)
+[debug] Time:         Tue Aug 02 2016 15:48:54 GMT-0400 (EDT)
 [debug] ----------------------------------------------------------------------
 [debug] 
 [info] Starting Firebase development server...
