@@ -178,7 +178,7 @@
             }
             .nda_page {
                 font-family: "Times New Roman", Times, serif;
-                /*height: 1030px;*/
+                min-height: 1030px;
                 color: black;
                 width: 80%;
                 margin: auto;
