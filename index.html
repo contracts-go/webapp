@@ -221,7 +221,7 @@
 					<h2 class="form_headers">First, about you.</h2>
 					<div class="row">
 						<div class="input-field col s6">
-							<input class="validate" id="name" name="name" placeholder="Placeholder"
+							<input class="validate" id="name" name="name" placeholder="Name"
 							type="text"><label data-error="Your full name is required." for=
 							"name">Full Name</label>
 						</div>
@@ -521,7 +521,7 @@
 	       industry = $( "input[name='industry']" ).val(),
 	       project_description = $( "input[name='project_description']" ).val(),
 	       
-	       url = "http://api.contracts-go.com/generate";
+	       url = "localhost:5000/generate";
 	       
 	       data = {"pi":{
 	                   "name": name,
