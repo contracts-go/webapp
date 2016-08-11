@@ -1,0 +1,1 @@
+/home/fbueti/Desktop/contracts/webapp/tmp/creator-output_path-Ebg3ANum.tmp/version.js

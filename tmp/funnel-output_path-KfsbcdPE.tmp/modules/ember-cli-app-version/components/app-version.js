@@ -1,0 +1,1 @@
+/home/fbueti/Desktop/contracts/webapp/tmp/funnel-input_base_path-OubfRUeS.tmp/0/components/app-version.js
