@@ -1,1 +1,0 @@
-/home/fbueti/Desktop/contracts/webapp/tmp/funnel-input_base_path-kkLA04CO.tmp/0//app-config.js

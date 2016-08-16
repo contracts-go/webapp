@@ -1,1 +1,0 @@
-/home/fbueti/Desktop/contracts/webapp/tmp/funnel-input_base_path-46COc4ps.tmp/0/bower_components/ember-cli-test-loader/test-loader.js

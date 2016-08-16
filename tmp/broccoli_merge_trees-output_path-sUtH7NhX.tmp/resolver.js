@@ -1,1 +1,0 @@
-/home/fbueti/Desktop/contracts/webapp/app/resolver.js
