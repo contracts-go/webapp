@@ -45,3 +45,10 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+.idea
+bower_components
+node_modules
+dist
+tmp
+
+
