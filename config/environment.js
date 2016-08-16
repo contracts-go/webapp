@@ -38,7 +38,7 @@ module.exports = function(environment) {
 
   if (environment === 'test') {
     // Testem prefers this...
-    ENV.baseURL = '/';
+    /*ENV.baseURL = '/';
     ENV.locationType = 'none';
 
     // keep test console output quieter
@@ -46,6 +46,13 @@ module.exports = function(environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
     ENV.APP.rootElement = '#ember-testing';
+    */
+    ENV.firebase = {
+      apiKey: "AIzaSyB4SyxYmNATRfLRmsj-8zV6pl9oQA_i--k",
+      authDomain: "test-contracts-go.firebaseapp.com",
+      databaseURL: "https://test-contracts-go.firebaseio.com",
+      storageBucket: "test-contracts-go.appspot.com",
+    }
   }
 
   if (environment === 'production') {

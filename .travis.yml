@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - "6"
+os:
+  - linux
+before_install:
+  - npm i -g ember-cli
+  - npm i -g bower
+install:
+  - npm install
+  - bower install
+script:
+# Will only test building for now until we can get a linter working lols
+  - ember build
