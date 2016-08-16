@@ -11,7 +11,10 @@ module.exports = function(environment) {
       authDomain: "contracts-go.firebaseapp.com",
       databaseURL: "https://contracts-go.firebaseio.com",
       storageBucket: "contracts-go.appspot.com",
-    }
+    },
+    torii: {
+       sessionServiceName: 'session'
+    },
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build

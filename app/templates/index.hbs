@@ -1,0 +1,39 @@
+<div id="container">
+    <header>
+        <img id="logo" src="/assests/images/not-a-logo.png">
+        <p id="tagline"> Non-disclosure agreements. Simplified. </p>
+
+        {{#if session.isAuthenticated}}
+            <div class="button" id="get-started" {{action "signOut"}}>Sign out</div>
+            <p class="caption">Logged in as {{session.currentUser.displayName}}</p>
+            {{outlet}}
+        {{else}}
+            <div class="button" id="get-started" {{action "signIn" "google"}}>
+                Go
+            </div>
+            <p class="caption">By signing in with your Stevens account.</p>
+        {{/if}}
+
+    </header>
+    <div id="moreInfo">
+        <div class="description">
+            <img class="icon" src="/assests/images/fast.png">
+            <h1>Fast</h1>
+            <p>Just step through a few questions and we'll have your document
+                generated in no time.</p>
+        </div>
+        <div class="description" id="middle_desc">
+            <img class="wide-icon" src="/assests/images/reliable.png">
+            <h1>Reliable</h1>
+            <p>We get your documents where they need to go, when they need to go.</p>
+        </div>
+        <div class="description">
+            <img class="icon" src="/assests/images/easy.png">
+            <h1>Easy</h1>
+            <p>No scanning documents. No sending emails. No hassle.</p>
+        </div>
+    </div>
+    <footer>
+        <p>Copyright &copy; Contacts-Go 2016</p>
+    </footer>
+</div>
