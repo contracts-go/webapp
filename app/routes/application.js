@@ -8,9 +8,9 @@ export default Ember.Route.extend({
         });
     },
     actions: {
-        signIn: function(provider) {
+        signIn: function() {
             this.get('session').open('firebase', {
-                provider: provider
+                provider: 'google'
             }).then(function(data) {
                 console.log(data.currentUser);
             });
