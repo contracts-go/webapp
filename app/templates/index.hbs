@@ -15,8 +15,15 @@
             <div class="button" id="get-started" {{action "signIn" "google"}}>
                 Go
             </div>
-            <p class="caption">By signing in with your Stevens account.</p>
+            {{#if error}}
+                <p class="caption" style="color:red">{{error}}</p>
+            {{else}}
+                <p class="caption">By signing in with your Stevens account.</p>
+            {{/if}}
+
         {{/if}}
+
+
 
     </header>
     <div id="moreInfo">

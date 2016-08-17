@@ -4,5 +4,4 @@
 import Ember from 'ember';
 export default Ember.Route.extend({
 
-    // redirect to docs if authenticated
 });

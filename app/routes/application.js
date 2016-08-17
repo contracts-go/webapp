@@ -41,23 +41,44 @@ export default Ember.Route.extend({
                       route.transitionTo('document');
                   })
                   .catch(function() {
+                      let userEmail;
                       // Not found in database
-                      Ember.Logger.log(data.uid + ' not found in database');
+                      Ember.Logger.log(data.uid + ' not found in database. They must be new!');
                       // Get a reference to the Stevens Company (default for now)
                       route.store.findRecord('company', config.APP.defaultCompany)
                         .then(function(company) {
+                            userEmail = data.currentUser.email;
                             // Create a new user record with their id as the uid
                             const newUser = route.store.createRecord('user', {
                                 id: data.uid,
-                                email: data.currentUser.email,
+                                email: userEmail,
                                 type: 'pi', // { pi, admin } . Will deal with admin later.
                                 company: company, // For now should default to Stevens
                                 documents: [],
                             });
                             // Save the user to firebase
-                            newUser.save();
-                            // Transition to the dashboard once all done
-                            route.transitionTo('document');
+                            return newUser.save();
+                        })
+                        .then(function(success) {
+                          Ember.Logger.log(success);
+                          // Transition to the dashboard once all done
+                          route.transitionTo('document');
+                        })
+                        .catch(function(error) {
+                          let message;
+                          switch(error.code) {
+                            case 'PERMISSION_DENIED':
+                              message = 'You must sign in with a Stevens account.';
+                              break;
+                            default:
+                              Ember.Logger.error(error);
+                              message = error;
+                              break;
+                          }
+                          // Log this silly user out
+                          route.get('session').close();
+                          // Route to the index page with an error message
+                          route.controllerFor('index').set('error', message);
                         });
                 });
             });
