@@ -22,7 +22,6 @@ Router.map(function() {
     this.authenticatedRoute('view', { path: '*wildcard'});
     this.authenticatedRoute('edit', { path: 'edit'});
     this.authenticatedRoute('create', { path: 'create'});
-
   });
 });
 
