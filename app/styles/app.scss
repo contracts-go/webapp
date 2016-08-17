@@ -1,4 +1,5 @@
 @import 'ember-paper';
+
 *{
   margin: 0;
   padding: 0;
@@ -85,6 +86,122 @@ footer p{
   margin-top: 10px;
   margin-bottom: 100px;
   font-size: .8em;
+}
+#name-prompt, .green_title{
+  color: #00a63f;
+  font-weight: bold;
+  font-size: 2em;
+  margin-top: 50px;
+  text-align: center;
+}
+.question{
+  text-align: center;
+}
+.question .input{
+  width: 90%;
+  padding: 0 5%;
+  background-color: #f7ebec;
+  margin-top: 20px;
+}
+.input_tall{
+  height: 450px;
+}
+.question .input .prompt{
+  padding-top: 30px;
+  font-size: 1.5em;
+}
+.question .button{
+  width: 150px;
+  float: right;
+  margin-top: 15px;
+  margin-right: 3%;
+}
+#sign-out{
+  text-align: right;
+  margin-top: 10px;
+  margin-right: 5px;
+  font-size: .9em;
+  opacity: .6;
+}
+
+.agreement_pic{
+  margin-top: 20px;
+  background-color: white;
+  border: solid 1px lightgray;
+  width: 30%;
+  float: left;
+  margin-left: 2%;
+  height: 250px;
+}
+.agreement_pic:hover{
+  cursor: pointer;
+}
+.agreement_pic:first-child{
+  margin-left: 0;
+}
+.agreement_pic img{
+  height: 100px;
+  margin-top: 50px;
+}
+.agreement_pic .tall-icon{
+  height: 130px;
+  margin-top: 20px;
+}
+.agreement_pic p{
+  margin-top: 20px;
+  font-size: 1.1em;
+}
+.caption_text{
+  margin-top: 10px;
+  opacity: .8;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.form_headers{
+  font-size: 1.64rem;
+  line-height: 110%;
+  margin: 0.82rem 0 0.656rem 50px;
+}
+.go_button{
+  background-color: #00a63f;
+  width: 150px;
+  height: 50px;
+  border-radius: 12px;
+  color: white;
+  text-align: center;
+  border: none;
+  float: right;
+  font-size: 1.2em;
+  box-shadow: none;
+}
+.go_button:hover{
+  cursor: pointer;
+  opacity: .8;
+}
+.nda_page {
+  font-family: "Times New Roman", Times, serif;
+  min-height: 1030px;
+  color: black;
+  width: 80%;
+  margin: auto;
+  padding: 60px 6%;
+  margin-bottom: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 5px 2px rgba(0,0,0,.1);
+  background-color: white;
+}
+#nda_doc{
+  height: 1155px;
+  overflow-y: scroll;
+  padding: 60px 0px;
+  background-color: #f2f2f2;
+}
+.nda_page p, .nda_page span, .nda_page b{
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1em;
+}
+.highlight{
+  background-color: yellow;
 }
 @media (max-width: 570px) {
   .description{
