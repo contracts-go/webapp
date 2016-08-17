@@ -5,5 +5,6 @@ export default Ember.Route.extend({
       if(params.id){
         return this.get('store').find('document', params.id);
       }
+      return {};
   }
 });

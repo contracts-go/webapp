@@ -13,16 +13,16 @@ Router.map(function() {
   this.route('page-not-found', { path: '*wildcard' });
 
   /* Authenticated routes */
-  // 'Portal' lolol
-  this.authenticatedRoute('document');
-  // Document Routes
-  this.authenticatedRoute('document', { path: 'document/:id' }, function() {
-    // Viewing should be the default mode of a document
-    this.authenticatedRoute('view', { path: '/'});
-    this.authenticatedRoute('view', { path: '*wildcard'});
-    this.authenticatedRoute('edit', { path: 'edit'});
-    this.authenticatedRoute('create', { path: 'create'});
 
+  // Document Routes
+  this.authenticatedRoute('document', { path: 'document' }, function() {
+    // Any wildcard will bring you to your 'dashboard'
+    this.authenticatedRoute('document', { path: '*wildcard' });
+    // Viewing should be the default mode of a document when id provided
+    this.authenticatedRoute('view', { path: ':id/*wildcard'});
+    this.authenticatedRoute('view', { path: ':id/view'});
+    this.authenticatedRoute('edit', { path: ':id/edit'});
+    this.authenticatedRoute('create', { path: ':id/create'});
   });
 });
 
