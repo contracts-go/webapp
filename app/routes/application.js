@@ -31,6 +31,7 @@ export default Ember.Route.extend({
             this.get('session').open('firebase', {
                 provider: provider
             }).then(function(data) {
+                // console.log(data);
                 route.transitionTo('dashboard');
             });
         },

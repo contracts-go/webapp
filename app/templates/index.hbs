@@ -1,7 +1,5 @@
 <div id="container">
-    <!--{{content-for 'body'}}-->
     <header>
-
         <img id="logo" src="/assests/images/not-a-logo.png">
         <p id="tagline"> Non-disclosure agreements. Simplified. </p>
 
@@ -14,7 +12,7 @@
                 <div style="text-decoration: underline" {{action "signOut"}}>Sign Out</div>
             </p>
         {{else}}
-            <div class="button" id="get-started" {{action "signIn"}}>
+            <div class="button" id="get-started" {{action "signIn" "google"}}>
                 Go
             </div>
             <p class="caption">By signing in with your Stevens account.</p>
@@ -39,7 +37,6 @@
             <p>No scanning documents. No sending emails. No hassle.</p>
         </div>
     </div>
-    <!--{{content-for 'body-footer'}}-->
     <footer>
         <p>Copyright &copy; Contacts-Go 2016</p>
     </footer>

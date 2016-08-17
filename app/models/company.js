@@ -5,5 +5,5 @@ export default DS.Model.extend({
   type: DS.attr('string'),
   state: DS.attr('string'),
   location: DS.belongsTo('postal-address', { async: false }),
-  users: DS.hasMany('user'),
+  users: DS.hasMany('user')
 });

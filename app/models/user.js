@@ -8,5 +8,5 @@ export default DS.Model.extend({
   documents: DS.hasMany('document', { inverse: null }),
   title: DS.attr('string', {
     defaultValue() { return ''; }
-  }),
+  })
 });
