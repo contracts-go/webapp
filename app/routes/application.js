@@ -1,4 +1,5 @@
 /**
+ * @file Application wide actions
  * Created by fran on 8/16/16.
  */
 import Ember from 'ember';
@@ -23,6 +24,9 @@ export default Ember.Route.extend({
          * @param {string} provider
          */
         signIn: function(provider) {
+            // Todo: figure out if the user is a new user
+            // If they are, make a new entry for them in the database by their uuid
+            // If not, just log them in I guess?
             const route = this;
             this.get('session').open('firebase', {
                 provider: provider
