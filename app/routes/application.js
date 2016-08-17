@@ -38,7 +38,7 @@ export default Ember.Route.extend({
                 route.store.findRecord('user', data.uid)
                   .then(function(user) {
                       Ember.Logger.log(user);
-                      route.transitionTo('dashboard');
+                      route.transitionTo('document');
                   })
                   .catch(function() {
                       // Not found in database
@@ -57,7 +57,7 @@ export default Ember.Route.extend({
                             // Save the user to firebase
                             newUser.save();
                             // Transition to the dashboard once all done
-                            route.transitionTo('dashboard');
+                            route.transitionTo('document');
                         });
                 });
             });
