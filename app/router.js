@@ -14,7 +14,7 @@ Router.map(function() {
 
   /* Authenticated routes */
   // 'Portal' lolol
-  this.authenticatedRoute('dashboard');
+  this.authenticatedRoute('document');
   // Document Routes
   this.authenticatedRoute('document', { path: 'document/:id' }, function() {
     // Viewing should be the default mode of a document
