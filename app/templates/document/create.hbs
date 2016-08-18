@@ -1,2 +1,12 @@
-<h1>Creating a document</h1>
-{{outlet}}
+<div class="green-background"></div>
+<div class="top">
+    <div class="header_caption">
+        <h1> Let's create a contract.</h1>
+        <p> We'll need just a few bits of information to do that. All fields are required.</p>
+    </div>
+    {{#paper-card class="create-section" as |card| }}
+        {{#card.content class="layout-row layout-align-space-between"}}
+
+        {{/card.content}}
+    {{/paper-card}}
+</div>
