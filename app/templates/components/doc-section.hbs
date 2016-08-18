@@ -1,0 +1,10 @@
+{{!--
+Takes:
+@param {string} title
+--}}
+<section class="doc-section">
+    <h1>{{title}}</h1>
+    {{#each docs as |doc|}}
+        {{#doc-icon doc=doc}}{{/doc-icon}}
+    {{/each}}
+</section>

@@ -1,0 +1,12 @@
+{{!--
+Takes:
+@param {document} doc
+--}}
+{{#paper-card class="div-icon" as |card|}}
+    {{#card.title as |title|}}
+        {{title.media size="md" src="" alt="preview"}}
+    {{/card.title}}
+    {{#card.content}}
+        <h3>{{doc.title}}</h3>
+    {{/card.content}}
+{{/paper-card}}

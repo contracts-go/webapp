@@ -7,15 +7,18 @@ import config from '../config/environment';
 
 export default Ember.Route.extend({
     /**
-     * Check to see if the user's session is present.
+     * Store the current in every route.
      * @return {*|Promise|Promise.<T>}
      */
     beforeModel: function() {
-        return this.get('session').fetch().catch(function() {});
+        return this.get('session').fetch().catch(function() {
+          // No user is signed in
+        });
     },
     actions: {
         /**
          * If the user is not logged in, reroute them to the home page.
+         * Called by authorizedRoute when the user is unauthorized
          */
         accessDenied: function() {
           this.transitionTo('index')
@@ -41,17 +44,16 @@ export default Ember.Route.extend({
                       route.transitionTo('document');
                   })
                   .catch(function() {
-                      let userEmail;
                       // Not found in database
                       Ember.Logger.log(data.uid + ' not found in database. They must be new!');
                       // Get a reference to the Stevens Company (default for now)
                       route.store.findRecord('company', config.APP.defaultCompany)
                         .then(function(company) {
-                            userEmail = data.currentUser.email;
                             // Create a new user record with their id as the uid
                             const newUser = route.store.createRecord('user', {
-                                id: data.uid,
-                                email: userEmail,
+                                id: data.uid, // Override the firebase-provisioned id
+                                email: data.currentUser.email,
+                                name: data.currentUser.displayName,
                                 type: 'pi', // { pi, admin } . Will deal with admin later.
                                 company: company, // For now should default to Stevens
                                 documents: [],

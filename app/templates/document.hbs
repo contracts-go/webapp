@@ -1,6 +1,5 @@
 <!--<h1>Document {{!-model.id}}</h1>-->
 
-documents
 
 {{#paper-nav-container}}
     {{#paper-sidenav class="md-sidenav-left md-whiteframe-z2" locked-open="gt-sm"}}
@@ -37,5 +36,6 @@ documents
     </div>
 {{/paper-nav-container}}
 
+{{#doc-section docs=model.user.documents title='Incomplete'}}{{/doc-section}}
 
 {{outlet}}
