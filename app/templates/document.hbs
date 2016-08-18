@@ -1,43 +1,60 @@
 <!--<h1>Document {{!-model.id}}</h1>-->
+{{#paper-toolbar class="toolbar"}}
+    {{#paper-toolbar-tools}}
+        <img src="/assests/images/not-a-logo-white.png" width="150" style="margin-left: 15px">
+
+        <span class="flex"></span>
+        {{paper-icon "account_circle"}}
+        <span id="name">{{session.currentUser.displayName}}</span>
 
 
-{{#paper-nav-container}}
-    {{#paper-sidenav class="md-sidenav-left md-whiteframe-z2" locked-open="gt-sm"}}
-        {{#paper-toolbar}}
-            <div class="md-toolbar-tools">
-                <div class="logo">
-                    <img src="ember-logo-white-955db9d87b940bf54a17bd1fa78d0713.png" height="30"/>
-                    <strong>Paper</strong>
-                </div>
-            </div>
-        {{/paper-toolbar}}
+                {{#paper-menu isOpen=menuFourIsOpen position="target-right target" as |menu|}}
+                    {{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}{{paper-icon "arrow_drop_down" class="md-menu-origin"}}{{/paper-button}}
+                {{else}}
+                        {{#paper-menu-item}}
+                            <!--TODO replace with {{!--currentUser.email--}} -->
+                            <img src="{{session.currentUser.photoURL}}" style="border-radius: 50%; width:55px; margin-right: 0px; float:left;">
+                            <p style="font-size: .9em; margin-left: -20px; line-height: 200%;"> fbueti@stevens.edu<br>
+                            <a style="font-weight: bold; color: #00a63f" {{action "signOut"}}>SIGN OUT</a></p>
+                        {{/paper-menu-item}}
+                {{/paper-menu}}
 
-        {{#paper-content}}
-            {{#paper-list}}
-                {{#paper-item}}Introduction{{/paper-item}}
-                {{#paper-item}}Another link{{/paper-item}}
-            {{/paper-list}}
-        {{/paper-content}}
+
+    {{/paper-toolbar-tools}}
+{{/paper-toolbar}}
+
+{{#paper-sidenav-container class="inner-sidenav"}}
+
+    {{#paper-sidenav
+            class="md-whiteframe-z2"
+            name="left"
+            open=leftSideBarOpen
+            onToggle=(action (mut leftSideBarOpen))
+    }}
+        <!--div class="button"> NEW CONTRACT </div-->
+        {{#paper-button raised=true primary=true}}NEW CONTRACT{{/paper-button}}
+
+        <span id="nav_options">
+            {{#paper-content padding=true}}
+                <h1 class="nav_header">DOCUMENTS</h1>
+            {{/paper-content}}
+            {{#paper-content padding=true}}
+                <span class="nav_option selected">{{paper-icon "move_to_inbox"}} <span class="text">Pending</span></span>
+            {{/paper-content}}
+            {{#paper-content padding=true}}
+                <span class="nav_option">{{paper-icon "hourglass_empty"}} <span class="text">Incomplete</span></span>
+            {{/paper-content}}
+            {{#paper-content padding=true}}
+                <span class="nav_option">{{paper-icon "assignment_turned_in"}} <span class="text">Approved</span></span>
+            {{/paper-content}}
+        </span>
     {{/paper-sidenav}}
 
-    <div layout="column" tabindex="-1" role="main" flex>
-        {{#paper-toolbar}}
-            <div class="md-toolbar-tools">
-                {{#paper-sidenav-toggle as |toggle|}}
-                    {{#paper-button target=toggle action="toggleMenu" icon-button=true}}{{paper-icon "menu"}}{{/paper-button}}
-                {{/paper-sidenav-toggle}}
-                <span class="md-breadcrumb-page">Title</span>
-            </div>
-        {{/paper-toolbar}}
-
-        {{#paper-content class="md-padding"}}
-            <p>My content</p>
-        {{/paper-content}}
-    </div>
-{{/paper-nav-container}}
-
-{{#each currentUser.documents as |doc|}}
-    {{doc-icon doc=doc}}
-{{/each}}
+    {{#paper-card-content class="flex"}}
+        <div class="layout-fill layout-align-start-center layout-column" style="background-color: #efefef">
+            <img src="/assests/images/transparent-test.png" height="800px" style="margin-left: 15px">
+        </div>
+    {{/paper-card-content}}
+{{/paper-sidenav-container}}
 
 {{outlet}}

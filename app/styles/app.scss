@@ -1,34 +1,34 @@
 @import 'pod-styles'; // Imports all the styles from the 'pod' structures
 @import 'ember-paper';
 
-*{
+#index *{
   margin: 0;
   padding: 0;
   font-family: 'Open Sans', sans-serif;
   color: #1B2021;
 }
-a:hover{
+#index a:hover{
   cursor: pointer;
   opacity: .8;
 }
-#logo{
+#index #logo{
   max-width: 200px;
   width: 80%;
   margin-top: 30px;
   margin-left: 30px;
 }
-#container{
+.container{
   width: 100%;
   max-width: 1040px;
   margin: auto;
 }
-#tagline, #name-prompt{
+#index #tagline, #name-prompt{
   text-align: center;
   font-size: 2em;
   margin-top: 100px;
   color: #283044;
 }
-.button{
+#index .button{
   max-width: 200px;
   padding-top: 15px;
   text-align: center;
@@ -42,12 +42,12 @@ a:hover{
   margin-top: 50px;
   box-sizing: initial;
 }
-.button:hover, .hoverable:hover{
+#index .button:hover, .hoverable:hover{
   opacity: .8;
   cursor: pointer;
   box-shadow: none;
 }
-.description{
+#index .description{
   width: 30%;
   padding: 1.5%;
   float: left;
@@ -55,32 +55,32 @@ a:hover{
   background-color: #f7ebec;
   margin-top: 60px;
 }
-#moreInfo{
+#index #moreInfo{
   color: #1B2021;
   height: 300px;
   background-color: #f7ebec;
   box-sizing: initial;
 }
-#moreInfo h1{
+#index #moreInfo h1{
   font-size: 1.5em;
   margin: 10 0;
 }
-.icon{
+#index .icon{
   height: 50px;
 }
-.wide-icon{
+#index .wide-icon{
   width: 80px;
   margin-top: -25px;
 }
-footer{
+#index footer{
   margin-top: 20px;
   text-align: center;
   color: #1B2021;
 }
-footer p{
+#index footer p{
   margin-bottom: 20px;
 }
-.caption{
+#index .caption{
   color: #1B2021;
   opacity: .4;
   text-align: center;
@@ -88,36 +88,36 @@ footer p{
   margin-bottom: 100px;
   font-size: .8em;
 }
-#name-prompt, .green_title{
+#index #name-prompt, .green_title{
   color: #00a63f;
   font-weight: bold;
   font-size: 2em;
   margin-top: 50px;
   text-align: center;
 }
-.question{
+#index .question{
   text-align: center;
 }
-.question .input{
+#index .question .input{
   width: 90%;
   padding: 0 5%;
   background-color: #f7ebec;
   margin-top: 20px;
 }
-.input_tall{
+#index .input_tall{
   height: 450px;
 }
-.question .input .prompt{
+#index .question .input .prompt{
   padding-top: 30px;
   font-size: 1.5em;
 }
-.question .button{
+#index .question .button{
   width: 150px;
   float: right;
   margin-top: 15px;
   margin-right: 3%;
 }
-#sign-out{
+#index #sign-out{
   text-align: right;
   margin-top: 10px;
   margin-right: 5px;
@@ -125,7 +125,7 @@ footer p{
   opacity: .6;
 }
 
-.agreement_pic{
+#index .agreement_pic{
   margin-top: 20px;
   background-color: white;
   border: solid 1px lightgray;
@@ -134,36 +134,36 @@ footer p{
   margin-left: 2%;
   height: 250px;
 }
-.agreement_pic:hover{
+#index .agreement_pic:hover{
   cursor: pointer;
 }
-.agreement_pic:first-child{
+#index .agreement_pic:first-child{
   margin-left: 0;
 }
-.agreement_pic img{
+#index .agreement_pic img{
   height: 100px;
   margin-top: 50px;
 }
-.agreement_pic .tall-icon{
+#index .agreement_pic .tall-icon{
   height: 130px;
   margin-top: 20px;
 }
-.agreement_pic p{
+#index .agreement_pic p{
   margin-top: 20px;
   font-size: 1.1em;
 }
-.caption_text{
+#index .caption_text{
   margin-top: 10px;
   opacity: .8;
   text-align: center;
   margin-bottom: 20px;
 }
-.form_headers{
+#index .form_headers{
   font-size: 1.64rem;
   line-height: 110%;
   margin: 0.82rem 0 0.656rem 50px;
 }
-.go_button{
+#index .go_button{
   background-color: #00a63f;
   width: 150px;
   height: 50px;
@@ -175,44 +175,93 @@ footer p{
   font-size: 1.2em;
   box-shadow: none;
 }
-.go_button:hover{
+#index .go_button:hover{
   cursor: pointer;
   opacity: .8;
 }
-.nda_page {
-  font-family: "Times New Roman", Times, serif;
-  min-height: 1030px;
-  color: black;
-  width: 80%;
-  margin: auto;
-  padding: 60px 6%;
-  margin-bottom: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 0 5px 2px rgba(0,0,0,.1);
-  background-color: white;
-}
-#nda_doc{
-  height: 1155px;
-  overflow-y: scroll;
-  padding: 60px 0px;
-  background-color: #f2f2f2;
-}
-.nda_page p, .nda_page span, .nda_page b{
-  font-family: "Times New Roman", Times, serif;
-  font-size: 1em;
-}
-.highlight{
-  background-color: yellow;
-}
+
 @media (max-width: 570px) {
-  .description{
+  #index .description{
     width: 90%;
     padding: 0 5%;
   }
-  footer p{
+  #index footer p{
     margin-top: 260px;
   }
-  #middle_desc{
+  #index #middle_desc{
     margin-bottom: -60px;
   }
+}
+.md-toolbar-tools{
+  background-color: #1B2021;
+}
+
+#name{
+  font-size: .8em;
+  margin-left: 10px;
+}
+
+.nav_option{
+  opacity: .75;
+  margin-left: 15px;
+}
+
+.nav_option .text{
+  margin-left: 15px;
+}
+
+.nav_header{
+  font-weight: bold;
+  opacity: .7;
+  font-size: 1em;
+}
+
+#nav_options md-content{
+  padding-left: 30px;
+}
+#nav_options .selected{
+  color: #1B2021;
+  font-weight: bold;
+}
+
+#nav_options .selected .paper-icon{
+  color: #1B2021;
+}
+#nav_options md-content:hover{
+  background-color: rgba(1,1,1,.05);
+  cursor: pointer;
+}
+
+#nav_options md-content:first-child:hover{
+  background-color: white;
+  cursor: default;
+}
+
+.button:hover{
+  cursor: pointer;
+  opacity: .8;
+}
+
+md-menu-item{
+  height: 70px;
+  padding: 0px 10px;
+}
+
+md-menu-item .paper-button:hover{
+  cursor: default;
+  background-color: white;
+}
+
+md-menu-item a:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+md-sidenav a.md-button.md-default-theme.md-primary.md-raised, a.md-button.md-default-theme.md-primary.md-fab, a.md-button.md-primary.md-raised, a.md-button.md-primary.md-fab, .md-button.md-default-theme.md-primary.md-raised, .md-button.md-default-theme.md-primary.md-fab, .md-button.md-primary.md-raised, .md-button.md-primary.md-fab{
+  background-color: #00a63f;
+  width: 80%;
+  height: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
 }
