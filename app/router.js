@@ -26,6 +26,18 @@ Router.map(function() {
     this.authenticatedRoute('create', { path: ':id/create'});
   });
 
+  this.authenticatedRoute('dash', function() {
+    this.authenticatedRoute('all', { path: '/' });
+    this.authenticatedRoute('all', { path: ':*wildcard'});
+
+    this.authenticatedRoute('documents', { path: 'documents/:id', }, function() {
+      // Viewing should be the default mode of a document when id provided
+      this.authenticatedRoute('view', { path: ':*wildcard'});
+      this.authenticatedRoute('view', { path: 'view'});
+      this.authenticatedRoute('edit', { path: 'edit'});
+      this.authenticatedRoute('create', { path: 'create'});
+    });
+  });
 });
 
 export default Router;

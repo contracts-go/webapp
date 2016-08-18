@@ -52,7 +52,7 @@ export default Ember.Route.extend({
                 // Fetch the current user and store it from the session
                 return route._populateCurrentUser();
             }).then(function () {
-                route.transitionTo('document');
+                route.transitionTo('dash');
             })
               .catch(function(error) {
                 Ember.Logger.log(error);
@@ -76,7 +76,7 @@ export default Ember.Route.extend({
                   .then(function(success) {
                     Ember.Logger.log(success);
                     // Transition to the dashboard once all done
-                    route.transitionTo('document');
+                    route.transitionTo('dash');
                   })
                   .catch(function(error) {
                     let message;
