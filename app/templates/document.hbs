@@ -7,19 +7,21 @@
         {{paper-icon "account_circle"}}
         <span id="name">{{session.currentUser.displayName}}</span>
 
-
                 {{#paper-menu isOpen=menuFourIsOpen position="target-right target" as |menu|}}
                     {{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}{{paper-icon "arrow_drop_down" class="md-menu-origin"}}{{/paper-button}}
                 {{else}}
                         {{#paper-menu-item}}
-                            <!--TODO replace with {{!--currentUser.email--}} -->
-                            <img src="{{session.currentUser.photoURL}}" style="border-radius: 50%; width:55px; margin-right: 0px; float:left;">
-                            <p style="font-size: .9em; margin-left: -20px; line-height: 200%;"> fbueti@stevens.edu<br>
+                            {{!-- Some people won't have a photo provided through google --}}
+                            {{#if session.currentUser.photoURL}}
+                                <img src="{{session.currentUser.photoURL}}" style="border-radius: 50%; width:55px; margin-right: 0px; float:left;">
+                            {{else}}
+                                {{paper-icon "account_circle"}}
+                            {{/if}}
+                            <p style="font-size: .9em; margin-left: -20px; line-height: 200%;"> {{currentUser.email}}<br>
                             <a style="font-weight: bold; color: #00a63f" {{action "signOut"}}>SIGN OUT</a></p>
                         {{/paper-menu-item}}
                 {{/paper-menu}}
-
-
+        
     {{/paper-toolbar-tools}}
 {{/paper-toolbar}}
 

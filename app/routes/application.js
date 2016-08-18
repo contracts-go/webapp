@@ -17,7 +17,8 @@ export default Ember.Route.extend({
         // No user is signed in
       }).then(function() {
         // If there is a user signed in, populate the currentUser object
-        return route._populateCurrentUser();
+        if (route.get('session').content.isAuthenticated)
+          return route._populateCurrentUser();
       });
     },
     actions: {
@@ -99,7 +100,8 @@ export default Ember.Route.extend({
          * Sign the user out of the session.
          */
         signOut: function() {
-            this.get('session').close();
+          this.get('session').close();
+          this.transitionTo('index');
         }
     },
 
