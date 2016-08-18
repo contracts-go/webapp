@@ -98,13 +98,13 @@ export default Ember.Route.extend({
     },
 
   /**
-   *
+   * Populates the currentUser service with the user from the database
    * @param {string} id session id
    * @return {*}
    * @private
    */
   _populateCurrentUser(id) {
       return this.get('store').findRecord('user', id)
-        .then(user => this.get('currentUser').set('content', user) && user);
+        .then(function(user) { this.get('currentUser').set('content', user) });
   }
 });
