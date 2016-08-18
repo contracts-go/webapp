@@ -8,6 +8,6 @@ export default Ember.Route.extend({
       }
 
       // If this is not a specific document route, get the current user
-      return { user: this.get('currentUser').fetch() };
+      return { user: this.get('currentUser') };
   }
 });

@@ -26,6 +26,9 @@ export default Ember.Route.extend({
         /**
          * The default page for logged in users is their 'dashboard'
          * For now, if a PI signs in we will reroute them from there.
+         *
+         * If there is a new user logging in, create a database record for them.
+         * Populate the current user service
          * @param {string} provider
          */
         signIn: function(provider) {
@@ -33,57 +36,58 @@ export default Ember.Route.extend({
             // If they are, make a new entry for them in the database by their uuid
             // If not, just log them in I guess?
             const route = this;
+            let sessionData;
             this.get('session').open('firebase', {
                 provider: provider
             }).then(function(data) {
-                // console.log(data);
+                // Successfully signed in
                 // If the user is new (not found in our database), we need to create a new record for them in firebase
-                route.store.findRecord('user', data.uid)
-                  .then(function(user) {
-                      Ember.Logger.log(user);
-                      route.transitionTo('document');
+                sessionData = data;
+                return route._populateCurrentUser(sessionData.uid)
+            }).then(function (user) {
+                console.log(user);
+                route.transitionTo('document');
+            })
+              .catch(function() {
+                // Not found in database
+                Ember.Logger.log(sessionData.uid + ' not found in database. They must be new!');
+                // Get a reference to the Stevens Company (default for now)
+                route.store.findRecord('company', config.APP.defaultCompany)
+                  .then(function(company) {
+                      // Create a new user record with their id as the uid
+                      const newUser = route.store.createRecord('user', {
+                          id: sessionData.uid, // Override the firebase-provisioned id
+                          email: sessionData.currentUser.email,
+                          name: sessionData.currentUser.displayName,
+                          type: 'pi', // { pi, admin } . Will deal with admin later.
+                          company: company, // For now should default to Stevens
+                          documents: [],
+                      });
+                      // Save the user to firebase
+                      return newUser.save();
                   })
-                  .catch(function() {
-                      // Not found in database
-                      Ember.Logger.log(data.uid + ' not found in database. They must be new!');
-                      // Get a reference to the Stevens Company (default for now)
-                      route.store.findRecord('company', config.APP.defaultCompany)
-                        .then(function(company) {
-                            // Create a new user record with their id as the uid
-                            const newUser = route.store.createRecord('user', {
-                                id: data.uid, // Override the firebase-provisioned id
-                                email: data.currentUser.email,
-                                name: data.currentUser.displayName,
-                                type: 'pi', // { pi, admin } . Will deal with admin later.
-                                company: company, // For now should default to Stevens
-                                documents: [],
-                            });
-                            // Save the user to firebase
-                            return newUser.save();
-                        })
-                        .then(function(success) {
-                          Ember.Logger.log(success);
-                          // Transition to the dashboard once all done
-                          route.transitionTo('document');
-                        })
-                        .catch(function(error) {
-                          let message;
-                          switch(error.code) {
-                            case 'PERMISSION_DENIED':
-                              message = 'You must sign in with a Stevens account.';
-                              break;
-                            default:
-                              Ember.Logger.error(error);
-                              message = error;
-                              break;
-                          }
-                          // Log this silly user out
-                          route.get('session').close();
-                          // Route to the index page with an error message
-                          route.controllerFor('index').set('error', message);
-                        });
-                });
-            });
+                  .then(function(success) {
+                    Ember.Logger.log(success);
+                    // Transition to the dashboard once all done
+                    route.transitionTo('document');
+                  })
+                  .catch(function(error) {
+                    let message;
+                    switch(error.code) {
+                      case 'PERMISSION_DENIED':
+                        message = 'You must sign in with a Stevens account.';
+                        break;
+                      default:
+                        Ember.Logger.error(error);
+                        message = error;
+                        break;
+                    }
+                    // Log this silly user out
+                    route.get('session').close();
+                    // Route to the index page with an error message
+                    route.controllerFor('index').set('error', message);
+                  });
+              });
         },
         /**
          * Sign the user out of the session.
@@ -91,5 +95,16 @@ export default Ember.Route.extend({
         signOut: function() {
             this.get('session').close();
         }
-    }
+    },
+
+  /**
+   *
+   * @param {string} id session id
+   * @return {*}
+   * @private
+   */
+  _populateCurrentUser(id) {
+      return this.get('store').findRecord('user', id)
+        .then(user => this.get('currentUser').set('content', user) && user);
+  }
 });
