@@ -11,5 +11,7 @@ export default DS.Model.extend({
   creator: DS.belongsTo('user'),
   admin: DS.belongsTo('user'),
   companyContact: DS.belongsTo('user'),
-  createdAt: DS.attr('date')
+  createdAt: DS.attr('date', {
+    defaultValue() { return new Date() }
+  })
 });

@@ -2,7 +2,6 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model(params) {
-    // Todo: Deal with not-found
     const route = this;
     return this.get('store').findRecord('document', params.id)
       .catch((function() {

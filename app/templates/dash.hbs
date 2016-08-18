@@ -34,7 +34,7 @@
             onToggle=(action (mut leftSideBarOpen))
     }}
         <!--div class="button"> NEW CONTRACT </div-->
-        {{#paper-button raised=true primary=true}}NEW CONTRACT{{/paper-button}}
+        {{#paper-button raised=true primary=true onClick=(action "newContract")}}NEW CONTRACT{{/paper-button}}
 
         <span id="nav_options">
             {{#paper-content padding=true}}
