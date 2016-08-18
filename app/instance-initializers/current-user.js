@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import config from '../config/environment';
 
 /**
  * @see http://miguelcamba.com/blog/2015/06/18/how-to-inject-the-current-user-using-ember-simple-auth/

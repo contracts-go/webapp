@@ -36,6 +36,8 @@
     </div>
 {{/paper-nav-container}}
 
-{{#doc-section docs=model.user.documents title='Incomplete'}}{{/doc-section}}
+{{#each currentUser.documents as |doc|}}
+    {{doc-icon doc=doc}}
+{{/each}}
 
 {{outlet}}

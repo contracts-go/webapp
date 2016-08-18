@@ -6,14 +6,19 @@ import Ember from 'ember';
 import config from '../config/environment';
 
 export default Ember.Route.extend({
+  session: Ember.inject.service('session'),
     /**
      * Store the current in every route.
      * @return {*|Promise|Promise.<T>}
      */
     beforeModel: function() {
-        return this.get('session').fetch().catch(function() {
-          // No user is signed in
-        });
+      const route = this;
+      return route.get('session').fetch().catch(function() {
+        // No user is signed in
+      }).then(function() {
+        // If there is a user signed in, populate the currentUser object
+        return route._populateCurrentUser();
+      });
     },
     actions: {
         /**
@@ -43,12 +48,13 @@ export default Ember.Route.extend({
                 // Successfully signed in
                 // If the user is new (not found in our database), we need to create a new record for them in firebase
                 sessionData = data;
-                return route._populateCurrentUser(sessionData.uid)
-            }).then(function (user) {
-                console.log(user);
+                // Fetch the current user and store it from the session
+                return route._populateCurrentUser();
+            }).then(function () {
                 route.transitionTo('document');
             })
-              .catch(function() {
+              .catch(function(error) {
+                Ember.Logger.log(error);
                 // Not found in database
                 Ember.Logger.log(sessionData.uid + ' not found in database. They must be new!');
                 // Get a reference to the Stevens Company (default for now)
@@ -103,8 +109,14 @@ export default Ember.Route.extend({
    * @return {*}
    * @private
    */
-  _populateCurrentUser(id) {
-      return this.get('store').findRecord('user', id)
-        .then(function(user) { this.get('currentUser').set('content', user) });
+  _populateCurrentUser() {
+    Ember.Logger.info('Populating current user');
+    const route = this;
+    const id = this.get('session').content.uid;
+    return this.get('store').findRecord('user', id)
+      .then(function(user) {
+        Ember.Logger.info('Populated!');
+        route.get('currentUser').set('content', user)
+      });
   }
 });
