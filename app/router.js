@@ -14,23 +14,12 @@ Router.map(function() {
 
   /* Authenticated routes */
 
-  // Document Routes
-  this.authenticatedRoute('document', function() {
-    // Any wildcard will bring you to your 'dashboard'
-    this.authenticatedRoute('dash', { path: '/' });
-    this.authenticatedRoute('dash', { path: '*wildcard' });
-    // Viewing should be the default mode of a document when id provided
-    this.authenticatedRoute('view', { path: ':id/*wildcard'});
-    this.authenticatedRoute('view', { path: ':id/view'});
-    this.authenticatedRoute('edit', { path: ':id/edit'});
-    this.authenticatedRoute('create', { path: ':id/create'});
-  });
-
+  // Document + Dash Routes
   this.authenticatedRoute('dash', function() {
     this.authenticatedRoute('all', { path: '/' });
     this.authenticatedRoute('all', { path: ':*wildcard'});
 
-    this.authenticatedRoute('documents', { path: 'documents/:id', }, function() {
+    this.authenticatedRoute('documents', { path: 'documents/:id' }, function() {
       // Viewing should be the default mode of a document when id provided
       this.authenticatedRoute('view', { path: ':*wildcard'});
       this.authenticatedRoute('view', { path: 'view'});

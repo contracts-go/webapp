@@ -9,24 +9,27 @@ export default Ember.Controller.extend({
       // Create the doc
       const controller = this;
       const store = this.get('store');
+      const currentUser = this.get('currentUser');
       // Create a new user record with their id as the uid
       const newDoc = store.createRecord('document', {
         status: 'incomplete',
         project: {},
-        creator: this.get('currentUser').content,
+        creator: currentUser.content
       });
       // Save the user to firebase
       newDoc.save()
         .then(function() {
           // Saved the blank doc. Now add it to the current users documents
-          return controller.get('currentUser').get('documents').pushObject(newDoc);
+          currentUser.get('documents').pushObject(newDoc);
+          // Save the current user to firebase as well
+          return currentUser.content.save();
         })
         .then(function() {
           // Redirect to create form
           controller.transitionToRoute('dash.documents.create', newDoc.id)
         })
         .catch(function(error) {
-          console.log(error);
+          Ember.Logger.error(error);
         });
     }
   }

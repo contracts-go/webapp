@@ -11,4 +11,5 @@ install:
   - bower install
 script:
 # Will only test building for now until we can get a linter working lols
+# Also should get someone to write tests for us
   - ember build

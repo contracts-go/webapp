@@ -68,7 +68,7 @@ export default Ember.Route.extend({
                           name: sessionData.currentUser.displayName,
                           type: 'pi', // { pi, admin } . Will deal with admin later.
                           company: company, // For now should default to Stevens
-                          documents: [],
+                          documents: []
                       });
                       // Save the user to firebase
                       return newUser.save();
