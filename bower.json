@@ -7,6 +7,9 @@
     "ember-qunit-notifications": "0.1.0",
     "firebase": "^3.0.0",
     "hammer.js": "^2.0.8",
-    "matchMedia": "0.2.0"
+    "matchMedia": "0.2.0",
+    "mocha": "~2.2.4",
+    "chai": "~2.3.0",
+    "ember-mocha-adapter": "~0.3.1"
   }
 }

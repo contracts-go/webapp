@@ -1,7 +1,7 @@
 $primary: "green";
 
 @import 'ember-paper';
-//@import 'pod-styles'; // Imports all the styles from the 'pod' structures
+@import 'pod-styles'; // Imports all the styles from the 'pod' structures
 
 #index *{
   margin: 0;

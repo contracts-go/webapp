@@ -6,16 +6,17 @@ import {
 } from 'ember-mocha';
 
 describeModule(
-  'route:dash/documents/create',
-  'DashDocumentsCreateRoute',
+  'service:mailer',
+  'MailerService',
   {
     // Specify the other units that are required for this test.
-    // needs: ['controller:foo']
+    // needs: ['service:foo']
   },
   function() {
+    // Replace this with your real tests.
     it('exists', function() {
-      let route = this.subject();
-      expect(route).to.be.ok;
+      let service = this.subject();
+      expect(service).to.be.ok;
     });
   }
 );
