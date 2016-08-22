@@ -1,7 +1,22 @@
 & {
-  width: 20%;
+  display: inline-block;
+  width: 190px;
+  padding: 20px;
 }
 
-h3 {
+img{
+  width: 180px;
+  height: 150px;
+}
+
+p{
+  font-size: .8em;
   text-align: center;
+  margin-top: 8px;
+  opacity: .9;
+}
+
+md-card{
+  width:180px;
+  height: 150px;
 }
