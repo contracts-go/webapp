@@ -12,7 +12,7 @@ module.exports = function(environment) {
     metricsAdapters: [
       {
         name: 'GoogleAnalytics',
-        environments: ['development', 'production'],
+        environments: ['production'],
         config: {
           id: 'UA-82683644-1'
         }
@@ -44,6 +44,7 @@ module.exports = function(environment) {
       storageBucket: "test-contracts-go.appspot.com",
     };
     ENV.APP.defaultCompany = 'companyOne';
+    ENV.APP.baseApiURL = 'http://localhost:5000';
   }
 
   if (environment === 'test') {
@@ -55,6 +56,7 @@ module.exports = function(environment) {
     ENV.APP.LOG_ACTIVE_GENERATION = false;
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
+    ENV.APP.baseApiURL = 'http://localhost:5000';
     ENV.APP.rootElement = '#ember-testing';
 
     ENV.firebase = {
@@ -74,6 +76,7 @@ module.exports = function(environment) {
     };
     // The default company that all new users will be registered with
     ENV.APP.defaultCompany = 'companyOne';
+    ENV.APP.baseApiURL = 'http://api.contracts-go.com';
   }
 
   return ENV;

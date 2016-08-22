@@ -1,10 +1,15 @@
 /*jshint node:true*/
-/* global require, module */
-var EmberApp = require('ember-cli/lib/broccoli/ember-app');
+/* global require, module, process */
+const EmberApp = require('ember-cli/lib/broccoli/ember-app');
+const isTesting = process.env.EMBER_ENV === 'test';
 
 module.exports = function(defaults) {
-  var app = new EmberApp(defaults, {
-    // Add options here
+  const app = new EmberApp(defaults, {
+    // Turn off linting while testing
+    'ember-cli-mocha': {
+      useLintTree: false
+    },
+    hinting: !isTesting
   });
 
   // Use `app.import` to add additional libraries to the generated

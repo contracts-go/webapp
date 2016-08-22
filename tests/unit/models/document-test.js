@@ -2,11 +2,11 @@ import { expect } from 'chai';
 import { describeModel, it } from 'ember-mocha';
 
 describeModel(
-  'company',
-  'Unit | Model | company',
+  'document',
+  'Unit | Model | document',
   {
     // Specify the other units that are required for this test.
-      needs: ['model:user', 'model:postal-address']
+      needs: ['model:user']
   },
   function() {
     // Replace this with your real tests.

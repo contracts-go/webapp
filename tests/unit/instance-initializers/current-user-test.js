@@ -1,25 +1,28 @@
+/* jshint expr:true */
+import { expect } from 'chai';
+import {
+  describe,
+  it,
+  beforeEach
+} from 'mocha';
 import Ember from 'ember';
 import { initialize } from 'contracts/instance-initializers/current-user';
-import { module, test } from 'qunit';
-import destroyApp from '../../helpers/destroy-app';
 
-module('Unit | Instance Initializer | current user', {
-  beforeEach: function() {
-    Ember.run(() => {
-      this.application = Ember.Application.create();
-      this.appInstance = this.application.buildInstance();
+describe('CurrentUserInstanceInitializer', function() {
+  let appInstance;
+
+  beforeEach(function() {
+    Ember.run(function() {
+      const application = Ember.Application.create();
+      appInstance = application.buildInstance();
     });
-  },
-  afterEach: function() {
-    Ember.run(this.appInstance, 'destroy');
-    destroyApp(this.application);
-  }
-});
+  });
 
-// Replace this with your real tests.
-test('it works', function(assert) {
-  initialize(this.appInstance);
+  // Replace this with your real tests.
+  it('works', function() {
+    initialize(appInstance);
 
-  // you would normally confirm the results of the initializer here
-  assert.ok(true);
+    // you would normally confirm the results of the initializer here
+    expect(true).to.be.ok;
+  });
 });
