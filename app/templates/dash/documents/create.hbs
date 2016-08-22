@@ -5,8 +5,145 @@
         <p> We'll need just a few bits of information to do that. All fields are required.</p>
     </div>
     {{#paper-card class="create-section" as |card| }}
-        {{#card.content class="layout-row layout-align-space-between"}}
+            <h1> What type of document is this?</h1>
+            <div id="doc_type_selection">
+            {{#paper-card class="doc_type_select selected" as |card| }}
+                    <img class="select_option_img" src="/assests/images/receive_green.png">
+                    <p> Stevens Receiving </p>
+            {{/paper-card}}
 
-        {{/card.content}}
+                {{#paper-card class="doc_type_select" as |card| }}
+                    <img class="select_option_img" src="/assests/images/reliable.png">
+                    <p> Mutual </p>
+                {{/paper-card}}
+
+                {{#paper-card class="doc_type_select" as |card| }}
+                    <img class="select_option_img" src="/assests/images/disclose.png">
+                    <p> Stevens Disclosing </p>
+                {{/paper-card}}
+
+                </div>
     {{/paper-card}}
+    <br>
+    {{#paper-card class="create-section basic-inputs" as |card| }}
+        <h1> {{paper-icon "assignment_ind"}} Now, about you. </h1>
+        <div class="inputs center">
+            <p>
+                {{paper-input
+                        label="Full Name"
+                        required=true
+                        value= currentUser.name
+                        onChange=(action (mut currentUser.name))
+                        class="half"
+                        errorMessages=(hash
+                                required="A name is required."
+                        )
+                }}
+                {{paper-input
+                        flex=true
+                        label="Email"
+                        type="text"
+                        value= currentUser.email
+                        required=true
+                        disabled=true
+                        onChange=null
+                        class="half"
+                }}
+            </p>
+            {{paper-input
+                    label="Title"
+                    value=currentUser.title
+                    onChange=(action (mut currentUser.title))
+                    required=true
+                    class="full"
+                    errorMessages=(hash
+                            required="A title is required."
+                    )
+            }}
+        </div>
+    {{/paper-card}}
+    <br>
+    {{#paper-card class="create-section basic-inputs" as |card| }}
+        <h1> {{paper-icon "assignment"}} Next, about your project. </h1>
+        <div class="inputs center">
+            {{paper-input
+                    label="Industry"
+                    value=model.project.industry
+                    onChange=(action (mut model.project.industry))
+                    required=true
+                    class="full"
+                    errorMessages=(hash
+                            required="An industry is required."
+                    )
+            }}
+            {{paper-input
+                    label="Project Description"
+                    value=model.project.description
+                    onChange=(action (mut model.project.description))
+                    required=true
+                    class="full"
+                    errorMessages=(hash
+                            required="A description is required."
+                    )
+            }}
+        </div>
+    {{/paper-card}}
+    <br>
+    {{#paper-card class="create-section basic-inputs" as |card| }}
+        <h1> {{paper-icon "business"}} Finally, about the company. </h1>
+        <div class="inputs center">
+            <p>
+                {{paper-input
+                        label="Company Name"
+                        class="half"
+                        required=true
+                        value= companyName
+                        onChange=(action (mut companyName))
+                }}
+                {{paper-input
+                        flex=true
+                        label="Company Location"
+                        type="text"
+                        class="half"
+                        value= companyLocation
+                        required=true
+                        onChange=(action (mut foo))}}
+            </p>
+            <p>
+                {{paper-input
+                        label="Company Type"
+                        class="half"
+                        required=true
+                        value= companyType
+                        onChange=(action (mut companyType))
+                }}
+                {{paper-input
+                        flex=true
+                        label="Company State of Incorporation"
+                        type="text"
+                        class="half"
+                        value= companyState
+                        required=true
+                        onChange=(action (mut foo))}}
+            </p>
+            <p>
+                {{paper-input
+                        label="Company Contact Name"
+                        class="half"
+                        required=true
+                        value= contactName
+                        onChange=(action (mut companyType))
+                }}
+                {{paper-input
+                        flex=true
+                        label="Company Contact Email"
+                        type="text"
+                        class="half"
+                        value= contactEmail
+                        required=true
+                        onChange=(action (mut foo))}}
+            </p>
+        </div>
+    {{/paper-card}}
+    <button style="margin: 20px;"> done yo </button>
 </div>
