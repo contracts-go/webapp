@@ -6,7 +6,11 @@
     </div>
     {{#paper-card class="create-section" as |card| }}
         {{#card.content class="layout-row layout-align-space-between"}}
-
+            <div id="contract_select">
+                <p><div id="mutual" class="contract_selection selected">{{paper-icon "swap_vert"}} Mutual</div></p>
+                <p><div id="mutual" class="contract_selection">{{paper-icon "arrow_upward"}} Stevens Disclosing</div></p>
+                <p><div id="mutual" class="contract_selection">{{paper-icon "arrow_downward"}} Stevens Receiving</div></p>
+            </div>
         {{/card.content}}
     {{/paper-card}}
 </div>
