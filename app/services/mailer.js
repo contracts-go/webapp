@@ -10,12 +10,11 @@ export default Ember.Service.extend({
   },
   /**
    *
-   * @param {string} id
-   * @param {Object} info
+   * @param {{sender:string, document:string, recipient:string, template:string}} info
    * @return {*}
    */
-  mail(id, info) {
-    return this.get('ajax').post(`${config.APP.baseApiURL}/document/${id}/email`, {
+  mail(info) {
+    return this.get('ajax').post(`${config.APP.baseApiURL}/document/${info.document}/email`, {
       data: info
     });
   }

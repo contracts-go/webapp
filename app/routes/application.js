@@ -7,6 +7,9 @@ import config from '../config/environment';
 
 export default Ember.Route.extend({
   session: Ember.inject.service('session'),
+  title(tokens) {
+    return tokens.join(' - ') + ' - Contracts-Go';
+  },
     /**
      * Store the current in every route.
      * @return {*|Promise|Promise.<T>}
