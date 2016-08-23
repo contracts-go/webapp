@@ -2,11 +2,9 @@
 Takes:
 @param {document} doc
 --}}
-{{#paper-card class="doc-icon" as |card|}}
-    {{#card.title as |title|}}
-        {{title.media size="md" src="" alt="preview"}}
-    {{/card.title}}
-    {{#card.content}}
-        <h3>{{doc.title}}</h3>
-    {{/card.content}}
+{{#paper-card class="create-section" as |card| }}
+<img src="/assests/images/doc_preview.png">
 {{/paper-card}}
+
+{{doc.title}}
+<p> Mutual Agreement between Francesca Bueti and NASA </p>

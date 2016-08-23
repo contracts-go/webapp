@@ -1,3 +1,5 @@
+$primary: "green";
+
 @import 'ember-paper';
 @import 'pod-styles'; // Imports all the styles from the 'pod' structures
 
@@ -199,8 +201,11 @@
 #name{
   font-size: .8em;
   margin-left: 10px;
+  color: white;
 }
-
+md-toolbar.md-default-theme:not(.md-menu-toolbar) md-icon, md-toolbar:not(.md-menu-toolbar) md-icon  {
+color: white;
+}
 .nav_option{
   opacity: .75;
   margin-left: 15px;
@@ -264,14 +269,17 @@ md-sidenav a.md-button.md-default-theme.md-primary.md-raised, a.md-button.md-def
   margin-left: auto;
   margin-right: auto;
   margin-top: 30px;
+  color: white;
 }
 
 .green-background{
   background-color: #00a63f;
   height: 300px;
-  width: inherit;
+  width: 100%;
   z-index: 0;
-  position: fixed;
+  position: absolute;
+  // TODO: fix width //
+  max-width: 1520px;
 }
 
 .top{
@@ -282,7 +290,30 @@ md-sidenav a.md-button.md-default-theme.md-primary.md-raised, a.md-button.md-def
 .create-section{
   width: 80%;
   margin: auto;
-  height: 500px;
+  padding-bottom: 50px;
+}
+
+.create-section h1 md-icon{
+  margin-left: 30px;
+  font-size: 1.1em;
+  margin-right: 10px;
+  color: rgba(1,1,1,.8);
+  margin-top: -10px;
+}
+.create-section h1{
+  padding-top: 10px;
+}
+
+.basic-inputs{
+  text-align: left;
+}
+
+.create-section h1{
+  width: 100%;
+  display: block;
+  opacity: .8;
+  font-weight: 400;
+  font-size: 1.8em;
 }
 .header_caption h1{
   color: white;
@@ -294,4 +325,75 @@ md-sidenav a.md-button.md-default-theme.md-primary.md-raised, a.md-button.md-def
   color: rgba(255,255,255,.98);
   margin-top: -15px;
   font-weight: 200;
+}
+#doc_type_selection{
+  margin: auto;
+}
+#doc_type_selection md-icon{
+  font-size: 7em;
+  color: rgba(1,1,1,.4);
+}
+#doc_type_selection .doc_type_select{
+  float: left;
+  height: 200px;
+  width: 200px;
+  border: solid 1px rgba(1,1,1,.1);
+  margin-right: 10px;
+  text-align: center;
+}
+#doc_type_selection .doc_type_select p{
+ margin-top: -30px;
+  padding: 10px 0px;
+  opacity: .7;
+  font-size: 1.1em;
+}
+#doc_type_selection .select_option_img{
+  height: 80px;
+  width: 80px;
+  margin: auto;
+  opacity: .6;
+  margin-top: 25px;
+  margin-bottom: 60px;
+}
+
+#doc_type_selection .selected {
+  border: solid 2px #00a63f;
+}
+#doc_type_selection .selected p{
+  background-color: #00a63f;
+  color: white;
+  opacity: 1;
+}
+#doc_type_selection .selected img{
+  opacity: 1;
+}
+#doc_type_selection .doc_type_select:hover {
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14),
+  0 1px 18px 0 rgba(0, 0, 0, 0.12),
+  0 3px 5px -1px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+.half{
+  width: 49.5%;
+  float: left;
+}
+
+.full{
+  width: 100%;
+}
+
+.center{
+  margin: auto;
+}
+.inputs{
+  width: 95%;
+}
+.docs_headers{
+  display: block;
+  width: 100%;
+  padding-top: 20px;
+  margin-left: 30px;
+  font-size: .8em;
+  opacity: .8;
 }
