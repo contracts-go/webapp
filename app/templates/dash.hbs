@@ -1,7 +1,10 @@
 <!--<h1>Document {{!-model.id}}</h1>-->
 {{#paper-toolbar class="toolbar"}}
     {{#paper-toolbar-tools}}
-        <img src="/assests/images/not-a-logo-white.png" width="150" style="margin-left: 15px">
+
+        {{#link-to "dash"}}
+        <img src="/assests/images/not-a-logo-white.png" width="150" style="margin-left: 15px" class="hoverable">
+        {{/link-to}}
 
         <span class="flex"></span>
         {{paper-icon "account_circle"}}
