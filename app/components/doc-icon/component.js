@@ -3,11 +3,18 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   routing: Ember.inject.service('-routing'),
   clickable: 'true',
+  classNameBindings: ['isSelected'],
+  click(){
+    this.set('isSelected', true)
+  },
+  mouseLeave(){
+    this.set('isSelected', false)
+  },
   /**
    * Todo: Permissions
    * @return {boolean}
    */
-  click() {
+  doubleClick() {
     const doc = this.get('doc');
     // Determine the action the current user needs to/can perform on the doc
     let route;

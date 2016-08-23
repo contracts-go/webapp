@@ -9,14 +9,35 @@ img{
   height: 150px;
 }
 
+img:hover{
+  cursor: pointer;
+}
+
 p{
   font-size: .8em;
   text-align: center;
-  margin-top: 8px;
+  padding: 10px 0px;
   opacity: .9;
+  margin-top: 0px;
+  width: 182px;
+  margin: auto;
+}
+p:hover{
+  cursor: pointer;
 }
 
 md-card{
   width:180px;
   height: 150px;
+}
+
+md-icon{
+  display: none;
+  color: rgba(1,1,1,.4);
+  float: right;
+}
+
+.md-button{
+  float: right;
+  margin-top: 5px;
 }
