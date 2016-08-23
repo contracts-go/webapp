@@ -11,7 +11,7 @@ export default Ember.Service.extend({
   /**
    *
    * @param {string} id
-   * @param {Object} info
+   * @param {{sender:string, document:string, recipient:string, template:string}} info
    * @return {*}
    */
   mail(id, info) {
