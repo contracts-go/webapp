@@ -2,18 +2,33 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   routing: Ember.inject.service('-routing'),
+  mailer: Ember.inject.service('mailer'),
   clickable: 'true',
-  classNameBindings: ['isSelected'],
+  classNameBindings: ['isSelected', 'show'],
   showPromptDialog: false,
+  show: false,
   actions: {
     openPromptDialog(){
-      this.set('showPromptDialog', true)
+      this.set('showPromptDialog', true);
     },
     closePromptDialog() {
-      this.set('showPromptDialog', false)
-    }
+      this.set('showPromptDialog', false);
+    },
+    sendMail(){
+      var info = {
+        sender:this.get('currentUser').get('id'),
+        document: this.get('doc').get('id'),
+        recipient: this.get('currentUser').get('id'),
+        template: 'toSelf'
+      }
+      this.get('mailer').mail(info);
+      this.set('showPromptDialog', false);
+
+      this.set('show', true);
+      setTimeout(function(){ this.set('show', false); }, 3000);
+    },
   },
-  click(){
+  mouseEnter(){
     this.set('isSelected', true)
   },
   mouseLeave(){

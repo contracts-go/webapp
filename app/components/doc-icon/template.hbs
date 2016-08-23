@@ -6,8 +6,7 @@ Takes:
 <img src="/assets/images/doc_preview.png">
 {{/paper-card}}
 
-<!--TODO: replace text with {{!--doc.title--}}-->
-<p> Mutual Agreement between Francesca Bueti and NASA <br></p>
+<p> {{doc.title}} <br></p>
 {{#paper-button iconButton=true onClick=(action "openPromptDialog")}}{{paper-icon "send"}}{{/paper-button}}
 
 {{#if showPromptDialog}}
@@ -21,8 +20,12 @@ Takes:
         {{#paper-dialog-actions class="layout-row"}}
             <span class="flex"></span>
             {{#paper-button primary=true onClick=(action "closePromptDialog")}}Cancel{{/paper-button}}
-            {{#paper-button primary=true onClick=(action "closePromptDialog")}}Send{{/paper-button}}
+            {{#paper-button primary=true onClick=(action "sendMail")}}Send{{/paper-button}}
         {{/paper-dialog-actions}}
 
     {{/paper-dialog}}
 {{/if}}
+
+{{#paper-card class="snackbar" as |card| }}
+    <p> Document sent </p>
+{{/paper-card}}
