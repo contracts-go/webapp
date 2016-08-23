@@ -37,14 +37,14 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.APP.defaultCompany = 'companyOne';
+    ENV.APP.baseApiURL = 'http://localhost:5000';
     ENV.firebase = {
       apiKey: "AIzaSyB4SyxYmNATRfLRmsj-8zV6pl9oQA_i--k",
       authDomain: "test-contracts-go.firebaseapp.com",
       databaseURL: "https://test-contracts-go.firebaseio.com",
       storageBucket: "test-contracts-go.appspot.com",
     };
-    ENV.APP.defaultCompany = 'companyOne';
-    ENV.APP.baseApiURL = 'http://localhost:5000';
   }
 
   if (environment === 'test') {
