@@ -14,7 +14,10 @@ export default Ember.Controller.extend({
       // Create a new user record with their id as the uid
       const newDoc = store.createRecord('document', {
         status: 'incomplete',
-        project: {},
+        project: {
+          industry: '',
+          description: ''
+        },
         creator: currentUser.content
       });
       // Save the user to firebase

@@ -14,7 +14,7 @@ export default Ember.Route.extend({
      * Store the current in every route.
      * @return {*|Promise|Promise.<T>}
      */
-    beforeModel: function() {
+    beforeModel() {
       const route = this;
       return route.get('session').fetch().catch(function() {
         // No user is signed in
@@ -29,7 +29,7 @@ export default Ember.Route.extend({
          * If the user is not logged in, reroute them to the home page.
          * Called by authorizedRoute when the user is unauthorized
          */
-        accessDenied: function() {
+        accessDenied() {
           this.transitionTo('index')
         },
         /**
@@ -40,7 +40,7 @@ export default Ember.Route.extend({
          * Populate the current user service
          * @param {string} provider
          */
-        signIn: function(provider) {
+        signIn(provider) {
             // Todo: figure out if the user is a new user
             // If they are, make a new entry for them in the database by their uuid
             // If not, just log them in I guess?
@@ -102,7 +102,7 @@ export default Ember.Route.extend({
         /**
          * Sign the user out of the session.
          */
-        signOut: function() {
+        signOut() {
           this.get('session').close();
           this.transitionTo('index');
         }

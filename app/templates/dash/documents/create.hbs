@@ -7,7 +7,8 @@
     {{#paper-card class="create-section" as |card| }}
             <h1> What type of document is this?</h1>
             <div id="doc_type_selection">
-            {{#paper-card class="doc_type_select selected" as |card| }}
+            {{#paper-card
+                    class="doc_type_select selected" as |card| }}
                     <img class="select_option_img" src="/assets/images/receive_green.png">
                     <p> Stevens Receiving </p>
             {{/paper-card}}
@@ -32,8 +33,9 @@
                 {{paper-input
                         label="Full Name"
                         required=true
-                        value= currentUser.name
+                        value=currentUser.name
                         onChange=(action (mut currentUser.name))
+                        onBlur=(action "save")
                         class="half"
                         errorMessages=(hash
                                 required="A name is required."
@@ -43,7 +45,7 @@
                         flex=true
                         label="Email"
                         type="text"
-                        value= currentUser.email
+                        value=currentUser.email
                         required=true
                         disabled=true
                         onChange=null
@@ -54,6 +56,7 @@
                     label="Title"
                     value=currentUser.title
                     onChange=(action (mut currentUser.title))
+                    onBlur=(action "save")
                     required=true
                     class="full"
                     errorMessages=(hash
@@ -70,6 +73,7 @@
                     label="Industry"
                     value=model.project.industry
                     onChange=(action (mut model.project.industry))
+                    onBlur=(action "save")
                     required=true
                     class="full"
                     errorMessages=(hash
@@ -80,6 +84,7 @@
                     label="Project Description"
                     value=model.project.description
                     onChange=(action (mut model.project.description))
+                    onBlur=(action "save")
                     required=true
                     class="full"
                     errorMessages=(hash
@@ -99,15 +104,18 @@
                         required=true
                         value= companyName
                         onChange=(action (mut companyName))
+                        onBlur=(action "save")
                 }}
                 {{paper-input
                         flex=true
                         label="Company Location"
                         type="text"
                         class="half"
-                        value= companyLocation
+                        value=companyLocation
                         required=true
-                        onChange=(action (mut foo))}}
+                        onChange=(action (mut companyLocation))
+                        onBlur=(action "save")
+                }}
             </p>
             <p>
                 {{paper-input
@@ -116,6 +124,7 @@
                         required=true
                         value= companyType
                         onChange=(action (mut companyType))
+                        onBlur=(action "save")
                 }}
                 {{paper-input
                         flex=true
@@ -124,7 +133,9 @@
                         class="half"
                         value= companyState
                         required=true
-                        onChange=(action (mut foo))}}
+                        onChange=(action (mut companyState))
+                        onBlur=(action "save")
+                }}
             </p>
             <p>
                 {{paper-input
@@ -132,18 +143,22 @@
                         class="half"
                         required=true
                         value= contactName
-                        onChange=(action (mut companyType))
+                        onChange=(action (mut contactName))
+                        onBlur=(action "save")
                 }}
                 {{paper-input
                         flex=true
                         label="Company Contact Email"
                         type="text"
                         class="half"
-                        value= contactEmail
+                        value=contactEmail
                         required=true
-                        onChange=(action (mut foo))}}
+                        onChange=(action (mut contactEmail))
+                        onBlur=(action "save")
+                }}
             </p>
         </div>
     {{/paper-card}}
-    <button style="margin: 20px;"> done yo </button>
+    <button style="margin: 20px;" {{action "save"}}> save yo ass </button>
+    <button style="margin: 20px;" {{action "done"}}> done yo </button>
 </div>
