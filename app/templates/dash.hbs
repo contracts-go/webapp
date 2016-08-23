@@ -8,7 +8,7 @@
 
         <span class="flex"></span>
         {{paper-icon "account_circle"}}
-        <span id="name">{{session.currentUser.displayName}}</span>
+        <span id="name">{{currentUser.name}}</span>
 
         {{#paper-menu isOpen=menuFourIsOpen position="target-right target" as |menu|}}
             {{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}{{paper-icon "arrow_drop_down" class="md-menu-origin"}}{{/paper-button}}
