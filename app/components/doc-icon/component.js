@@ -7,7 +7,7 @@ export default Ember.Component.extend({
    * Todo: Permissions
    * @return {boolean}
    */
-  click() {
+  doubleClick() {
     const doc = this.get('doc');
     // Determine the action the current user needs to/can perform on the doc
     let route;
