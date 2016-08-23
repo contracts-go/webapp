@@ -5,6 +5,7 @@ export default Ember.Controller.extend({
     /**
      * Create a blank document in the database and then direct to the create form
      */
+
     newContract: function() {
       // Create the doc
       const controller = this;

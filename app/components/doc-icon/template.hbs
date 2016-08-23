@@ -8,4 +8,21 @@ Takes:
 
 <!--TODO: replace text with {{!--doc.title--}}-->
 <p> Mutual Agreement between Francesca Bueti and NASA <br></p>
-{{#paper-button iconButton=true}}{{paper-icon "send"}}{{/paper-button}}
+{{#paper-button iconButton=true onClick=(action "openPromptDialog")}}{{paper-icon "send"}}{{/paper-button}}
+
+{{#if showPromptDialog}}
+    {{#paper-dialog fullscreen=fullscreen onClose=(action "closePromptDialog" "cancel") origin=dialogOrigin}}
+
+        {{#paper-dialog-content}}
+            <h2 class="md-title">Would you like to send this document to yourself?</h2>
+            <p>You'll receive an email with a word document attached.</p>
+        {{/paper-dialog-content}}
+
+        {{#paper-dialog-actions class="layout-row"}}
+            <span class="flex"></span>
+            {{#paper-button primary=true onClick=(action "closePromptDialog")}}Cancel{{/paper-button}}
+            {{#paper-button primary=true onClick=(action "closePromptDialog")}}Send{{/paper-button}}
+        {{/paper-dialog-actions}}
+
+    {{/paper-dialog}}
+{{/if}}

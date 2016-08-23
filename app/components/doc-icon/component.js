@@ -4,6 +4,15 @@ export default Ember.Component.extend({
   routing: Ember.inject.service('-routing'),
   clickable: 'true',
   classNameBindings: ['isSelected'],
+  showPromptDialog: false,
+  actions: {
+    openPromptDialog(){
+      this.set('showPromptDialog', true)
+    },
+    closePromptDialog() {
+      this.set('showPromptDialog', false)
+    }
+  },
   click(){
     this.set('isSelected', true)
   },
