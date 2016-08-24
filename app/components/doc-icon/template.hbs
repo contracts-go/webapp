@@ -2,12 +2,14 @@
 Takes:
 @param {document} doc
 --}}
+<span class="doc_icon">
 {{#paper-card class="create-section" as |card| }}
 <img src="/assets/images/doc_preview.png">
 {{/paper-card}}
 
 <p> {{doc.title}} <br></p>
 {{#paper-button iconButton=true onClick=(action "openPromptDialog")}}{{paper-icon "send"}}{{/paper-button}}
+</span>
 
 {{#if showPromptDialog}}
     {{#paper-dialog fullscreen=fullscreen onClose=(action "closePromptDialog" "cancel") origin=dialogOrigin}}

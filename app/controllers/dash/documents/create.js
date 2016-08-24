@@ -10,7 +10,8 @@ export default Ember.Controller.extend({
       this.get('currentModel').save();
     },
     typeSelected(type) {
-
-    }
+      console.log("hello");
+      document.getElementById("doc_type").value = type;
+    },
   }
 });
