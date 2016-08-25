@@ -10,11 +10,11 @@
             <input type="hidden" id="doc_type">
             <div id="doc_type_selection">
                 {{!-- Wrap each card in a div to use the action helper. Makes it clickable. --}}
-                <div {{action "typeSelected" "receiving"}}>
+                <div {{action "typeSelected" "receiving"}} class="doc_select">
                     {{doc-type-select-icon doc=model selectOn="receiving" img="/assets/images/receive.png" text="Receiving"}}
                 </div>
 
-                <div {{action "typeSelected" "mutual"}}>
+                <div {{action "typeSelected" "mutual"}} class="doc_select">
                     {{doc-type-select-icon doc=currentModel selectOn="mutual" img="/assets/images/reliable.png" text="Mutual"}}
                     {{!--{{#paper-card class="doc_type_select"}}
                         <img class="select_option_img" src="/assets/images/reliable.png">
@@ -22,7 +22,7 @@
                     {{/paper-card}}--}}
                 </div>
 
-                <div {{action "typeSelected" "disclosing"}}>
+                <div {{action "typeSelected" "disclosing"}} class="doc_select">
                     {{doc-type-select-icon doc=currentModel selectOn="disclosing" img="/assets/images/disclose.png" text="Disclosing"}}
                     {{!--{{#paper-card class="doc_type_select"}}
                         <img class="select_option_img" src="/assets/images/disclose.png">
@@ -158,6 +158,7 @@
                             required=true
                             onChange=(action (mut zip))
                             onBlur=(action "save")
+                            customValidations=zipValidation
                     }}
                 </p>
                 <p>
@@ -203,6 +204,7 @@
                             required=true
                             onChange=(action (mut contactEmail))
                             onBlur=(action "save")
+                            customValidations=emailValidation
                     }}
                 </p>
             </div>

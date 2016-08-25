@@ -354,7 +354,7 @@ md-sidenav a.md-button.md-default-theme.md-primary.md-raised, a.md-button.md-def
   margin-bottom: 60px;
 }
 
-#doc_type_selection .selected {
+#doc_type_selection .selected md-card {
   border: solid 2px #00a63f;
 }
 #doc_type_selection .selected p{
@@ -423,6 +423,9 @@ md-sidenav a.md-button.md-default-theme.md-primary.md-raised, a.md-button.md-def
   visibility: visible;
   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+.doc_select{
+  float: left;
 }
 
 @-webkit-keyframes fadein {
