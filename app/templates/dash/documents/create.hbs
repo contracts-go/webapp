@@ -115,8 +115,8 @@
                 {{paper-input
                         label="Company Name"
                         required=true
-                        value= companyName
-                        onChange=(action (mut companyName))
+                        value=model.company.name
+                        onChange=(action (mut model.company.name))
                         onBlur=(action "save")
                         class="full"
                 }}
@@ -124,9 +124,9 @@
                         flex=true
                         label="Address"
                         type="text"
-                        value=address
+                        value=model.company.location.streetAddress
                         required=true
-                        onChange=(action (mut address))
+                        onChange=(action (mut model.company.location.streetAddress))
                         onBlur=(action "save")
                         class="full"
                 }}
@@ -136,17 +136,17 @@
                             label="City"
                             type="text"
                             class="third"
-                            value=city
+                            value=model.company.location.addressLocality
                             required=true
-                            onChange=(action (mut city))
+                            onChange=(action (mut model.company.location.addressLocality))
                             onBlur=(action "save")
                     }}
                     {{#paper-select
                             disabled=disableSelect
                             placeholder="State"
-                            value=userState
+                            value=model.company.location.addressRegion
                             class="third"
-                            onChange=(action (mut userState))
+                            onChange=(action (mut model.company.location.addressRegion))
                     }}
                         {{#each states as |state|}}
                             {{#paper-option value=state.abbrev}}
@@ -159,9 +159,9 @@
                             label="Zip Code"
                             type="text"
                             class="third"
-                            value=zip
+                            value=model.company.location.postalCode
                             required=true
-                            onChange=(action (mut zip))
+                            onChange=(action (mut model.company.location.postalCode))
                             onBlur=(action "save")
                             customValidations=zipValidation
                     }}
@@ -171,16 +171,16 @@
                             label="Company Type"
                             class="half"
                             required=true
-                            value= companyType
-                            onChange=(action (mut companyType))
+                            value= model.company.type
+                            onChange=(action (mut model.company.type))
                             onBlur=(action "save")
                     }}
                     {{#paper-select
                             disabled=disableSelect
-                            placeholder="State of incorporation"
-                            value=companyState
+                            placeholder="State of Incorporation"
+                            value=model.company.state
                             class="half"
-                            onChange=(action (mut companyState))
+                            onChange=(action (mut model.company.state))
                     }}
                         {{#each states as |state|}}
                             {{#paper-option value=state.abbrev}}
@@ -196,8 +196,8 @@
                             label="Company Contact Name"
                             class="half"
                             required=true
-                            value= contactName
-                            onChange=(action (mut contactName))
+                            value= model.company.contact.name
+                            onChange=(action (mut model.company.contact.name))
                             onBlur=(action "save")
                     }}
                     {{paper-input
@@ -205,9 +205,9 @@
                             label="Company Contact Email"
                             type="text"
                             class="half"
-                            value=contactEmail
+                            value=model.company.contact.email
                             required=true
-                            onChange=(action (mut contactEmail))
+                            onChange=(action (mut model.company.contact.email))
                             onBlur=(action "save")
                             customValidations=emailValidation
                     }}
