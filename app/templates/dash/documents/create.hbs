@@ -1,3 +1,8 @@
+{{#link-to "dash"}}
+    {{#paper-button raised=true mini=true class="frozen"}}
+        {{paper-icon "arrow_back"}}
+    {{/paper-button}}
+{{/link-to}}
 <div class="green-background"></div>
 <div class="top">
     <div class="header_caption">
@@ -7,69 +12,70 @@
     {{#paper-form onSubmit=(action "done") as |form|}}
         {{#paper-card class="create-section" as |card| }}
             <h1> What type of document is this?</h1>
+            <input type="hidden" id="doc_type">
             <div id="doc_type_selection">
                 {{!-- Wrap each card in a div to use the action helper. Makes it clickable. --}}
-                <div {{action "typeSelected" "receiving"}}>
+                <div {{action "typeSelected" "receiving"}} class="doc_select">
                     {{doc-type-select-icon doc=model selectOn="receiving" img="/assets/images/receive.png" text="Receiving"}}
                 </div>
 
-                <div {{action "typeSelected" "mutual"}}>
-                    {{doc-type-select-icon doc=model selectOn="mutual" img="/assets/images/reliable.png" text="Mutual"}}
+                <div {{action "typeSelected" "mutual"}} class="doc_select">
+                    {{doc-type-select-icon doc=currentModel selectOn="mutual" img="/assets/images/reliable.png" text="Mutual"}}
                     {{!--{{#paper-card class="doc_type_select"}}
                         <img class="select_option_img" src="/assets/images/reliable.png">
                         <p> Mutual </p>
                     {{/paper-card}}--}}
                 </div>
 
-                <div {{action "typeSelected" "disclosing"}}>
-                    {{doc-type-select-icon doc=model selectOn="disclosing" img="/assets/images/disclose.png" text="Disclosing"}}
+                <div {{action "typeSelected" "disclosing"}} class="doc_select">
+                    {{doc-type-select-icon doc=currentModel selectOn="disclosing" img="/assets/images/disclose.png" text="Disclosing"}}
                     {{!--{{#paper-card class="doc_type_select"}}
                         <img class="select_option_img" src="/assets/images/disclose.png">
                         <p> Stevens Disclosing </p>
                     {{/paper-card}}--}}
                 </div>
             </div>
-        {{/paper-card}}
-        <br>
-        {{#paper-card class="create-section basic-inputs" as |card| }}
-            <h1> {{paper-icon "assignment_ind"}} Now, about you. </h1>
-            <div class="inputs center">
-                <p>
-                    {{paper-input
-                            label="Full Name"
-                            required=true
-                            value=currentUser.name
-                            onChange=(action (mut currentUser.name))
-                            onBlur=(action "save")
-                            class="half"
-                            errorMessages=(hash
-                                    required="A name is required."
-                            )
-                    }}
-                    {{paper-input
-                            flex=true
-                            label="Email"
-                            type="text"
-                            value=currentUser.email
-                            required=true
-                            disabled=true
-                            onChange=null
-                            class="half"
-                    }}
-                </p>
+    {{/paper-card}}
+    <br>
+    {{#paper-card class="create-section basic-inputs" as |card| }}
+        <h1> {{paper-icon "assignment_ind"}} Now, about you. </h1>
+        <div class="inputs center">
+            <p>
                 {{paper-input
-                        label="Title"
-                        value=currentUser.title
-                        onChange=(action (mut currentUser.title))
-                        onBlur=(action "save")
+                        label="Full Name"
                         required=true
-                        class="full"
+                        value=currentUser.name
+                        onChange=(action (mut currentUser.name))
+                        onBlur=(action "save")
+                        class="half"
                         errorMessages=(hash
-                                required="A title is required."
+                                required="A name is required."
                         )
                 }}
-            </div>
-        {{/paper-card}}
+                {{paper-input
+                        flex=true
+                        label="Email"
+                        type="text"
+                        value=currentUser.email
+                        required=true
+                        disabled=true
+                        onChange=null
+                        class="half"
+                }}
+            </p>
+            {{paper-input
+                    label="Title"
+                    value=currentUser.title
+                    onChange=(action (mut currentUser.title))
+                    onBlur=(action "save")
+                    required=true
+                    class="full"
+                    errorMessages=(hash
+                            required="A title is required."
+                    )
+            }}
+        </div>
+    {{/paper-card}}
         <br>
         {{#paper-card class="create-section basic-inputs" as |card| }}
             <h1> {{paper-icon "assignment"}} Next, about your project. </h1>
@@ -86,7 +92,11 @@
                         )
                 }}
                 {{paper-input
-                        label="Project Description"
+                        textarea=true
+                        block=true
+                        label="Description"
+                        maxlength=140
+                        passThru=(hash rows=5)
                         value=model.project.description
                         onChange=(action (mut model.project.description))
                         onBlur=(action "save")
@@ -102,24 +112,58 @@
         {{#paper-card class="create-section basic-inputs" as |card| }}
             <h1> {{paper-icon "business"}} Finally, about the company. </h1>
             <div class="inputs center">
+                {{paper-input
+                        label="Company Name"
+                        required=true
+                        value=model.company.name
+                        onChange=(action (mut model.company.name))
+                        onBlur=(action "save")
+                        class="full"
+                }}
+                {{paper-input
+                        flex=true
+                        label="Address"
+                        type="text"
+                        value=model.company.location.streetAddress
+                        required=true
+                        onChange=(action (mut model.company.location.streetAddress))
+                        onBlur=(action "save")
+                        class="full"
+                }}
                 <p>
                     {{paper-input
-                            label="Company Name"
-                            class="half"
+                            flex=true
+                            label="City"
+                            type="text"
+                            class="third"
+                            value=model.company.location.addressLocality
                             required=true
-                            value=model.company.name
-                            onChange=(action (mut model.company.name))
+                            onChange=(action (mut model.company.location.addressLocality))
                             onBlur=(action "save")
                     }}
+                    {{#paper-select
+                            disabled=disableSelect
+                            placeholder="State"
+                            value=model.company.location.addressRegion
+                            class="third"
+                            onChange=(action (mut model.company.location.addressRegion))
+                    }}
+                        {{#each states as |state|}}
+                            {{#paper-option value=state.abbrev}}
+                                {{state.abbrev}}
+                            {{/paper-option}}
+                        {{/each}}
+                    {{/paper-select}}
                     {{paper-input
                             flex=true
-                            label="Company Location"
+                            label="Zip Code"
                             type="text"
-                            class="half"
-                            value=model.company.location
+                            class="third"
+                            value=model.company.location.postalCode
                             required=true
-                            onChange=(action (mut model.company.location))
+                            onChange=(action (mut model.company.location.postalCode))
                             onBlur=(action "save")
+                            customValidations=zipValidation
                     }}
                 </p>
                 <p>
@@ -127,27 +171,32 @@
                             label="Company Type"
                             class="half"
                             required=true
-                            value=model.company.type
+                            value= model.company.type
                             onChange=(action (mut model.company.type))
                             onBlur=(action "save")
                     }}
-                    {{paper-input
-                            flex=true
-                            label="Company State of Incorporation"
-                            type="text"
-                            class="half"
+                    {{#paper-select
+                            disabled=disableSelect
+                            placeholder="State of Incorporation"
                             value=model.company.state
-                            required=true
+                            class="half"
                             onChange=(action (mut model.company.state))
-                            onBlur=(action "save")
                     }}
+                        {{#each states as |state|}}
+                            {{#paper-option value=state.abbrev}}
+                                {{state.abbrev}}
+                            {{/paper-option}}
+                        {{/each}}
+                    {{/paper-select}}
                 </p>
+                <!-- terrible way to make select aligned -->
+                <p style="color: white"> ..... </p>
                 <p>
                     {{paper-input
                             label="Company Contact Name"
                             class="half"
                             required=true
-                            value=model.company.contact.name
+                            value= model.company.contact.name
                             onChange=(action (mut model.company.contact.name))
                             onBlur=(action "save")
                     }}
@@ -160,11 +209,11 @@
                             required=true
                             onChange=(action (mut model.company.contact.email))
                             onBlur=(action "save")
+                            customValidations=emailValidation
                     }}
                 </p>
             </div>
-        {{/paper-card}}
-
+    {{/paper-card}}
         {{!-- Don't allow to continue until all things valid --}}
         {{#paper-button onClick=form.onSubmit disabled=form.isInvalid}}DONE{{/paper-button}}
     {{/paper-form}}
