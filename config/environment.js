@@ -42,6 +42,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
     ENV.APP.defaultCompany = 'companyOne';
+    ENV.APP.defaultAdmin = 'seTwcZyszYSpw2HX6InEv0vWlbP2';
     ENV.APP.baseApiURL = 'http://localhost:5000';
     ENV.firebase = {
       apiKey: "AIzaSyB4SyxYmNATRfLRmsj-8zV6pl9oQA_i--k",
@@ -80,6 +81,7 @@ module.exports = function(environment) {
     };
     // The default company that all new users will be registered with
     ENV.APP.defaultCompany = 'companyOne';
+    ENV.APP.defaultAdmin = 'seTwcZyszYSpw2HX6InEv0vWlbP2';
     ENV.APP.baseApiURL = 'http://api.contracts-go.com';
   }
 

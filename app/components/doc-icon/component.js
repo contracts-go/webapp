@@ -15,12 +15,12 @@ export default Ember.Component.extend({
       this.set('showPromptDialog', false);
     },
     sendMail(){
-      var info = {
-        sender:this.get('currentUser').get('id'),
+      const info = {
+        sender: this.get('currentUser').get('id'),
         document: this.get('doc').get('id'),
         recipient: this.get('currentUser').get('id'),
         template: 'toSelf'
-      }
+      };
       this.get('mailer').mail(info);
       this.set('showPromptDialog', false);
 

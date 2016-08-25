@@ -9,12 +9,5 @@ export default Ember.Route.extend({
   },
   actions: {
 
-    /**
-     * First validate, then:
-     * Send to view page with controls to finalize or go back
-     */
-    done() {
-
-    }
   }
 });

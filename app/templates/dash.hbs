@@ -1,4 +1,3 @@
-<!--<h1>Document {{!-model.id}}</h1>-->
 {{#paper-toolbar class="toolbar"}}
     {{#paper-toolbar-tools}}
 
@@ -10,8 +9,10 @@
         {{paper-icon "account_circle"}}
         <span id="name">{{currentUser.name}}</span>
 
-        {{#paper-menu isOpen=menuFourIsOpen position="target-right target" as |menu|}}
-            {{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}{{paper-icon "arrow_drop_down" class="md-menu-origin"}}{{/paper-button}}
+        {{#paper-menu isOpen=userMenuIsOpen position="target-right target" as |menu|}}
+            {{#paper-button onClick=(action "toggleMenu" target=menu) iconButton=true}}
+                {{paper-icon "arrow_drop_down" class="md-menu-origin"}}
+            {{/paper-button}}
         {{else}}
             {{#paper-menu-item}}
             {{!-- Some people won't have a photo provided through google --}}
@@ -43,23 +44,33 @@
             {{#paper-content padding=true}}
                 <h1 class="nav_header">DOCUMENTS</h1>
             {{/paper-content}}
-            {{#paper-content padding=true}}
-                <span class="nav_option selected">{{paper-icon "move_to_inbox"}} <span class="text">Pending</span></span>
-            {{/paper-content}}
-            {{#paper-content padding=true}}
-                <span class="nav_option">{{paper-icon "hourglass_empty"}} <span class="text">Incomplete</span></span>
-            {{/paper-content}}
-            {{#paper-content padding=true}}
-                <span class="nav_option">{{paper-icon "assignment_turned_in"}} <span class="text">Approved</span></span>
-            {{/paper-content}}
+            {{nav-option text="All Documents" icon="move_to_inbox" onClick=(action "setDocFilter" "all")}}
+            {{nav-option text="Incomplete" icon="hourglass_empty" onClick=(action "setDocFilter" "incomplete")}}
+            {{nav-option text="Pending" icon="move_to_inbox" onClick=(action "setDocFilter" "pending")}}
+            {{nav-option text="Complete" icon="assignment_turned_in" onClick=(action "setDocFilter" "complete")}}
+            {{!--{{#paper-content padding=true}}--}}
+                {{!--<span class="nav_option selected">--}}
+                    {{!--{{paper-icon "move_to_inbox"}}--}}
+                    {{!--<span class="text">Pending</span>--}}
+                {{!--</span>--}}
+            {{!--{{/paper-content}}--}}
+            {{!--{{#paper-content padding=true}}--}}
+                {{!--<span class="nav_option">--}}
+                    {{!--{{paper-icon "hourglass_empty"}}--}}
+                    {{!--<span class="text">Incomplete</span>--}}
+                {{!--</span>--}}
+            {{!--{{/paper-content}}--}}
+            {{!--{{#paper-content padding=true}}--}}
+                {{!--<span class="nav_option">--}}
+                    {{!--{{paper-icon "assignment_turned_in"}}--}}
+                    {{!--<span class="text">Approved</span>--}}
+                {{!--</span>--}}
+            {{!--{{/paper-content}}--}}
         </span>
     {{/paper-sidenav}}
 
     {{#paper-card-content class="flex"}}
-            <div class="layout-fill" style="background-color: #efefef">
-
-
-
+        <div class="layout-fill" style="background-color: #efefef">
             {{outlet}}
 
         </div>

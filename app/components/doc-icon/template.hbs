@@ -8,9 +8,15 @@ Takes:
 {{/paper-card}}
 
 <p> {{doc.title}} <br></p>
-{{#paper-button iconButton=true onClick=(action "openPromptDialog")}}{{paper-icon "send"}}{{/paper-button}}
+    {{!-- Don't let incomplete documents be mailed --}}
+    {{#unless doc.isIncomplete}}
+        {{#paper-button iconButton=true onClick=(action "openPromptDialog")}}
+            {{paper-icon "send"}}
+        {{/paper-button}}
+    {{/unless}}
 </span>
 
+{{!-- Opens to confirm sending mail --}}
 {{#if showPromptDialog}}
     {{#paper-dialog fullscreen=fullscreen onClose=(action "closePromptDialog" "cancel") origin=dialogOrigin}}
 

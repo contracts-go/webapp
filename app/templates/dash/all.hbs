@@ -1,4 +1,25 @@
-<span class="docs_headers">All Documents</span>
-{{#each currentUser.documents as |doc|}}
-    {{doc-icon doc=doc}}
-{{/each}}
+{{!--<span class="docs_headers">All Documents</span>--}}
+{{!--{{#each currentUser.documents as |doc|}}--}}
+    {{!--{{doc-icon doc=doc}}--}}
+{{!--{{/each}}--}}
+
+{{#if (or (eq dash.docFilter "all") (eq dash.docFilter "incomplete")) }}
+    <span class="docs_headers">Incomplete Documents</span>
+    {{#each incompleteDocs as |doc|}}
+        {{doc-icon doc=doc}}
+    {{/each}}
+{{/if}}
+
+{{#if (or (eq dash.docFilter "all") (eq dash.docFilter "pending")) }}
+    <span class="docs_headers">Pending Documents</span>
+    {{#each pendingDocs as |doc|}}
+        {{doc-icon doc=doc}}
+    {{/each}}
+{{/if}}
+
+{{#if (or (eq dash.docFilter "all") (eq dash.docFilter "complete")) }}
+    <span class="docs_headers">Complete Documents</span>
+    {{#each completeDocs as |doc|}}
+        {{doc-icon doc=doc}}
+    {{/each}}
+{{/if}}

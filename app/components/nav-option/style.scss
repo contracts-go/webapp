@@ -1,0 +1,27 @@
+&{
+  opacity: .75;
+  margin-left: 15px;
+}
+
+.text{
+  margin-left: 15px;
+}
+
+.isSelected{
+  color: #1B2021;
+  font-weight: bold;
+}
+
+md-content{
+  padding-left: 30px;
+
+  :hover{
+    background-color: rgba(1,1,1,.05);
+    cursor: pointer;
+  }
+
+  :first-child:hover{
+    background-color: white;
+    cursor: default;
+  }
+}
