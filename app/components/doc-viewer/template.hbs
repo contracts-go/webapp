@@ -1,6 +1,17 @@
-<section id="docText">
-    {{#unless isLoaded}}
+{{#if isLoaded}}
+    <section id="docText">
+        {{!--
+        Should be ok anyways, but make sure this html is safe incase
+        some jerk injected some other stuff. GTFO jerk.
+        --}}
+        {{{htmlSafe docText}}}
+        <aside id="actions">
+            {{yield}}
+        </aside>
+    </section>
+{{else}}
+    <section id="progress">
         {{paper-progress-circular}}
-    {{/unless}}
-    {{docText}}
-</section>
+    </section>
+{{/if}}
+

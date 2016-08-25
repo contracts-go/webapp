@@ -1,1 +1,26 @@
-{{doc-viewer doc=model mode="view"}}
+{{#doc-viewer doc=model mode="view"}}
+    {{!-- Put in actions here --}}
+    {{#if (eq model.status "incomplete")}}
+        {{!-- PI needs to send it to admin --}}
+        {{!-- Need a back button to send back to create page if data needs to be changed --}}
+        {{#paper-button raised=true warn=true}}Make changes{{/paper-button}}
+        {{!-- Need an 'ok' button with a confirm dialog to send to admin --}}
+        {{#paper-button raised=true primary=true onClick=(action "openSendToAdmin")}}Looks good?{{/paper-button}}
+
+        {{#if showSendToAdminDialog}}
+            {{#paper-dialog onClose=(action "closeSendToAdmin" "cancel")}}
+                {{#paper-dialog-content}}
+                    <h2 class="md-title">Would you like to send this document to your admin?</h2>
+                    <p>You'll receive a copy with a word document attached.</p>
+                {{/paper-dialog-content}}
+
+                {{#paper-dialog-actions class="layout-row"}}
+                    <span class="flex"></span>
+                    {{#paper-button primary=true onClick=(action "closeSendToAdmin" "cancel")}}Cancel{{/paper-button}}
+                    {{#paper-button primary=true onClick=(action "closeSendToAdmin" "confirm")}}Send{{/paper-button}}
+                {{/paper-dialog-actions}}
+            {{/paper-dialog}}
+        {{/if}}
+
+    {{/if}}
+{{/doc-viewer}}
