@@ -1,8 +1,15 @@
 import Ember from 'ember';
 import config from '../../../config/environment';
 
+const { computed } = Ember;
+
 export default Ember.Controller.extend({
-  actions: {
+    userState: '',
+    states: computed(function() {
+        return 'AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY'
+            .split(' ').map((state) => ({ abbrev: state }));
+    }),
+    actions: {
     /**
      * Validate then Save the current user and document
      */
