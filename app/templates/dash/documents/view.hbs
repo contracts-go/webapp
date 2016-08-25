@@ -16,8 +16,8 @@
 
                 {{#paper-dialog-actions class="layout-row"}}
                     <span class="flex"></span>
-                    {{#paper-button primary=true onClick=(action "closeSendToAdminDialog" "cancel")}}Cancel{{/paper-button}}
-                    {{#paper-button onClick=(action "closeSendToAdminDialog" "confirm")}}Send{{/paper-button}}
+                    {{#paper-button onClick=(action "closeSendToAdminDialog" "cancel")}}Cancel{{/paper-button}}
+                    {{#paper-button primary=true onClick=(action "closeSendToAdminDialog" "confirm")}}Send{{/paper-button}}
                 {{/paper-dialog-actions}}
             {{/paper-dialog}}
         {{/if}}

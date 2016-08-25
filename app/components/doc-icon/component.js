@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   routing: Ember.inject.service('-routing'),
-  mailer: Ember.inject.service('mailer'),
+  mailer: Ember.inject.service(),
   clickable: 'true',
   classNameBindings: ['isSelected', 'show'],
   showPromptDialog: false,
