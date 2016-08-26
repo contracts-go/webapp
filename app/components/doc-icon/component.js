@@ -3,10 +3,10 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   routing: Ember.inject.service('-routing'),
   mailer: Ember.inject.service(),
+  paperToast: Ember.inject.service('paper-toast'),
   clickable: 'true',
   classNameBindings: ['isSelected', 'show'],
   showPromptDialog: false,
-  show: false,
   actions: {
     openPromptDialog(){
       this.set('showPromptDialog', true);
@@ -14,28 +14,27 @@ export default Ember.Component.extend({
     closePromptDialog() {
       this.set('showPromptDialog', false);
     },
-    sendMail(){
+    sendMail() {
       const info = {
-        sender: this.get('currentUser').get('id'),
-        document: this.get('doc').get('id'),
-        recipient: this.get('currentUser').get('id'),
+        sender: this.get('currentUser.id'),
+        document: this.get('doc.id'),
+        recipient: this.get('currentUser.id'),
         template: 'toSelf'
       };
-      this.get('mailer').mail(info);
+      const toast = this.get('paperToast');
+      this.get('mailer').mail(info).then(() => {
+        toast.success('Document sent.')
+      });
       this.set('showPromptDialog', false);
-
-      this.set('show', true);
-      setTimeout(function(){ this.set('show', false); }, 3000);
     },
   },
-  mouseEnter(){
-    this.set('isSelected', true)
+  mouseEnter() {
+    this.set('isSelected', true);
   },
-  mouseLeave(){
-    this.set('isSelected', false)
+  mouseLeave() {
+    this.set('isSelected', false);
   },
   /**
-   * Todo: Permissions
    * @return {boolean}
    */
   doubleClick() {

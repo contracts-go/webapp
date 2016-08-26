@@ -25,10 +25,11 @@ export default Ember.Controller.extend({
           const admin = this.get('currentModel.admin');
           // Add document to admin's docs
           admin.get('documents').pushObject(doc);
-          admin.content.save().then(() => {
-            doc.set('status', 'pending');
-            return doc.save();
-          })
+          admin.content.save()
+            .then(() => {
+              doc.set('status', 'pending');
+              return doc.save();
+            })
             .then(() => {
               const info = {
                 sender: controller.get('currentUser.id'),
@@ -36,10 +37,12 @@ export default Ember.Controller.extend({
                 recipient: admin.get('id'),
                 template: 'toAdmin'
               };
-              controller.get('mailer').mail(info);
-              controller.set('showSendToAdminDialog', false);
-            });
-          break;
+
+              return controller.get('mailer').mail(info);
+              })
+            .then(() => {
+                controller.set('showSendToAdminDialog', false);
+              });
         }
       }
     }
