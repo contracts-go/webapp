@@ -82,7 +82,7 @@ module.exports = function(environment) {
     // The default company that all new users will be registered with
     ENV.APP.defaultCompany = 'companyOne';
     ENV.APP.defaultAdmin = 'seTwcZyszYSpw2HX6InEv0vWlbP2';
-    ENV.APP.baseApiURL = 'http://api.contracts-go.com';
+    ENV.APP.baseApiURL = 'https://api.contracts-go.com';
   }
 
   return ENV;
